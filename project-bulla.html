@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BULLA — Tito Burga</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:     #1C1C1C;
+      --surface:#202020;
+      --accent: #EF9000;
+      --white:  #F2F2F2;
+      --muted:  #888;
+      --dim:    #555;
+      --line:   rgba(255,255,255,0.08);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-serif; }
+
+    /* TOPBAR */
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; background: rgba(28,28,28,.96); backdrop-filter: blur(12px); }
+    .topbar-back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; transition: color .2s; }
+    .topbar-back:hover { color: var(--accent); }
+    .topbar-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .08em; color: var(--white); text-decoration: none; }
+    .topbar-logo span { color: var(--accent); }
+    .topbar-cat { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+    /* HERO IMAGE */
+    .proj-hero { width: 100%; aspect-ratio: 16/7; overflow: hidden; background: #141414; }
+    .proj-hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.9) contrast(1.06); }
+
+    /* PROJECT INFO */
+    .proj-wrap { max-width: 900px; margin: 0 auto; padding: 64px 48px 96px; }
+
+    .proj-meta-row {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 24px;
+    }
+    .proj-cat-tag {
+      font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--accent); border: 1px solid rgba(239,144,0,.35); padding: 5px 12px;
+    }
+    .proj-year { font-size: 11px; font-weight: 600; color: var(--dim); letter-spacing: .1em; }
+
+    .proj-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: .92; letter-spacing: .02em;
+      color: var(--white); margin-bottom: 12px;
+    }
+    .proj-client {
+      font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 48px;
+    }
+
+    .proj-divider { width: 100%; height: 1px; background: var(--line); margin-bottom: 48px; }
+
+    .proj-body-grid {
+      display: grid; grid-template-columns: 1fr 320px; gap: 80px; align-items: start;
+    }
+    .proj-desc {
+      font-size: 15px; line-height: 1.8; color: var(--muted); font-weight: 400;
+    }
+    .proj-desc p + p { margin-top: 20px; }
+
+    .proj-sidebar {}
+    .sidebar-block { margin-bottom: 36px; }
+    .sidebar-label {
+      font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--dim); margin-bottom: 10px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .sidebar-value { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .sidebar-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sidebar-tag {
+      font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--dim); border: 1px solid var(--line); padding: 4px 9px;
+    }
+
+    /* NAV ROW */
+    .proj-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 32px 48px; border-top: 1px solid var(--line);
+    }
+    .proj-nav a {
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none; color: var(--muted);
+      font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .proj-nav a:hover { color: var(--accent); }
+
+    .page-footer { border-top: 1px solid var(--line); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 11px; color: var(--dim); }
+    .footer-contact { display: flex; gap: 28px; }
+    .footer-contact a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-contact a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .proj-body-grid { grid-template-columns: 1fr; gap: 48px; }
+      .proj-wrap { padding: 48px 24px 64px; }
+      .topbar, .proj-nav, .page-footer { padding-left: 20px; padding-right: 20px; }
+      .page-footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="work-ux-ui.html" class="topbar-back">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    UX &amp; UI Design
+  </a>
+  <a href="index.html" class="topbar-logo">TITO <span>BURGA</span></a>
+  <span class="topbar-cat">01 / 09</span>
+</header>
+
+<div class="proj-hero">
+  <img src="brand_assets/uxuiBulla.png" alt="BULLA — App for a Spanish Restaurant" />
+</div>
+
+<div class="proj-wrap">
+  <div class="proj-meta-row">
+    <span class="proj-cat-tag">UX &amp; UI Design</span>
+    <span class="proj-year">2023</span>
+  </div>
+  <div class="proj-title">BULLA<br>Restaurant App</div>
+  <div class="proj-client">Concept Project</div>
+
+  <div class="proj-divider"></div>
+
+  <div class="proj-body-grid">
+    <div class="proj-desc">
+      <p>Bulla redefines the restaurant app experience — pairing a rich catalog of authentic Spanish cuisine with an intuitive, visually immersive ordering flow that turns a simple meal into something worth remembering.</p>
+      <p>Designed as a concept app, it explores how food culture, storytelling, and UX can come together in a single tap. The challenge was to create an experience that felt premium and warm simultaneously — a product that honors the food while making ordering feel effortless.</p>
+      <p>The design system draws from Spanish visual culture: warm terracotta tones, generous white space, and typography that balances editorial weight with approachable readability. Every screen was pressure-tested for one-handed use, accessibility, and emotional resonance.</p>
+    </div>
+    <div class="proj-sidebar">
+      <div class="sidebar-block">
+        <div class="sidebar-label">Role</div>
+        <div class="sidebar-value">UX Research · UI Design · Prototyping</div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Tools</div>
+        <div class="sidebar-tags">
+          <span class="sidebar-tag">Figma</span>
+          <span class="sidebar-tag">FigJam</span>
+          <span class="sidebar-tag">Prototyping</span>
+          <span class="sidebar-tag">ChatGPT</span>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Deliverables</div>
+        <div class="sidebar-value">User Research · Wireframes · Hi-Fi Mockups · Prototype · Design System</div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Category</div>
+        <div class="sidebar-value">UX &amp; UI Design</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="proj-nav">
+  <a href="work-ux-ui.html">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to UX &amp; UI
+  </a>
+  <a href="index.html">
+    Portfolio
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5H12M12 6.5L7 1.5M12 6.5L7 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+
+<footer class="page-footer">
+  <span class="footer-copy">© 2025 Tito Burga</span>
+  <div class="footer-contact">
+    <a href="mailto:titoburgab@gmail.com">titoburgab@gmail.com</a>
+    <a href="https://linkedin.com/in/titoburgab/" target="_blank">linkedin.com/in/titoburgab/</a>
+  </div>
+</footer>
+
+</body>
+</html>

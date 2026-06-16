@@ -1,0 +1,14 @@
+# Dev dependencies
+node_modules/
+
+# Claude Code configuration
+CLAUDE.md
+
+# Temporary/local dev artifacts
+temporary screenshots/
+
+# Reference screenshot (not part of the site)
+www.laugon.com_ (1).png
+
+# macOS metadata
+.DS_Store
