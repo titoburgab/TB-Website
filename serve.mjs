@@ -22,19 +22,44 @@ const MIME = {
   '.woff': 'font/woff',
   '.woff2': 'font/woff2',
   '.ttf': 'font/ttf',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
+  '.mov': 'video/quicktime',
 };
 
 http.createServer((req, res) => {
-  let urlPath = req.url.split('?')[0];
+  let urlPath = decodeURIComponent(req.url.split('?')[0]);
   if (urlPath === '/') urlPath = '/index.html';
   const filePath = path.join(__dirname, urlPath);
   const ext = path.extname(filePath).toLowerCase();
-  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
-    res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
-    fs.createReadStream(filePath).pipe(res);
-  } else {
+  if (!(fs.existsSync(filePath) && fs.statSync(filePath).isFile())) {
     res.writeHead(404);
     res.end('Not found');
+    return;
+  }
+
+  const mimeType = MIME[ext] || 'application/octet-stream';
+  const { size } = fs.statSync(filePath);
+  const range = req.headers.range;
+
+  if (range) {
+    const [startStr, endStr] = range.replace(/bytes=/, '').split('-');
+    const start = parseInt(startStr, 10);
+    const end = endStr ? parseInt(endStr, 10) : size - 1;
+    res.writeHead(206, {
+      'Content-Range': `bytes ${start}-${end}/${size}`,
+      'Accept-Ranges': 'bytes',
+      'Content-Length': end - start + 1,
+      'Content-Type': mimeType,
+    });
+    fs.createReadStream(filePath, { start, end }).pipe(res);
+  } else {
+    res.writeHead(200, {
+      'Content-Length': size,
+      'Accept-Ranges': 'bytes',
+      'Content-Type': mimeType,
+    });
+    fs.createReadStream(filePath).pipe(res);
   }
 }).listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

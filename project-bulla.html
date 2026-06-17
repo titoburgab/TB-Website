@@ -3,186 +3,1289 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BULLA — Tito Burga</title>
+  <title>BULLA — UX Case Study — Tito Burga</title>
+
+  <!-- Portfolio fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700&family=Roboto:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet" />
+
   <style>
-    :root {
-      --bg:     #1C1C1C;
-      --surface:#202020;
-      --accent: #EF9000;
-      --white:  #F2F2F2;
-      --muted:  #888;
-      --dim:    #555;
-      --line:   rgba(255,255,255,0.08);
-    }
+    /* ─── RESET ─── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-serif; }
 
-    /* TOPBAR */
-    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; background: rgba(28,28,28,.96); backdrop-filter: blur(12px); }
-    .topbar-back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; transition: color .2s; }
-    .topbar-back:hover { color: var(--accent); }
-    .topbar-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .08em; color: var(--white); text-decoration: none; }
-    .topbar-logo span { color: var(--accent); }
-    .topbar-cat { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    /* ─── PORTFOLIO TOPBAR (dark, consistent with site) ─── */
+    body { background: #080808; font-family: 'Syne', sans-serif; }
 
-    /* HERO IMAGE */
-    .proj-hero { width: 100%; aspect-ratio: 16/7; overflow: hidden; background: #141414; }
-    .proj-hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.9) contrast(1.06); }
-
-    /* PROJECT INFO */
-    .proj-wrap { max-width: 900px; margin: 0 auto; padding: 64px 48px 96px; }
-
-    .proj-meta-row {
-      display: flex; align-items: center; gap: 16px;
-      margin-bottom: 24px;
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(8,8,8,.96); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
-    .proj-cat-tag {
-      font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
-      color: var(--accent); border: 1px solid rgba(239,144,0,.35); padding: 5px 12px;
-    }
-    .proj-year { font-size: 11px; font-weight: 600; color: var(--dim); letter-spacing: .1em; }
-
-    .proj-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(40px, 6vw, 72px);
-      line-height: .92; letter-spacing: .02em;
-      color: var(--white); margin-bottom: 12px;
-    }
-    .proj-client {
-      font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 48px;
-    }
-
-    .proj-divider { width: 100%; height: 1px; background: var(--line); margin-bottom: 48px; }
-
-    .proj-body-grid {
-      display: grid; grid-template-columns: 1fr 320px; gap: 80px; align-items: start;
-    }
-    .proj-desc {
-      font-size: 15px; line-height: 1.8; color: var(--muted); font-weight: 400;
-    }
-    .proj-desc p + p { margin-top: 20px; }
-
-    .proj-sidebar {}
-    .sidebar-block { margin-bottom: 36px; }
-    .sidebar-label {
-      font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
-      color: var(--dim); margin-bottom: 10px; padding-bottom: 8px;
-      border-bottom: 1px solid var(--line);
-    }
-    .sidebar-value { font-size: 13px; color: var(--muted); line-height: 1.7; }
-    .sidebar-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .sidebar-tag {
-      font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--dim); border: 1px solid var(--line); padding: 4px 9px;
-    }
-
-    /* NAV ROW */
-    .proj-nav {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 32px 48px; border-top: 1px solid var(--line);
-    }
-    .proj-nav a {
+    .topbar-back {
       display: inline-flex; align-items: center; gap: 8px;
-      text-decoration: none; color: var(--muted);
-      font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+      text-decoration: none; color: #888;
+      font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
       transition: color .2s;
     }
-    .proj-nav a:hover { color: var(--accent); }
+    .topbar-back:hover { color: #EF9000; }
+    .topbar-back svg { width: 14px; height: 14px; }
+    .topbar-logo {
+      font-family: 'Bebas Neue', sans-serif; font-size: 20px;
+      letter-spacing: .08em; color: #F5F4F0; text-decoration: none;
+    }
+    .topbar-logo span { color: #EF9000; }
+    .topbar-counter { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #555; }
 
-    .page-footer { border-top: 1px solid var(--line); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; }
-    .footer-copy { font-size: 11px; color: var(--dim); }
-    .footer-contact { display: flex; gap: 28px; }
-    .footer-contact a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color .2s; }
-    .footer-contact a:hover { color: var(--accent); }
+    /* ─── BULLA CASE STUDY PAGE ─── */
+    .bulla-page {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* ── HERO ── */
+    .bulla-hero {
+      position: relative; width: 100%;
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      overflow: hidden;
+      background: #f9f8f4;
+    }
+    .hero-paella { display: none; }
+    .hero-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 80px 48px 60px;
+      gap: 0;
+    }
+    .hero-bulla-logo {
+      width: min(760px, 90vw);
+      height: auto;
+      display: block;
+    }
+
+    /* ── DIVIDER ── */
+    .bulla-divider {
+      background: #f9f8f4;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+      position: relative;
+    }
+    .bulla-divider-inner {
+      width: 100%; max-width: 1440px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; height: 220px;
+    }
+    .divider-line {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      width: 404px; height: 2px;
+      background: rgba(56,56,56,.25);
+      top: 50%;
+    }
+    .divider-img {
+      position: relative; z-index: 2;
+      width: 174px; height: 220px;
+      object-fit: cover; object-position: center;
+      box-shadow: 0 8px 13px rgba(0,0,0,.25);
+    }
+    .divider-gold .divider-line { background: #c8a865; }
+    .divider-red .divider-line { background: #c60b1e; }
+
+    /* ── META ROW (role/team/date) ── */
+    .bulla-meta {
+      background: #f9f8f4;
+      display: flex; justify-content: center;
+      padding: 0 48px 80px;
+    }
+    .bulla-meta-inner {
+      width: 100%; max-width: 1176px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .meta-col {
+      padding: 0 16px;
+    }
+    .meta-col:first-child { padding-left: 0; }
+    .meta-col:last-child { padding-right: 0; }
+    .meta-label {
+      font-size: 22px; font-weight: 400;
+      color: rgba(56,56,56,0.6); letter-spacing: .04em;
+      margin-bottom: 14px;
+    }
+    .meta-value {
+      font-size: 22px; font-weight: 200;
+      color: #383838; line-height: 1.5;
+    }
+    .meta-figma-icon {
+      width: 40px; height: auto; margin-top: 4px;
+    }
+
+    /* ── SECTION BASE ── */
+    .cs-section {
+      position: relative; width: 100%;
+      background: #f9f8f4;
+    }
+    .cs-section-inner {
+      max-width: 1440px; margin: 0 auto;
+      padding: 80px 126px 120px;
+    }
+
+    /* ── CORNER DECORATIONS ── */
+    .corner-decor {
+      position: absolute; top: 0;
+      width: 144px; height: 77px;
+    }
+    .corner-decor.left { left: 0; }
+    .corner-decor.right { right: 0; width: 145px; }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-size: clamp(32px, 3.5vw, 50px);
+      font-weight: 400; text-transform: uppercase;
+      color: #383838; text-align: center;
+      margin-bottom: 80px; letter-spacing: .02em;
+      line-height: 1.1;
+    }
+
+    /* ── SUBSECTION ── */
+    .subsection-icon {
+      width: 65px; height: 65px;
+      margin-bottom: 20px;
+    }
+    .subsection-title {
+      font-size: clamp(20px, 2.5vw, 35px);
+      font-weight: 400; text-transform: uppercase;
+      color: #383838; letter-spacing: .02em;
+      margin-bottom: 24px; line-height: 1.2;
+    }
+    .subsection-body {
+      font-size: clamp(15px, 1.8vw, 22px);
+      font-weight: 200; color: #383838;
+      line-height: 1.65;
+    }
+
+    /* ─────────────────────────────────────────
+       PROJECT OVERVIEW
+    ───────────────────────────────────────── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px 180px;
+    }
+
+    /* ─────────────────────────────────────────
+       UNDERSTANDING THE USER
+    ───────────────────────────────────────── */
+    .understanding-summary {
+      font-size: clamp(16px, 1.8vw, 22px);
+      font-weight: 200; color: #383838;
+      line-height: 1.7; margin-bottom: 60px;
+    }
+
+    /* Pain points */
+    .pain-points-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 48px; margin-bottom: 80px;
+    }
+    .pain-point { display: flex; flex-direction: column; align-items: flex-start; }
+    .pain-number-circle {
+      width: 65px; height: 65px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; font-weight: 800; color: #fff;
+      margin-bottom: 20px; flex-shrink: 0;
+    }
+    .pain-text {
+      font-size: clamp(15px, 1.6vw, 20px);
+      font-weight: 200; color: #383838; line-height: 1.65;
+    }
+
+    /* Persona */
+    .persona-card {
+      background: #f4f4f3;
+      border-radius: 0;
+      overflow: hidden;
+      margin-bottom: 80px;
+    }
+    .persona-header {
+      padding: 14px 20px;
+      font-size: clamp(14px, 1.6vw, 20px);
+      font-weight: 200; color: #383838;
+    }
+    .persona-body { display: flex; }
+    .persona-photo {
+      width: 274px; flex-shrink: 0;
+      object-fit: cover; object-position: top center;
+      min-height: 320px;
+    }
+    .persona-details { padding: 24px 32px; flex: 1; }
+    .persona-info-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 16px;
+      background: #e6e6e6;
+      margin-bottom: 24px;
+    }
+    .persona-info-item { font-size: 14px; font-weight: 200; color: #383838; }
+    .persona-info-item strong { font-weight: 600; }
+    .persona-goals-title, .persona-frustrations-title {
+      font-size: 15px; font-weight: 700; text-transform: uppercase;
+      color: #383838; letter-spacing: .08em; margin-bottom: 8px;
+    }
+    .persona-goals-text, .persona-frustrations-text {
+      font-size: clamp(13px, 1.4vw, 17px);
+      font-weight: 200; color: #383838; line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Journey map */
+    .journey-map { margin-bottom: 80px; }
+    .journey-header {
+      padding: 14px 20px;
+      font-size: clamp(14px, 1.6vw, 20px);
+      font-weight: 200; color: #383838;
+    }
+    .journey-table-wrap { overflow-x: auto; }
+    .journey-table {
+      width: 100%; border-collapse: collapse;
+      font-size: clamp(11px, 1.2vw, 14px);
+    }
+    .journey-table th {
+      background: rgba(0,0,0,.05);
+      padding: 10px 8px; text-align: center;
+      font-weight: 600; font-size: 11px;
+      text-transform: uppercase; letter-spacing: .06em;
+      border: 1px solid rgba(0,0,0,.08);
+      color: #383838;
+    }
+    .journey-table td {
+      padding: 10px 8px; text-align: center;
+      font-weight: 200; border: 1px solid rgba(0,0,0,.08);
+      color: #383838; font-size: 12px; vertical-align: top;
+    }
+    .journey-table tr:nth-child(even) td { background: rgba(0,0,0,.02); }
+
+    /* Statements */
+    .statements-grid {
+      display: flex; flex-direction: column; gap: 40px;
+    }
+    .statement-block {}
+    .statement-label {
+      font-size: clamp(16px, 1.8vw, 24px);
+      font-weight: 400; text-transform: uppercase;
+      color: #383838; letter-spacing: .04em;
+      margin-bottom: 12px;
+    }
+    .statement-text {
+      font-size: clamp(14px, 1.6vw, 20px);
+      font-weight: 200; color: #383838; line-height: 1.7;
+    }
+    .statement-text strong { font-weight: 600; }
+
+    /* ─────────────────────────────────────────
+       STARTING DESIGN
+    ───────────────────────────────────────── */
+    .subsection-wrap { margin-bottom: 72px; }
+
+    .wireframe-img-box {
+      border-radius: 0;
+      box-shadow: 0 20px 35px rgba(0,0,0,.25);
+      overflow: hidden; margin: 24px auto;
+      display: block; width: 100%; max-width: 857px;
+    }
+    .wireframe-img-box img { width: 100%; display: block; }
+
+    /* Digital wireframes with feature callouts */
+    .wireframe-callout-wrap {
+      position: relative; margin-bottom: 48px;
+    }
+    .wireframe-screen {
+      width: 100%; max-width: 857px;
+      box-shadow: 0 20px 35px rgba(0,0,0,.25);
+      display: block; margin: 0 auto;
+    }
+    .callout-box {
+      display: inline-flex; align-items: flex-start; gap: 10px;
+      margin: 12px 0;
+    }
+    .callout-indicator {
+      width: 24px; height: 24px; border-radius: 3px;
+      border: 2px solid #639208; flex-shrink: 0; margin-top: 2px;
+    }
+    .callout-text { font-size: 15px; font-weight: 200; color: #383838; }
+    .callout-text strong { font-weight: 600; }
+
+    .wireframes-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 40px; margin-top: 32px;
+    }
+    .wireframe-item { display: flex; flex-direction: column; gap: 16px; }
+    .wireframe-item img {
+      width: 100%; box-shadow: 0 20px 35px rgba(0,0,0,.25);
+      display: block;
+    }
+
+    /* Prototype */
+    .prototype-wrap {
+      display: flex; justify-content: center; margin: 24px 0;
+    }
+    .prototype-img {
+      width: 100%; max-width: 857px;
+      box-shadow: 0 20px 35px rgba(0,0,0,.25);
+    }
+
+    /* Usability study */
+    .usability-study-text {
+      font-size: clamp(14px, 1.6vw, 20px);
+      font-weight: 200; color: #383838;
+      line-height: 1.7; margin-bottom: 32px;
+    }
+    .usability-rounds {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    }
+    .usability-round {
+      background: #f6f6f6; overflow: hidden;
+    }
+    .round-header-bar {
+      padding: 16px 20px;
+      font-size: 20px; font-weight: 400;
+      color: #fff; letter-spacing: .02em;
+    }
+    .round-findings { padding: 24px 20px; display: flex; flex-direction: column; gap: 20px; }
+    .round-finding { display: flex; align-items: flex-start; gap: 14px; }
+    .round-finding-num {
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 800; color: #fff;
+      flex-shrink: 0;
+    }
+    .round-finding-text {
+      font-size: clamp(13px, 1.4vw, 17px);
+      font-weight: 200; color: #383838; line-height: 1.6;
+      padding-top: 6px;
+    }
+
+    /* ─────────────────────────────────────────
+       REFINING THE DESIGN
+    ───────────────────────────────────────── */
+
+    /* Before / After comparisons */
+    .before-after-pair { margin-bottom: 60px; }
+    .before-after-item {
+      display: flex; align-items: flex-start; gap: 24px;
+      margin-bottom: 32px;
+    }
+    .ba-label {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 18px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .1em;
+      color: #383838; flex-shrink: 0; align-self: center;
+      min-width: 28px;
+    }
+    .ba-screen-wrap { flex: 1; position: relative; }
+    .ba-screen {
+      width: 100%; display: block;
+      box-shadow: 0 20px 35px rgba(0,0,0,.25);
+    }
+    .ba-callout {
+      margin-top: 12px; display: flex; align-items: flex-start; gap: 10px;
+    }
+    .ba-callout-dot {
+      width: 20px; height: 20px; border-radius: 3px;
+      border: 2px solid #003a8a; flex-shrink: 0; margin-top: 2px;
+    }
+    .ba-callout-text { font-size: 14px; font-weight: 200; color: #383838; line-height: 1.5; }
+    .ba-callout-text strong { font-weight: 600; }
+    .ba-divider-line {
+      height: 1px; background: rgba(56,56,56,.2);
+      margin: 16px 0 32px;
+    }
+
+    /* HF Prototype gallery — 5-col grid with flow arrows */
+    .hf-mockup-grid {
+      display: grid;
+      grid-template-columns: 1fr 48px 1fr 48px 1fr;
+      grid-template-rows: auto 36px auto 36px auto;
+      align-items: center;
+    }
+    .hf-screen { width: 100%; display: block; }
+    .hf-arrow {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hf-arrow svg { width: 100%; height: auto; }
+
+    /* Typography */
+    .type-color-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; margin-bottom: 56px;
+      border-top: 1px solid rgba(56,56,56,.25);
+      padding-top: 24px;
+    }
+    .typo-section {}
+    .typo-subsection-label {
+      font-size: 24px; font-weight: 400;
+      text-transform: uppercase; color: #383838;
+      margin-bottom: 16px; letter-spacing: .04em;
+    }
+    .typo-sample {
+      display: flex; gap: 32px; align-items: flex-end;
+    }
+    .typo-aa {
+      font-size: 80px; line-height: 1; color: #383838;
+    }
+    .typo-weights { display: flex; flex-direction: column; gap: 2px; }
+    .typo-weight-row { font-size: 14px; color: #383838; }
+
+    /* Color swatches */
+    .color-section {}
+    .color-swatches { display: flex; gap: 24px; align-items: flex-start; margin-top: 8px; }
+    .color-swatch-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .color-box { width: 102px; height: 51px; }
+    .color-code { font-size: 13px; font-weight: 400; color: #383838; letter-spacing: .04em; }
+
+    /* Iconography */
+    .iconography-section { margin-bottom: 56px; border-top: 1px solid rgba(56,56,56,.25); padding-top: 24px; }
+    .icons-row { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; margin-top: 16px; }
+    .icon-item img { width: 36px; height: 36px; object-fit: contain; }
+
+    /* Usability considerations */
+    .usability-considerations-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .usability-card {
+      background: #f6f6f6; padding: 28px; position: relative;
+    }
+    .usability-card-num {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 800; color: #fff;
+      position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+    }
+    .usability-card-content { margin-top: 28px; }
+    .usability-card-title {
+      font-size: 18px; font-weight: 600; text-transform: uppercase;
+      color: #383838; letter-spacing: .04em; margin-bottom: 12px;
+    }
+    .usability-card-text {
+      font-size: clamp(12px, 1.3vw, 16px);
+      font-weight: 200; color: #383838; line-height: 1.6;
+    }
+
+    /* ─────────────────────────────────────────
+       GOING FORWARD (dark section)
+    ───────────────────────────────────────── */
+    .going-forward {
+      background: #f9f8f4;
+      position: relative;
+    }
+    .going-forward .section-title { color: #383838; }
+    .going-forward .subsection-title { color: #383838; }
+    .going-forward .subsection-body { color: rgba(56,56,56,.75); }
+
+    .gf-impact-text {
+      font-size: clamp(15px, 1.8vw, 22px);
+      font-weight: 200; color: #383838;
+      line-height: 1.7; margin-bottom: 24px;
+    }
+    .gf-quote {
+      font-size: clamp(13px, 1.5vw, 18px);
+      font-weight: 200; font-style: italic;
+      color: rgba(56,56,56,.65); line-height: 1.7;
+      padding-left: 48px;
+      margin: 20px 0;
+    }
+    .gf-learned-text {
+      font-size: clamp(15px, 1.8vw, 22px);
+      font-weight: 200; color: #383838;
+      line-height: 1.7; margin-bottom: 16px;
+    }
+    .gf-next-steps-intro {
+      font-size: clamp(14px, 1.6vw, 20px);
+      font-weight: 200; color: #383838;
+      line-height: 1.7; margin-bottom: 40px;
+    }
+    .next-steps-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-bottom: 80px;
+    }
+    .next-step-card {
+      background: #ffffff; padding: 28px 24px 28px;
+      position: relative;
+    }
+    .next-step-num {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: #ea7000;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 800; color: #fff;
+      position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+    }
+    .next-step-text {
+      margin-top: 28px;
+      font-size: clamp(13px, 1.4vw, 17px);
+      font-weight: 200; color: #383838; line-height: 1.7;
+    }
+
+    .thank-you {
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 200; color: rgba(56,56,56,.4);
+      letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 40px;
+    }
+
+    /* ─────────────────────────────────────────
+       BOTTOM NAV
+    ───────────────────────────────────────── */
+    .cs-bottom-nav {
+      background: #080808;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 32px 48px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .cs-nav-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none; color: #888;
+      font-family: 'Syne', sans-serif;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .cs-nav-link:hover { color: #EF9000; }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .cs-section-inner { padding: 60px 48px 80px; }
+      .overview-grid { gap: 56px 80px; }
+      .type-color-row { grid-template-columns: 1fr; gap: 32px; }
+    }
 
     @media (max-width: 768px) {
-      .proj-body-grid { grid-template-columns: 1fr; gap: 48px; }
-      .proj-wrap { padding: 48px 24px 64px; }
-      .topbar, .proj-nav, .page-footer { padding-left: 20px; padding-right: 20px; }
-      .page-footer { flex-direction: column; gap: 12px; text-align: center; }
+      .topbar { padding: 16px 20px; }
+      .cs-section-inner { padding: 48px 24px 64px; }
+      .corner-decor { width: 80px; height: 48px; }
+      .corner-decor.right { width: 80px; }
+      .overview-grid { grid-template-columns: 1fr; gap: 48px; }
+      .bulla-meta-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .pain-points-grid { grid-template-columns: 1fr; gap: 32px; }
+      .persona-body { flex-direction: column; }
+      .persona-photo { width: 100%; min-height: 240px; }
+      .usability-rounds { grid-template-columns: 1fr; }
+      .wireframes-grid { grid-template-columns: 1fr; }
+      .usability-considerations-grid { grid-template-columns: 1fr; }
+      .next-steps-cards { grid-template-columns: 1fr; }
+      .hf-mockup-grid { grid-template-columns: 1fr 28px 1fr 28px 1fr; grid-template-rows: auto 24px auto 24px auto; }
+      .hf-arrow svg { display: none; }
+      .before-after-item { flex-direction: column; }
+      .ba-label { writing-mode: horizontal-tb; transform: none; }
+    }
+
+    @media (max-width: 480px) {
+      .bulla-meta-inner { grid-template-columns: 1fr; }
+      .hero-brand { flex-direction: column; }
+      .hero-brand-logo { height: 80px; }
+      .hero-brand-wordmark { height: 45px; }
+      .cs-bottom-nav { flex-direction: column; gap: 16px; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-<header class="topbar">
-  <a href="work-ux-ui.html" class="topbar-back">
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    UX &amp; UI Design
-  </a>
-  <a href="index.html" class="topbar-logo">TITO <span>BURGA</span></a>
-  <span class="topbar-cat">01 / 09</span>
-</header>
+  <!-- ── PORTFOLIO TOPBAR ── -->
+  <nav class="topbar">
+    <a class="topbar-back" href="work-ux-ui.html">
+      <svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      UX &amp; UI Design
+    </a>
+    <a class="topbar-logo" href="index.html">TITO <span>BURGA</span></a>
+    <span class="topbar-counter">01 / 04</span>
+  </nav>
 
-<div class="proj-hero">
-  <img src="brand_assets/uxuiBulla.png" alt="BULLA — App for a Spanish Restaurant" />
-</div>
+  <main class="bulla-page">
 
-<div class="proj-wrap">
-  <div class="proj-meta-row">
-    <span class="proj-cat-tag">UX &amp; UI Design</span>
-    <span class="proj-year">2023</span>
-  </div>
-  <div class="proj-title">BULLA<br>Restaurant App</div>
-  <div class="proj-client">Concept Project</div>
-
-  <div class="proj-divider"></div>
-
-  <div class="proj-body-grid">
-    <div class="proj-desc">
-      <p>Bulla redefines the restaurant app experience — pairing a rich catalog of authentic Spanish cuisine with an intuitive, visually immersive ordering flow that turns a simple meal into something worth remembering.</p>
-      <p>Designed as a concept app, it explores how food culture, storytelling, and UX can come together in a single tap. The challenge was to create an experience that felt premium and warm simultaneously — a product that honors the food while making ordering feel effortless.</p>
-      <p>The design system draws from Spanish visual culture: warm terracotta tones, generous white space, and typography that balances editorial weight with approachable readability. Every screen was pressure-tested for one-handed use, accessibility, and emotional resonance.</p>
-    </div>
-    <div class="proj-sidebar">
-      <div class="sidebar-block">
-        <div class="sidebar-label">Role</div>
-        <div class="sidebar-value">UX Research · UI Design · Prototyping</div>
+    <!-- ──────────────────────────────────────────
+         HERO
+    ────────────────────────────────────────── -->
+    <section class="bulla-hero">
+      <div class="hero-content">
+        <img class="hero-bulla-logo" src="brand_assets/bulla/Bulla%20Logo.png" alt="BULLA — Design a food menu app for a Spanish restaurant, UX Case Study" />
       </div>
-      <div class="sidebar-block">
-        <div class="sidebar-label">Tools</div>
-        <div class="sidebar-tags">
-          <span class="sidebar-tag">Figma</span>
-          <span class="sidebar-tag">FigJam</span>
-          <span class="sidebar-tag">Prototyping</span>
-          <span class="sidebar-tag">ChatGPT</span>
+    </section>
+
+    <!-- ── DIVIDER 01 ── -->
+    <div class="bulla-divider divider-gold">
+      <div class="bulla-divider-inner">
+        <div class="divider-line"></div>
+        <img class="divider-img" src="brand_assets/bulla/divider-1.png" alt="" />
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────
+         META: ROLE / TEAM / DATE / APP
+    ────────────────────────────────────────── -->
+    <section class="bulla-meta">
+      <div class="bulla-meta-inner">
+        <div class="meta-col">
+          <div class="meta-label">ROLE</div>
+          <div class="meta-value">UX Design<br>UX Research</div>
+        </div>
+        <div class="meta-col">
+          <div class="meta-label">TEAM</div>
+          <div class="meta-value">Tito Burga</div>
+        </div>
+        <div class="meta-col">
+          <div class="meta-label">DATE</div>
+          <div class="meta-value">March – April</div>
+        </div>
+        <div class="meta-col">
+          <div class="meta-label">APP</div>
+          <img class="meta-figma-icon" src="brand_assets/bulla/figma-icon.svg" alt="Figma" />
         </div>
       </div>
-      <div class="sidebar-block">
-        <div class="sidebar-label">Deliverables</div>
-        <div class="sidebar-value">User Research · Wireframes · Hi-Fi Mockups · Prototype · Design System</div>
-      </div>
-      <div class="sidebar-block">
-        <div class="sidebar-label">Category</div>
-        <div class="sidebar-value">UX &amp; UI Design</div>
+    </section>
+
+    <!-- ── DIVIDER 02 ── -->
+    <div class="bulla-divider divider-red">
+      <div class="bulla-divider-inner">
+        <div class="divider-line"></div>
+        <img class="divider-img" src="brand_assets/bulla/divider-2.png" alt="" />
       </div>
     </div>
-  </div>
-</div>
 
-<div class="proj-nav">
-  <a href="work-ux-ui.html">
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Back to UX &amp; UI
-  </a>
-  <a href="index.html">
-    Portfolio
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5H12M12 6.5L7 1.5M12 6.5L7 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </a>
-</div>
+    <!-- ──────────────────────────────────────────
+         1. PROJECT OVERVIEW
+    ────────────────────────────────────────── -->
+    <section class="cs-section">
+      <div class="corner-decor left" style="background:#c60b1e;"></div>
+      <div class="corner-decor right" style="background:#c60b1e;"></div>
+      <div class="cs-section-inner">
+        <h2 class="section-title">Project Overview</h2>
 
-<footer class="page-footer">
-  <span class="footer-copy">© 2025 Tito Burga</span>
-  <div class="footer-contact">
-    <a href="mailto:titoburgab@gmail.com">titoburgab@gmail.com</a>
-    <a href="https://linkedin.com/in/titoburgab/" target="_blank">linkedin.com/in/titoburgab/</a>
-  </div>
-</footer>
+        <div class="overview-grid">
+          <!-- The Product -->
+          <div class="overview-item">
+            <img class="subsection-icon" src="brand_assets/bulla/icon-goup01.svg" alt="" />
+            <h3 class="subsection-title">The Product</h3>
+            <p class="subsection-body">
+              Bulla is a hypothetical application that seeks to offer its customers not only a wide variety of Spanish cuisine dishes but also a different experience when ordering a dish.
+            </p>
+          </div>
 
+          <!-- The Goal -->
+          <div class="overview-item">
+            <img class="subsection-icon" src="brand_assets/bulla/icon-goup3.svg" alt="" />
+            <h3 class="subsection-title">The Goal</h3>
+            <p class="subsection-body">
+              The food menu app for a Spanish restaurant will let the user read and order a dish with detailed information. I will measure effectiveness by understanding users' needs, behaviors, and motivations.
+            </p>
+          </div>
+
+          <!-- The Problem -->
+          <div class="overview-item">
+            <img class="subsection-icon" src="brand_assets/bulla/icon-goup4.svg" alt="" />
+            <h3 class="subsection-title">The Problem</h3>
+            <p class="subsection-body">
+              Food menus don't always offer enough information about each dish, customers can't add or remove ingredients, or customers do not know how much the bill will be. As a User Experience designer, the challenge was to make the app interactive, easy to navigate, provide nutrition &amp; allergens information, and report in real-time the approximate cost of what is ordered.
+            </p>
+          </div>
+
+          <!-- Responsibilities -->
+          <div class="overview-item">
+            <img class="subsection-icon" src="brand_assets/bulla/icon-goup2.svg" alt="" />
+            <h3 class="subsection-title">Responsibilities</h3>
+            <p class="subsection-body">
+              • Plan and conduct user research.<br>
+              • Interpret data and qualitative feedback.<br>
+              • Create user stories, personas, and storyboards.<br>
+              • Determine information architecture and create sitemaps.<br>
+              • Create wireframes and prototypes.<br>
+              • Conduct usability testing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DIVIDER 03 ── -->
+    <div class="bulla-divider">
+      <div class="bulla-divider-inner">
+        <div class="divider-line"></div>
+        <img class="divider-img" src="brand_assets/bulla/divider-3.png" alt="" />
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────
+         2. UNDERSTANDING THE USER
+    ────────────────────────────────────────── -->
+    <section class="cs-section">
+      <div class="corner-decor left" style="background:#ffbd00;"></div>
+      <div class="corner-decor right" style="background:#ffbd00;"></div>
+      <div class="cs-section-inner">
+        <h2 class="section-title">Understanding the User</h2>
+
+        <!-- Summary -->
+        <div class="subsection-wrap">
+          <h3 class="subsection-title">Summary</h3>
+          <p class="understanding-summary">
+            I interviewed five potential users between the ages of 25 and 65 in an online survey. These users often have trouble ordering dishes, such as identifying allergens. I sought to gather as much information as possible to understand the users' needs, behaviors, and motivations.
+          </p>
+        </div>
+
+        <!-- Pain Points -->
+        <div class="subsection-wrap">
+          <h3 class="subsection-title">Pain Points</h3>
+          <div class="pain-points-grid">
+            <div class="pain-point">
+              <div class="pain-number-circle" style="background:#ffbd00;">1</div>
+              <p class="pain-text">Not able to see the ingredients, nutrition facts, and allergens for each dish.</p>
+            </div>
+            <div class="pain-point">
+              <div class="pain-number-circle" style="background:#ffbd00;">2</div>
+              <p class="pain-text">Not able to change or add ingredients to a dish.</p>
+            </div>
+            <div class="pain-point">
+              <div class="pain-number-circle" style="background:#ffbd00;">3</div>
+              <p class="pain-text">Not able to see how much they are spending in real-time.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Personas -->
+        <div class="subsection-wrap">
+          <h3 class="subsection-title">Personas</h3>
+          <div class="persona-card">
+            <div class="persona-header" style="background:#ffbd00;">
+              <strong>ADELA:</strong> "Food is an important part of a balanced diet"
+            </div>
+            <div class="persona-body">
+              <img class="persona-photo" src="brand_assets/bulla/persona-photo.jpg" alt="Adela persona" />
+              <div class="persona-details">
+                <div class="persona-info-row">
+                  <div class="persona-info-item"><strong>AGE:</strong> 54 years old</div>
+                  <div class="persona-info-item"><strong>FAMILY:</strong> Two kids</div>
+                  <div class="persona-info-item"><strong>OCCUPATION:</strong> Cardiologist</div>
+                  <div class="persona-info-item"><strong>EDUCATION:</strong> M.D.</div>
+                </div>
+                <p class="persona-goals-title">Goals</p>
+                <p class="persona-goals-text">I want to see nutrition facts, allergens, chef recommendations and I want the ability to change or add ingredients.</p>
+                <p class="persona-frustrations-title">Frustration</p>
+                <p class="persona-frustrations-text">The order process is confused, no photos of dishes, not able to see the ingredients of the dishes. Not able to see how much I'm spending in real-time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Journey Map -->
+        <div class="subsection-wrap">
+          <h3 class="subsection-title">User Journey Map</h3>
+          <div class="journey-map">
+            <div class="persona-header" style="background:#ffbd00; margin-bottom:0;">
+              <strong>ADELA:</strong> "A easy way to order a dish"
+            </div>
+            <div class="journey-table-wrap">
+              <table class="journey-table">
+                <thead>
+                  <tr>
+                    <th>ACTION</th>
+                    <th>OPEN THE APP</th>
+                    <th>FIND THE MENU</th>
+                    <th>SELECT A DISH</th>
+                    <th>VERIFY ORDER</th>
+                    <th>PLACE ORDER</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>TASK</strong></td>
+                    <td>A. Find menu button.</td>
+                    <td>A. Read all different menus B. Select a menu.</td>
+                    <td>A. Read nutritional information. B. Add or remove ingredients.</td>
+                    <td>A. Verify color and price.</td>
+                    <td>A. Verify color and price. B. Place order.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>FEELING ADJECTIVE</strong></td>
+                    <td>Hungry</td>
+                    <td>Hungry / Confused.</td>
+                    <td>Satisfaction / Confused.</td>
+                    <td>Excited</td>
+                    <td>Excited / Overwhelm.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>IMPROVEMENT OPPORTUNITIES</strong></td>
+                    <td>Make the button stand out.</td>
+                    <td>More information / Language option.</td>
+                    <td>Better wayfinding / Language option.</td>
+                    <td>Make order stand out.</td>
+                    <td>Better wayfinding / Clear information.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Statements -->
+        <div class="subsection-wrap">
+          <div class="statements-grid">
+            <div class="statement-block">
+              <p class="statement-label">Problem Statement</p>
+              <p class="statement-text">
+                Adela is a Cardiologist at TGH who wants to check the dishes ingredients of the dishes she would like to order because of her health conditions.
+              </p>
+            </div>
+            <div class="statement-block">
+              <p class="statement-label">If / Then Statement</p>
+              <p class="statement-text">
+                <strong>If</strong> Adela can check, add, and remove ingredients, <strong>then</strong> she will be able to eat healthier.
+              </p>
+            </div>
+            <div class="statement-block">
+              <p class="statement-label">Goal Statement</p>
+              <p class="statement-text">
+                Our <strong>food menu app for a Spanish restaurant</strong> will let users <strong>read the menu and order food</strong> which will affect <strong>users who want detailed information about each dish</strong> by <strong>allowing to read nutrition, allergens, and be able to add or change ingredients</strong> and will measure effectiveness by tracking orders through the app.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── DIVIDER 04 ── -->
+    <div class="bulla-divider">
+      <div class="bulla-divider-inner">
+        <div class="divider-line"></div>
+        <img class="divider-img" src="brand_assets/bulla/divider-4.png" alt="" />
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────
+         3. STARTING DESIGN
+    ────────────────────────────────────────── -->
+    <section class="cs-section">
+      <div class="corner-decor left" style="background:#639208;"></div>
+      <div class="corner-decor right" style="background:#639208;"></div>
+      <div class="cs-section-inner">
+        <h2 class="section-title">Starting Design</h2>
+
+        <!-- Paper Wireframes -->
+        <div class="subsection-wrap">
+          <h3 class="subsection-title">Paper Wireframes</h3>
+          <p class="subsection-body" style="margin-bottom:28px;">
+            Taking time to draft iterations of each screen of the app on paper ensured that the elements that made it to digital wireframes would be well-suited to address user pain points. Stars were used to mark the elements of each sketch that would be used in the initial digital wireframes.
+          </p>
+          <div class="wireframe-img-box">
+            <img src="brand_assets/bulla/paper-wireframe.jpg" alt="Paper wireframes" />
+          </div>
+        </div>
+
+        <!-- Digital Wireframes -->
+        <div class="subsection-wrap">
+          <h3 class="subsection-title">Digital Wireframes</h3>
+          <p class="subsection-body" style="margin-bottom:28px;">
+            As the initial design phase continued, I made sure to base screen designs on feedback and findings from the user research.
+          </p>
+          <div class="wireframes-grid">
+            <div class="wireframe-item">
+              <img src="brand_assets/bulla/wireframe-1.png" alt="Wireframe — Organized Menu" />
+              <div class="callout-box">
+                <div class="callout-indicator"></div>
+                <p class="callout-text"><strong>Organized Menu</strong> — easy access to the different menus</p>
+              </div>
+            </div>
+            <div class="wireframe-item">
+              <img src="brand_assets/bulla/wireframe-2.png" alt="Wireframe — Virtual Check" />
+              <div class="callout-box">
+                <div class="callout-indicator"></div>
+                <p class="callout-text"><strong>Virtual Check</strong> — Real-time spending</p>
+              </div>
+            </div>
+            <div class="wireframe-item">
+              <img src="brand_assets/bulla/wireframe-3.png" alt="Wireframe — Ingredients Information" />
+              <div class="callout-box">
+                <div class="callout-indicator"></div>
+                <p class="callout-text"><strong>Ingredients &amp; Nutrition Information</strong> — detailed info for each dish</p>
+              </div>
+            </div>
+            <div class="wireframe-item">
+              <img src="brand_assets/bulla/wireframe-4.png" alt="Wireframe — Dish Customization" />
+              <div class="callout-box">
+                <div class="callout-indicator"></div>
+                <p class="callout-text"><strong>Dish Customization</strong> — add or remove ingredients</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Low-Fidelity Prototype -->
+        <div class="subsection-wrap">
+          <h3 class="subsection-title">Low-Fidelity Prototype</h3>
+          <p class="subsection-body" style="margin-bottom:28px;">
+            In this phase, I created a prototype that a potential user will test. I'm looking for usability issues that might affect the user experience.
+          </p>
+          <div class="prototype-wrap">
+            <img class="prototype-img" src="brand_assets/bulla/prototype-gif.gif" alt="Low-fidelity prototype" />
+          </div>
+        </div>
+
+        <!-- Usability Study -->
+        <div class="subsection-wrap">
+          <h3 class="subsection-title">Usability Study</h3>
+          <p class="usability-study-text">
+            Usability testing was one of the most important parts of my design process. I conducted two rounds on five potential users through the Figma prototype. I tested the navigation structure, the wording of the interface, and the overall flow of the ordering experience.
+          </p>
+          <div class="usability-rounds">
+            <div class="usability-round">
+              <div class="round-header-bar" style="background:#639208;">Round 1 findings</div>
+              <div class="round-findings">
+                <div class="round-finding">
+                  <div class="round-finding-num" style="background:#639208;">1</div>
+                  <p class="round-finding-text">Poor visibility.</p>
+                </div>
+                <div class="round-finding">
+                  <div class="round-finding-num" style="background:#639208;">2</div>
+                  <p class="round-finding-text">Participant was confused about how to go to the main menu.</p>
+                </div>
+                <div class="round-finding">
+                  <div class="round-finding-num" style="background:#639208;">3</div>
+                  <p class="round-finding-text">Easy to select a dish on the lunch menu.</p>
+                </div>
+              </div>
+            </div>
+            <div class="usability-round">
+              <div class="round-header-bar" style="background:#639208;">Round 2 findings</div>
+              <div class="round-findings">
+                <div class="round-finding">
+                  <div class="round-finding-num" style="background:#639208;">1</div>
+                  <p class="round-finding-text">Participant feels that is great to have the option to delete a dish from the order.</p>
+                </div>
+                <div class="round-finding">
+                  <div class="round-finding-num" style="background:#639208;">2</div>
+                  <p class="round-finding-text">More confirmation windows.</p>
+                </div>
+                <div class="round-finding">
+                  <div class="round-finding-num" style="background:#639208;">3</div>
+                  <p class="round-finding-text">Participant was confused about how to cancel the entire order.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── DIVIDER 05 ── -->
+    <div class="bulla-divider">
+      <div class="bulla-divider-inner">
+        <div class="divider-line"></div>
+        <img class="divider-img" src="brand_assets/bulla/divider-5.png" alt="" />
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────
+         4. REFINING THE DESIGN
+    ────────────────────────────────────────── -->
+    <section class="cs-section">
+      <div class="corner-decor left" style="background:#003a8a;"></div>
+      <div class="corner-decor right" style="background:#003a8a;"></div>
+      <div class="cs-section-inner">
+        <h2 class="section-title">Refining the Design</h2>
+
+        <!-- Mockups — Before / After -->
+        <div class="subsection-wrap">
+          <h3 class="subsection-title">Mockups</h3>
+          <p class="subsection-body" style="margin-bottom:36px;">
+            Early designs allowed for some customization, but after the usability studies, I made changes to improve the experience. Key improvements focused on language accessibility and order cost transparency.
+          </p>
+
+          <!-- Comparison 1: Language -->
+          <div class="before-after-pair">
+            <div class="before-after-item">
+              <span class="ba-label">Before</span>
+              <div class="ba-screen-wrap">
+                <img class="ba-screen" src="brand_assets/bulla/before-menu-1.png" alt="Before — Language button" />
+                <div class="ba-callout">
+                  <div class="ba-callout-dot"></div>
+                  <p class="ba-callout-text"><strong>Before:</strong> Language button was a small icon — hard to find and not intuitive for users.</p>
+                </div>
+              </div>
+            </div>
+            <div class="ba-divider-line"></div>
+            <div class="before-after-item">
+              <span class="ba-label">After</span>
+              <div class="ba-screen-wrap">
+                <img class="ba-screen" src="brand_assets/bulla/after-menu-1.png" alt="After — Language button" />
+                <div class="ba-callout">
+                  <div class="ba-callout-dot"></div>
+                  <p class="ba-callout-text"><strong>After:</strong> Language selector redesigned as a prominent button with clear label for improved accessibility.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparison 2: Tax / Order total -->
+          <div class="before-after-pair" style="margin-top:48px;">
+            <div class="before-after-item">
+              <span class="ba-label">Before</span>
+              <div class="ba-screen-wrap">
+                <img class="ba-screen" src="brand_assets/bulla/before-menu-2.png" alt="Before — Tax information" />
+                <div class="ba-callout">
+                  <div class="ba-callout-dot"></div>
+                  <p class="ba-callout-text"><strong>Before:</strong> Tax information was missing — users could not see the real total cost of their order.</p>
+                </div>
+              </div>
+            </div>
+            <div class="ba-divider-line"></div>
+            <div class="before-after-item">
+              <span class="ba-label">After</span>
+              <div class="ba-screen-wrap">
+                <img class="ba-screen" src="brand_assets/bulla/after-menu-2.png" alt="After — Tax information" />
+                <div class="ba-callout">
+                  <div class="ba-callout-dot"></div>
+                  <p class="ba-callout-text"><strong>After:</strong> Tax breakdown added to the order summary screen so users always know what they're paying.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- High-Fidelity Prototype -->
+        <div id="hf-prototype" class="subsection-wrap">
+          <h3 class="subsection-title">High-Fidelity Prototype</h3>
+          <p class="subsection-body" style="margin-bottom:28px;">
+            The final high-fidelity prototype presented cleaner user flows for ordering a dish, customizing ingredients, and tracking the real-time order cost.
+          </p>
+          <div class="hf-mockup-grid">
+            <!-- Row 1: screens 1 → 2 → 3 (L→R) -->
+            <img class="hf-screen" src="brand_assets/bulla/mockup-1.png" alt="BULLA app mockup 1" style="grid-column:1;grid-row:1;" />
+            <div class="hf-arrow" style="grid-column:2;grid-row:1;">
+              <svg viewBox="0 0 48 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="4" y1="12" x2="38" y2="12" stroke="#4A8FBF" stroke-width="2"/>
+                <polyline points="30,4 44,12 30,20" fill="none" stroke="#4A8FBF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <img class="hf-screen" src="brand_assets/bulla/mockup-2.png" alt="BULLA app mockup 2" style="grid-column:3;grid-row:1;" />
+            <div class="hf-arrow" style="grid-column:4;grid-row:1;">
+              <svg viewBox="0 0 48 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="4" y1="12" x2="38" y2="12" stroke="#4A8FBF" stroke-width="2"/>
+                <polyline points="30,4 44,12 30,20" fill="none" stroke="#4A8FBF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <img class="hf-screen" src="brand_assets/bulla/mockup-3.png" alt="BULLA app mockup 3" style="grid-column:5;grid-row:1;" />
+            <!-- Gap row: down arrow at col 5 (right side, 3→6) -->
+            <div class="hf-arrow" style="grid-column:5;grid-row:2;">
+              <svg style="width:24px;height:36px;flex-shrink:0;" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="12" y1="2" x2="12" y2="28" stroke="#4A8FBF" stroke-width="2"/>
+                <polyline points="4,22 12,34 20,22" fill="none" stroke="#4A8FBF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <!-- Row 2: screens 6 → 5 → 4 (R→L) -->
+            <img class="hf-screen" src="brand_assets/bulla/mockup-6.png" alt="BULLA app mockup 6" style="grid-column:5;grid-row:3;" />
+            <div class="hf-arrow" style="grid-column:4;grid-row:3;">
+              <svg viewBox="0 0 48 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="44" y1="12" x2="10" y2="12" stroke="#4A8FBF" stroke-width="2"/>
+                <polyline points="18,4 4,12 18,20" fill="none" stroke="#4A8FBF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <img class="hf-screen" src="brand_assets/bulla/mockup-5.png" alt="BULLA app mockup 5" style="grid-column:3;grid-row:3;" />
+            <div class="hf-arrow" style="grid-column:2;grid-row:3;">
+              <svg viewBox="0 0 48 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="44" y1="12" x2="10" y2="12" stroke="#4A8FBF" stroke-width="2"/>
+                <polyline points="18,4 4,12 18,20" fill="none" stroke="#4A8FBF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <img class="hf-screen" src="brand_assets/bulla/mockup-4.png" alt="BULLA app mockup 4" style="grid-column:1;grid-row:3;" />
+            <!-- Gap row: down arrow at col 1 (left side, 4→7) -->
+            <div class="hf-arrow" style="grid-column:1;grid-row:4;">
+              <svg style="width:24px;height:36px;flex-shrink:0;" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="12" y1="2" x2="12" y2="28" stroke="#4A8FBF" stroke-width="2"/>
+                <polyline points="4,22 12,34 20,22" fill="none" stroke="#4A8FBF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <!-- Row 3: screens 7 → 8 → 9 (L→R) -->
+            <img class="hf-screen" src="brand_assets/bulla/mockup-7.png" alt="BULLA app mockup 7" style="grid-column:1;grid-row:5;" />
+            <div class="hf-arrow" style="grid-column:2;grid-row:5;">
+              <svg viewBox="0 0 48 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="4" y1="12" x2="38" y2="12" stroke="#4A8FBF" stroke-width="2"/>
+                <polyline points="30,4 44,12 30,20" fill="none" stroke="#4A8FBF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <img class="hf-screen" src="brand_assets/bulla/mockup-8.png" alt="BULLA app mockup 8" style="grid-column:3;grid-row:5;" />
+            <div class="hf-arrow" style="grid-column:4;grid-row:5;">
+              <svg viewBox="0 0 48 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="4" y1="12" x2="38" y2="12" stroke="#4A8FBF" stroke-width="2"/>
+                <polyline points="30,4 44,12 30,20" fill="none" stroke="#4A8FBF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <img class="hf-screen" src="brand_assets/bulla/mockup-9.png" alt="BULLA app mockup 9" style="grid-column:5;grid-row:5;" />
+          </div>
+        </div>
+
+        <!-- Typography + Color -->
+        <div class="type-color-row">
+          <div class="typo-section">
+            <p class="typo-subsection-label">Typography</p>
+            <div class="typo-sample">
+              <div class="typo-aa" style="font-family:'Roboto',sans-serif;">Aa</div>
+              <div class="typo-weights">
+                <div class="typo-weight-row" style="font-weight:200;">Roboto ExtraLight</div>
+                <div class="typo-weight-row" style="font-weight:400;">Roboto Regular</div>
+                <div class="typo-weight-row" style="font-weight:600;">Roboto SemiBold</div>
+                <div class="typo-weight-row" style="font-weight:700;">Roboto Bold</div>
+              </div>
+            </div>
+          </div>
+          <div class="color-section">
+            <p class="typo-subsection-label">Color</p>
+            <div class="color-swatches">
+              <div class="color-swatch-item">
+                <div class="color-box" style="background:#c60b1e;"></div>
+                <span class="color-code">#c60b1e</span>
+              </div>
+              <div class="color-swatch-item">
+                <div class="color-box" style="background:#ffbd00;"></div>
+                <span class="color-code">#ffbd00</span>
+              </div>
+              <div class="color-swatch-item">
+                <div class="color-box" style="background:#f9f8f4; border:1px solid #ddd;"></div>
+                <span class="color-code">#f9f8f4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Iconography -->
+        <div class="iconography-section">
+          <p class="typo-subsection-label">Iconography</p>
+          <div class="icons-row">
+            <div class="icon-item"><img src="brand_assets/bulla/icon-options.svg" alt="Options icon" /></div>
+            <div class="icon-item"><img src="brand_assets/bulla/icon-search.svg" alt="Search icon" /></div>
+            <div class="icon-item"><img src="brand_assets/bulla/icon-home.svg" alt="Home icon" /></div>
+            <div class="icon-item"><img src="brand_assets/bulla/icon-menu.svg" alt="Menu icon" /></div>
+            <div class="icon-item"><img src="brand_assets/bulla/icon-language.svg" alt="Language icon" /></div>
+            <div class="icon-item"><img src="brand_assets/bulla/icon-review.svg" alt="Review icon" /></div>
+          </div>
+        </div>
+
+        <!-- Usability Considerations -->
+        <div class="subsection-wrap" style="margin-top:72px;">
+          <h3 class="subsection-title">Usability Considerations</h3>
+          <div class="usability-considerations-grid" style="margin-top:40px;">
+            <div class="usability-card">
+              <div class="usability-card-num" style="background:#c60b1e;">1</div>
+              <div class="usability-card-content">
+                <p class="usability-card-title">High Contrast Ratio</p>
+                <p class="usability-card-text">Used high-contrast color combinations to ensure that all text and UI elements are clearly readable for users with visual impairments.</p>
+              </div>
+            </div>
+            <div class="usability-card">
+              <div class="usability-card-num" style="background:#c60b1e;">2</div>
+              <div class="usability-card-content">
+                <p class="usability-card-title">Language</p>
+                <p class="usability-card-text">It is a crucial factor in ensuring the app is localized and achieving customers' needs by offering a multilingual experience.</p>
+              </div>
+            </div>
+            <div class="usability-card">
+              <div class="usability-card-num" style="background:#c60b1e;">3</div>
+              <div class="usability-card-content">
+                <p class="usability-card-title">Images</p>
+                <p class="usability-card-text">Images and readily recognizable icons are used across the design to provide visual context and make the ordering experience intuitive.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── DIVIDER 06 ── -->
+    <div class="bulla-divider">
+      <div class="bulla-divider-inner">
+        <div class="divider-line"></div>
+        <img class="divider-img" src="brand_assets/bulla/divider-6.png" alt="" />
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────
+         5. GOING FORWARD
+    ────────────────────────────────────────── -->
+    <section class="cs-section going-forward">
+      <div class="corner-decor left" style="background:#ea7000;"></div>
+      <div class="corner-decor right" style="background:#ea7000;"></div>
+      <div class="cs-section-inner">
+        <h2 class="section-title">Going Forward</h2>
+
+        <!-- Impact -->
+        <div class="subsection-wrap">
+          <h3 class="subsection-title">Impact</h3>
+          <p class="gf-impact-text">
+            Users enjoy ordering their food from the menu app, but also the information and the fact of being able to make changes to their needs make the user experience more pleasant.
+          </p>
+          <p class="gf-impact-text">Quote from one of the research participants:</p>
+          <blockquote class="gf-quote">
+            "THIS IS GREAT; I CAN ADD MORE INGREDIENTS AND MAKE A NOTE TO THE CHEF TO NOT USE SALT"
+          </blockquote>
+        </div>
+
+        <!-- What I Learned -->
+        <div class="subsection-wrap">
+          <h3 class="subsection-title">What I Learned</h3>
+          <p class="gf-learned-text">
+            The needs of different users helped me understand the importance of design accessibility, offering as much information and interaction as possible.
+          </p>
+          <p class="gf-learned-text">
+            After a series of interviews and usability studies, I discovered some flaws in my initial assumptions about users of the app. I learned that users need confirmation of any action before making the final decision and that interaction is a plus.
+          </p>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="subsection-wrap">
+          <h3 class="subsection-title">Next Steps</h3>
+          <p class="gf-next-steps-intro">
+            Although it is a project for a certification program, I have learned a lot. However, if I were allowed to work on a similar project, I would:
+          </p>
+          <div class="next-steps-cards">
+            <div class="next-step-card">
+              <div class="next-step-num">1</div>
+              <p class="next-step-text">Conduct another round of usability studies to determine if the current solution effectively addresses user pain points.</p>
+            </div>
+            <div class="next-step-card">
+              <div class="next-step-num">2</div>
+              <p class="next-step-text">Run a usability study to evaluate if the interaction with speech commands is a solution for people with disabilities.</p>
+            </div>
+            <div class="next-step-card">
+              <div class="next-step-num">3</div>
+              <p class="next-step-text">Test the design with the function of changing the font size for those users with vision problems and elderly people.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Let's Connect / Thank You -->
+        <div class="subsection-wrap">
+          <p class="thank-you">Thank you.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── BOTTOM NAV ── -->
+    <nav class="cs-bottom-nav">
+      <a class="cs-nav-link" href="work-ux-ui.html">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to UX &amp; UI Design
+      </a>
+      <a class="cs-nav-link" href="index.html">
+        Portfolio
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </nav>
+
+  </main>
 </body>
 </html>
