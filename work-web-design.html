@@ -84,19 +84,12 @@
     .proj-card:active { transform: translateY(-1px); }
 
     .proj-img { width: 100%; aspect-ratio: 4/3; overflow: hidden; background: var(--surface2); }
-    .proj-img img {
+    .proj-img img, .proj-img video {
       width: 100%; height: 100%; object-fit: cover;
       filter: grayscale(12%) brightness(.9) contrast(1.06);
       transition: transform .55s cubic-bezier(.16,1,.3,1), filter .4s;
     }
-    .proj-card:hover .proj-img img { transform: scale(1.05); filter: grayscale(0%) brightness(1) contrast(1.06); }
-    .proj-img-placeholder {
-      width: 100%; height: 100%;
-      background: linear-gradient(135deg, #1e1e1e 0%, #222 50%, #1a1a1a 100%);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .proj-img-placeholder svg { opacity: .12; }
-
+    .proj-card:hover .proj-img img, .proj-card:hover .proj-img video { transform: scale(1.05); filter: grayscale(0%) brightness(1) contrast(1.06); }
     .proj-body {
       padding: 20px 22px 22px; border-top: 1px solid var(--line);
       display: flex; flex-direction: column; gap: 6px;
@@ -113,7 +106,6 @@
       color: var(--dim); margin-top: 8px; transition: color .2s, gap .2s;
     }
     .proj-card:hover .proj-cta { color: var(--accent); gap: 9px; }
-    .proj-card.coming-soon { pointer-events: none; opacity: .45; }
 
     .page-footer {
       border-top: 1px solid var(--line); padding: 20px 48px;
@@ -151,7 +143,7 @@
   </div>
   <div class="cat-right">
     <p class="cat-desc">Building immersive digital presences — landing pages, campaign sites, and editorial experiences that balance form and function with strategic intent.</p>
-    <div class="cat-count"><span>09</span> Projects</div>
+    <div class="cat-count"><span>06</span> Projects</div>
   </div>
 </div>
 
@@ -170,83 +162,63 @@
       </div>
     </a>
 
-    <a class="proj-card coming-soon" href="#">
-      <div class="proj-img"><div class="proj-img-placeholder"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="24" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 16h28" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="12" r="1.5" fill="#EF9000" opacity=".4"/><circle cx="16" cy="12" r="1.5" fill="#EF9000" opacity=".4"/></svg></div></div>
+    <a class="proj-card" href="project-design-system.html">
+      <div class="proj-img">
+        <img src="brand_assets/desigSystem/designSystemCard.png" alt="Design System — Login Page" loading="lazy" />
+      </div>
       <div class="proj-body">
         <div class="proj-num">02</div>
-        <div class="proj-title">BULLA Restaurant — Brand Landing</div>
-        <div class="proj-sub">Landing Page · Brand Experience</div>
-        <span class="proj-cta">Coming Soon</span>
+        <div class="proj-title">Design System — Login Page</div>
+        <div class="proj-sub">UI Design · Design System · Components</div>
+        <span class="proj-cta">View Project <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 8L8 1M8 1H3M8 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
-    <a class="proj-card coming-soon" href="#">
-      <div class="proj-img"><div class="proj-img-placeholder"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="24" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 16h28" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="12" r="1.5" fill="#EF9000" opacity=".4"/><circle cx="16" cy="12" r="1.5" fill="#EF9000" opacity=".4"/></svg></div></div>
+    <a class="proj-card" href="project-digital-ads.html">
+      <div class="proj-img">
+        <img src="brand_assets/digitalAds/digitalAdsCard.png" alt="Digital Ads — Toledo's Mexican Restaurant" loading="lazy" />
+      </div>
       <div class="proj-body">
         <div class="proj-num">03</div>
-        <div class="proj-title">Telemundo Denver — Digital Rebrand</div>
-        <div class="proj-sub">Station Website · Responsive Design</div>
-        <span class="proj-cta">Coming Soon</span>
+        <div class="proj-title">Digital Ads</div>
+        <div class="proj-sub">HTML5 Banner Ads · Display Advertising</div>
+        <span class="proj-cta">View Project <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 8L8 1M8 1H3M8 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
-    <a class="proj-card coming-soon" href="#">
-      <div class="proj-img"><div class="proj-img-placeholder"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="24" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 16h28" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="12" r="1.5" fill="#EF9000" opacity=".4"/><circle cx="16" cy="12" r="1.5" fill="#EF9000" opacity=".4"/></svg></div></div>
+    <a class="proj-card" href="project-win-tickets-form.html">
+      <div class="proj-img">
+        <img src="brand_assets/form/formCard.png" alt="Win Tickets Form — giveaway entry form" loading="lazy" />
+      </div>
       <div class="proj-body">
         <div class="proj-num">04</div>
-        <div class="proj-title">CBS KLASTV — Station Redesign</div>
-        <div class="proj-sub">News Portal · UX · Visual Identity</div>
-        <span class="proj-cta">Coming Soon</span>
+        <div class="proj-title">Win Tickets Form</div>
+        <div class="proj-sub">UI Design · Form Design · Microinteractions</div>
+        <span class="proj-cta">View Project <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 8L8 1M8 1H3M8 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
-    <a class="proj-card coming-soon" href="#">
-      <div class="proj-img"><div class="proj-img-placeholder"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="24" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 16h28" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="12" r="1.5" fill="#EF9000" opacity=".4"/><circle cx="16" cy="12" r="1.5" fill="#EF9000" opacity=".4"/></svg></div></div>
+    <a class="proj-card" href="project-news-landing.html">
+      <div class="proj-img">
+        <img src="brand_assets/news-Landing/newsLandingCard.png" alt="News Website — Wireframe Layout" loading="lazy" />
+      </div>
       <div class="proj-body">
         <div class="proj-num">05</div>
-        <div class="proj-title">Gray TV — News Portal</div>
-        <div class="proj-sub">Editorial Layout · Content Strategy</div>
-        <span class="proj-cta">Coming Soon</span>
+        <div class="proj-title">News Website — Wireframe Layout</div>
+        <div class="proj-sub">Editorial Layout · Wireframe · HTML &amp; CSS</div>
+        <span class="proj-cta">View Project <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 8L8 1M8 1H3M8 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
-    <a class="proj-card coming-soon" href="#">
-      <div class="proj-img"><div class="proj-img-placeholder"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="24" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 16h28" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="12" r="1.5" fill="#EF9000" opacity=".4"/><circle cx="16" cy="12" r="1.5" fill="#EF9000" opacity=".4"/></svg></div></div>
+    <a class="proj-card" href="project-border-animation.html">
+      <div class="proj-img">
+        <video src="brand_assets/borderAnimation/borderAnimation.mp4" autoplay loop muted playsinline></video>
+      </div>
       <div class="proj-body">
         <div class="proj-num">06</div>
-        <div class="proj-title">Sinclair — Corporate Presence</div>
-        <div class="proj-sub">Corporate Site · Design System</div>
-        <span class="proj-cta">Coming Soon</span>
-      </div>
-    </a>
-
-    <a class="proj-card coming-soon" href="#">
-      <div class="proj-img"><div class="proj-img-placeholder"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="24" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 16h28" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="12" r="1.5" fill="#EF9000" opacity=".4"/><circle cx="16" cy="12" r="1.5" fill="#EF9000" opacity=".4"/></svg></div></div>
-      <div class="proj-body">
-        <div class="proj-num">07</div>
-        <div class="proj-title">Cox Media — Regional Network</div>
-        <div class="proj-sub">Multi-site · Brand Consistency</div>
-        <span class="proj-cta">Coming Soon</span>
-      </div>
-    </a>
-
-    <a class="proj-card coming-soon" href="#">
-      <div class="proj-img"><div class="proj-img-placeholder"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="24" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 16h28" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="12" r="1.5" fill="#EF9000" opacity=".4"/><circle cx="16" cy="12" r="1.5" fill="#EF9000" opacity=".4"/></svg></div></div>
-      <div class="proj-body">
-        <div class="proj-num">08</div>
-        <div class="proj-title">HNN — Bilingual News Portal</div>
-        <div class="proj-sub">Bilingual · Accessibility · Editorial</div>
-        <span class="proj-cta">Coming Soon</span>
-      </div>
-    </a>
-
-    <a class="proj-card coming-soon" href="#">
-      <div class="proj-img"><div class="proj-img-placeholder"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="24" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 16h28" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="12" r="1.5" fill="#EF9000" opacity=".4"/><circle cx="16" cy="12" r="1.5" fill="#EF9000" opacity=".4"/></svg></div></div>
-      <div class="proj-body">
-        <div class="proj-num">09</div>
-        <div class="proj-title">Render Creadia — Agency Portfolio</div>
-        <div class="proj-sub">Portfolio · Spain · Creative Direction</div>
-        <span class="proj-cta">Coming Soon</span>
+        <div class="proj-title">Border Effect — CSS Animation</div>
+        <div class="proj-sub">CSS Animation · Microinteraction</div>
+        <span class="proj-cta">View Project <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 8L8 1M8 1H3M8 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 

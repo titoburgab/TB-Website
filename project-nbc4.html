@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NBC4 Landing Page Redesign — UX Case Study — Tito Burga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: #080808; font-family: 'Roboto', sans-serif; }
+
+  /* ── PORTFOLIO TOPBAR ── */
+  .topbar { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: rgba(8,8,8,.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.06); }
+  .topbar-back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: #888; font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; transition: color .2s; }
+  .topbar-back:hover { color: #EF9000; }
+  .topbar-back svg { width: 14px; height: 14px; }
+  .topbar-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .08em; color: #F5F4F0; text-decoration: none; }
+  .topbar-logo span { color: #EF9000; }
+  .topbar-counter { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #555; }
+
+  .nbc4-page { font-family: 'Roboto', sans-serif; }
+
+  /* ── HERO ── */
+  .nbc4-hero { width: 100%; background: #144aa8; display: flex; justify-content: center; }
+  .nbc4-hero img { width: 100%; max-width: 1440px; display: block; }
+
+  /* ── CHAPTER DIVIDER ── */
+  .nbc4-divider { position: relative; padding: 56px 24px 36px; text-align: center; background: #f7f7f7; }
+  .nbc4-divider-line { position: absolute; top: 66px; left: 0; right: 0; height: 5px; }
+  .nbc4-divider-badge { position: relative; z-index: 2; width: 76px; height: 76px; border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 24px rgba(0,0,0,.22); }
+  .nbc4-divider-badge img { width: 46px; display: block; }
+  .nbc4-divider-title { margin-top: 16px; font-size: clamp(22px, 3vw, 32px); font-weight: 700; letter-spacing: .01em; text-transform: uppercase; }
+
+  /* ── SECTION BASE ── */
+  .cs-section { background: #f7f7f7; }
+  .cs-section-inner { max-width: 1240px; margin: 0 auto; padding: 56px 24px 88px; }
+  .cs-block { margin-bottom: 72px; }
+  .cs-block:last-child { margin-bottom: 0; }
+  .cs-heading { font-size: clamp(22px, 2.6vw, 32px); font-weight: 700; margin-bottom: 18px; letter-spacing: .01em; text-transform: uppercase; }
+  .cs-body { font-size: clamp(14px, 1.5vw, 16px); line-height: 1.75; color: #2b2b2b; max-width: 1120px; }
+  .cs-body + .cs-body { margin-top: 14px; }
+
+  /* ── PROJECT OVERVIEW CARDS ── */
+  .overview-grid-6 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .overview-card { background: #fff; padding: 36px 32px; text-align: center; }
+  .overview-card-title { font-size: 22px; font-weight: 700; margin-bottom: 18px; letter-spacing: .01em; }
+  .overview-card-text { font-size: 14px; line-height: 1.75; color: #2b2b2b; text-align: left; }
+
+  /* ── PAIN POINTS ── */
+  .pain-points-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
+  .pain-circle { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 900; color: #fff; margin: 0 auto 18px; }
+  .pain-text { font-size: 15px; line-height: 1.6; color: #2b2b2b; }
+
+  /* ── EMPATHY MAP ── */
+  .empathy-map { position: relative; max-width: 900px; margin: 80px auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .empathy-quad { border: 1.5px solid #0076c6; border-radius: 24px; background: #fff; padding: 28px 26px; min-height: 200px; }
+  .empathy-quad.align-r { text-align: right; }
+  .empathy-quad-title { color: #0076c6; font-weight: 700; text-align: center; text-transform: uppercase; margin-bottom: 14px; font-size: 19px; }
+  .empathy-quad-text { color: #2b2b2b; font-size: 14px; line-height: 1.65; }
+  .empathy-center { width: 150px; height: 150px; border-radius: 50%; background: #0076c6; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; text-align: center; box-shadow: 0 10px 30px rgba(0,118,198,.35); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 2; }
+  @media (max-width: 700px) {
+    .empathy-map { grid-template-columns: 1fr; margin-top: 16px; }
+    .empathy-center { position: static; transform: none; margin: 0 auto 20px; }
+  }
+
+  /* ── PERSONA ── */
+  .nbc-persona { display: flex; background: linear-gradient(193deg, #18a2ff 4%, #0076c6 85%); overflow: hidden; }
+  .nbc-persona-photo { width: 360px; flex-shrink: 0; background: linear-gradient(216deg, #40a3ff 4%, #287ac7 85%); overflow: hidden; }
+  .nbc-persona-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; mix-blend-mode: overlay; opacity: .95; display: block; }
+  .nbc-persona-info { padding: 40px 44px; color: #fff; flex: 1; min-width: 0; }
+  .nbc-persona-name { font-size: clamp(26px, 3vw, 38px); font-weight: 800; line-height: 1.05; }
+  .nbc-persona-role { font-size: clamp(18px, 2.2vw, 24px); font-weight: 700; margin-bottom: 18px; }
+  .nbc-persona-meta { font-size: 17px; font-weight: 600; margin-bottom: 32px; opacity: .95; }
+  .nbc-persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 48px; }
+  .nbc-persona-block-label { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; border-bottom: 2px solid rgba(255,255,255,.45); padding-bottom: 8px; margin-bottom: 10px; display: inline-block; }
+  .nbc-persona-block-text { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,.92); }
+  @media (max-width: 720px) { .nbc-persona { flex-direction: column; } .nbc-persona-photo { width: 100%; height: 260px; } .nbc-persona-grid { grid-template-columns: 1fr; } }
+
+  /* ── JOURNEY TABLE ── */
+  .journey-table-wrap { overflow-x: auto; border: 1px solid #000; }
+  .journey-table { width: 100%; border-collapse: collapse; font-size: clamp(11px, 1.2vw, 13px); }
+  .journey-table th { background: rgba(0,0,0,.05); padding: 12px 10px; text-align: center; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; border: 1px solid rgba(0,0,0,.1); color: #000; }
+  .journey-table td { padding: 12px 10px; border: 1px solid rgba(0,0,0,.1); color: #000; font-size: 12px; vertical-align: top; }
+  .journey-table td:first-child { background: #f2f2f2; font-weight: 700; text-align: center; }
+
+  /* ── STATEMENTS ── */
+  .statements-grid { display: flex; flex-direction: column; gap: 32px; margin-top: 40px; }
+  .statement-label { font-size: clamp(16px, 1.8vw, 22px); font-weight: 700; text-transform: uppercase; color: #2b2b2b; margin-bottom: 10px; }
+  .statement-text { font-size: clamp(14px, 1.6vw, 18px); font-weight: 300; color: #2b2b2b; line-height: 1.7; }
+
+  /* ── WIREFRAME PAIR ── */
+  .wireframes-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 28px; }
+  .wireframes-pair img { width: 100%; box-shadow: 0 20px 35px rgba(0,0,0,.25); display: block; }
+
+  /* ── DEVICE ROW (digital wireframe / hi-fi) ── */
+  .device-row { display: flex; align-items: flex-end; justify-content: center; gap: 56px; margin-top: 40px; flex-wrap: wrap; }
+  .device-col { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .device-caption { font-size: 13px; color: #555; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; }
+  .device-col img { box-shadow: 0 20px 35px rgba(0,0,0,.25); display: block; width: 100%; }
+  .device-col.desktop img { max-width: 380px; }
+  .device-col.tablet img { max-width: 170px; }
+  .device-col.mobile img { max-width: 80px; }
+
+  /* ── PROTOTYPE NOTE ── */
+  .proto-note { font-size: 14px; font-style: italic; color: #555; margin-top: 18px; }
+
+  /* ── USABILITY ROUNDS ── */
+  .usability-rounds { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 32px; }
+  .usability-round { background: #fff; overflow: hidden; }
+  .round-header-bar { padding: 16px 20px; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: .01em; }
+  .round-findings { padding: 24px 20px; display: flex; flex-direction: column; gap: 20px; }
+  .round-finding { display: flex; align-items: flex-start; gap: 14px; }
+  .round-finding-num { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; color: #fff; flex-shrink: 0; }
+  .round-finding-text { font-size: 14px; color: #2b2b2b; line-height: 1.6; padding-top: 6px; }
+
+  /* ── MOCKUP COMPARE ── */
+  .mockup-compare { display: flex; flex-direction: column; margin-top: 32px; }
+  .mockup-row { display: grid; grid-template-columns: 240px 1fr; gap: 36px; align-items: center; padding: 36px 0; }
+  .mockup-row + .mockup-row { border-top: 1px solid rgba(0,0,0,.12); }
+  .mockup-label { font-size: 26px; font-weight: 800; text-transform: uppercase; color: #000; }
+  .mockup-desc { font-size: 14px; color: #2b2b2b; margin-top: 10px; line-height: 1.6; }
+  .mockup-row img { width: 100%; box-shadow: 0 20px 35px rgba(0,0,0,.25); display: block; }
+  @media (max-width: 720px) { .mockup-row { grid-template-columns: 1fr; } }
+
+  /* ── USABILITY CONSIDERATIONS ── */
+  .usability-considerations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; }
+  .usability-card { background: #fff; padding: 28px; position: relative; }
+  .usability-card-num { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; color: #fff; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); }
+  .usability-card-content { margin-top: 24px; }
+  .usability-card-title { font-size: 17px; font-weight: 700; text-transform: uppercase; color: #000; letter-spacing: .02em; margin-bottom: 10px; }
+  .usability-card-text { font-size: 14px; color: #2b2b2b; line-height: 1.6; }
+
+  /* ── NEXT STEPS ── */
+  .next-steps-intro { font-size: 15px; color: #2b2b2b; line-height: 1.75; margin-bottom: 32px; }
+  .next-steps-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .next-step-card { background: #fff; padding: 28px 24px; position: relative; }
+  .next-step-num { width: 48px; height: 48px; border-radius: 50%; background: #2fa841; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; color: #fff; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); }
+  .next-step-text { margin-top: 24px; font-size: 14px; color: #2b2b2b; line-height: 1.7; }
+  .thank-you { font-size: clamp(32px, 5vw, 56px); font-weight: 700; color: rgba(0,0,0,.3); letter-spacing: .02em; text-transform: uppercase; }
+
+  /* ── BOTTOM NAV ── */
+  .cs-bottom-nav { background: #080808; display: flex; align-items: center; justify-content: space-between; padding: 32px 48px; border-top: 1px solid rgba(255,255,255,.06); }
+  .cs-nav-link { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: #888; font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; transition: color .2s; }
+  .cs-nav-link:hover { color: #EF9000; }
+
+  @media (max-width: 1024px) {
+    .overview-grid-6 { grid-template-columns: 1fr; }
+    .device-row { gap: 32px; }
+  }
+  @media (max-width: 768px) {
+    .topbar { padding: 16px 20px; }
+    .cs-section-inner { padding: 48px 20px 64px; }
+    .pain-points-grid { grid-template-columns: 1fr; gap: 32px; }
+    .usability-rounds { grid-template-columns: 1fr; }
+    .usability-considerations-grid { grid-template-columns: 1fr; }
+    .next-steps-cards { grid-template-columns: 1fr; }
+    .wireframes-pair { grid-template-columns: 1fr; }
+    .cs-bottom-nav { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="topbar-back" href="work-ux-ui.html">
+    <svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    UX &amp; UI Design
+  </a>
+  <a class="topbar-logo" href="index.html">TITO <span>BURGA</span></a>
+  <span class="topbar-counter">03 / 08</span>
+</nav>
+
+<main class="nbc4-page">
+
+  <section class="nbc4-hero">
+    <img src="brand_assets/nbc4/nbc4Card.png" alt="NBC4 LA Homepage UX Case Study" />
+  </section>
+
+  <!-- ════════ CHAPTER 1 ════════ -->
+  <div class="nbc4-divider" style="background:#f7f7f7;">
+    <div class="nbc4-divider-line" style="background:#144aa8;"></div>
+    <div class="nbc4-divider-badge" style="background:#144aa8;"><img src="brand_assets/nbc4/nbc4-mark.png" alt="NBC4" /></div>
+    <div class="nbc4-divider-title" style="color:#144aa8;">Project Overview</div>
+  </div>
+  <section class="cs-section">
+    <div class="cs-section-inner">
+      <div class="overview-grid-6">
+        <div class="overview-card">
+          <div class="overview-card-title" style="color:#144aa8;">The Product</div>
+          <p class="overview-card-text">nbclosangeles.com is NBC4's website, one of the most important TV station in the city of Los Angeles and its suburbs. nbclosangeles.com's mission is to keep its viewers informed digitally, offering them local news, national news, and everything that keeps them informed, safe, and able to plan their day.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-title" style="color:#144aa8;">The Problem</div>
+          <p class="overview-card-text">When users access the nbclosangeles.com homepage, they feel lost. Several contents are all over the website that makes them feel confused, overwhelmed, and undecided on where their next click should go. The website has a design that can show multiple stories in different font sizes, so it is easy to misunderstand the headlines or top stories.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-title" style="color:#144aa8;">The Goal</div>
+          <p class="overview-card-text">It is a personal project, and the goal is to refresh nbclosangeles.com's homepage and improve the navigation in an easy, friendly, and understanding way. Also, I'm looking; as a result, to improve the user experience and obtain maximum viewers' satisfaction.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-title" style="color:#144aa8;">Duration</div>
+          <p class="overview-card-text">This project lasted from start to finish for five weeks.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-title" style="color:#144aa8;">My Role</div>
+          <p class="overview-card-text">UX Designer. UX Research.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-title" style="color:#144aa8;">Responsabilities</div>
+          <p class="overview-card-text">Plan and conduct user research. Interpret data and qualitive feedback. Create user stories, personas, and storyboards. Determine information architecture and create sitemaps. Create wireframes HI-FI and prototypes. Conduct usability testing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ CHAPTER 2 ════════ -->
+  <div class="nbc4-divider" style="background:#f7f7f7;">
+    <div class="nbc4-divider-line" style="background:#0076c6;"></div>
+    <div class="nbc4-divider-badge" style="background:#0076c6;"><img src="brand_assets/nbc4/nbc4-mark.png" alt="NBC4" /></div>
+    <div class="nbc4-divider-title" style="color:#0076c6;">Understanding the User</div>
+  </div>
+  <section class="cs-section">
+    <div class="cs-section-inner">
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#0076c6;">Summary</h3>
+        <p class="cs-body">I interviewed eight potential users between 18 and 49 in an online survey. These users search daily for information relevant to their needs, location, and culture. I collected as much information as possible for six weeks to understand user needs, behaviors, and motivations. An interesting point to consider is that users would like to get news in Spanish.</p>
+      </div>
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#0076c6;">Pain Points</h3>
+        <div class="pain-points-grid">
+          <div>
+            <div class="pain-circle" style="background:#0076c6;">1</div>
+            <p class="pain-text">Undecided where to click.</p>
+          </div>
+          <div>
+            <div class="pain-circle" style="background:#0076c6;">2</div>
+            <p class="pain-text">Misunderstand the headlines or top stories.</p>
+          </div>
+          <div>
+            <div class="pain-circle" style="background:#0076c6;">3</div>
+            <p class="pain-text">Not being able to read local News in Spanish.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#0076c6;">Empathy Map</h3>
+        <div class="empathy-map">
+          <div class="empathy-center">ANTONIETA</div>
+          <div class="empathy-quad">
+            <div class="empathy-quad-title">Says</div>
+            <p class="empathy-quad-text">nbclosangeles.com is my first option when I look for news. This website represents a challenge to navigate.</p>
+          </div>
+          <div class="empathy-quad align-r">
+            <div class="empathy-quad-title">Thinks</div>
+            <p class="empathy-quad-text">I don't know where to click and too much sub-content. I can find the latest news in my area.</p>
+          </div>
+          <div class="empathy-quad">
+            <div class="empathy-quad-title">Does</div>
+            <p class="empathy-quad-text">Look for local News, Weather updates, and watch newscasts. Also, look for information in Spanish.</p>
+          </div>
+          <div class="empathy-quad align-r">
+            <div class="empathy-quad-title">Feels</div>
+            <p class="empathy-quad-text">Frustated. I must navigate a lot before finding the news I'm looking for.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#0076c6;">Persona</h3>
+        <div class="nbc-persona">
+          <div class="nbc-persona-photo">
+            <img src="brand_assets/nbc4/persona-photo.png" alt="Antonieta persona" />
+          </div>
+          <div class="nbc-persona-info">
+            <div class="nbc-persona-name">ANTONIETA I.</div>
+            <div class="nbc-persona-role">DOCTOR</div>
+            <div class="nbc-persona-meta">35 Years old, in a relationship, California, USA</div>
+            <div class="nbc-persona-grid">
+              <div>
+                <span class="nbc-persona-block-label">Bio</span>
+                <p class="nbc-persona-block-text">Antonieta is a doctor at Los Angeles Hospital. She works five days a week on two different shifts. She has at home internet connection with an average speed. She loves to read news, specially news from her area. Also, she is bilingual.</p>
+              </div>
+              <div>
+                <span class="nbc-persona-block-label">Whants &amp; Needs</span>
+                <p class="nbc-persona-block-text">Because Antonieta works two different shifts, she always wants to stay informed. She doesn't visit websites where the content is cluttered because she doesn't want to feel overwhelmed. She always looks for information on websites that are easy to navigate and find what she is looking for, and she would like to read news in Spanish.</p>
+              </div>
+              <div>
+                <span class="nbc-persona-block-label">Goals</span>
+                <p class="nbc-persona-block-text">Antonieta likes to find news and updates on the internet easily. She wants to be informed of what is happening in her community, and she watches the newscast online in her spare time.</p>
+              </div>
+              <div>
+                <span class="nbc-persona-block-label">Pain Points</span>
+                <p class="nbc-persona-block-text">Overwhelm by Irrelevant news. Difficult to find news in English and Spanish in one place. Hard to relate text with photos; it makes me misunderstand the headlines or top stories.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#0076c6;">User Journey Map</h3>
+        <div class="journey-table-wrap">
+          <table class="journey-table">
+            <thead>
+              <tr>
+                <th>ACTION</th>
+                <th>OPEN WEBSITE</th>
+                <th>FIND A STORY</th>
+                <th>SELECT A STORY</th>
+                <th>READ THE STORY</th>
+                <th>WATCH NEWSCAST</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TASK LIST</td>
+                <td>A. Type in browser link.</td>
+                <td>A. Navigate the landing page until you find an exciting story.</td>
+                <td>A. Click on the story selected.</td>
+                <td>A. Read story.</td>
+                <td>A. Select live TV.</td>
+              </tr>
+              <tr>
+                <td>FEELING ADJECTIVE</td>
+                <td>Overwhelm.</td>
+                <td>Exited. Confused.</td>
+                <td>Exited. Confused.</td>
+                <td>Exited.</td>
+                <td>Exited.</td>
+              </tr>
+              <tr>
+                <td>IMPROVEMENT OPORTUNITIES</td>
+                <td>Reorganize the layout.</td>
+                <td>Reorganize the layout.</td>
+                <td>Create space between stories.</td>
+                <td>Language option.</td>
+                <td>Reorganize the layout.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="statements-grid">
+          <div>
+            <p class="statement-label">Problem Statement</p>
+            <p class="statement-text">Antonieta is a doctor at Los Angeles Hospital who likes to read news stories because she wants to be informed.</p>
+          </div>
+          <div>
+            <p class="statement-label">If / Then Statement</p>
+            <p class="statement-text"><strong>If</strong> Antonieta can easily select, read, and watch newscasts <strong>then</strong> she can make better use of your free time.</p>
+          </div>
+          <div>
+            <p class="statement-label">Goal Statement</p>
+            <p class="statement-text">Our refreshed landing page will let users navigate easilly which will affect people <strong>WHO</strong> like to be informed by <strong>ALLOWING</strong> them to find, <strong>READ</strong>, and watch newscasts in a friendly way. We will measure effectiveness by <strong>TRACKING</strong> users' behaviors <strong>THROUGH THE</strong> website.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════ CHAPTER 3 ════════ -->
+  <div class="nbc4-divider" style="background:#f7f7f7;">
+    <div class="nbc4-divider-line" style="background:#c92029;"></div>
+    <div class="nbc4-divider-badge" style="background:#c92029;"><img src="brand_assets/nbc4/nbc4-mark.png" alt="NBC4" /></div>
+    <div class="nbc4-divider-title" style="color:#c92029;">Starting the Design</div>
+  </div>
+  <section class="cs-section">
+    <div class="cs-section-inner">
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#c92029;">Wireframe</h3>
+        <p class="cs-body">To make the experience friendly and stress-free for users, I prioritized refreshing the layout of the home page.</p>
+        <div class="wireframes-pair">
+          <img src="brand_assets/nbc4/wireframe-paper-1.jpg" alt="Paper wireframe — page 1" />
+          <img src="brand_assets/nbc4/wireframe-paper-2.jpg" alt="Paper wireframe — page 2" />
+        </div>
+      </div>
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#c92029;">Digital Wireframe</h3>
+        <p class="cs-body">Based on the user's requirements, I design and test many scenarios to find a suitable and easy way to navigate, select a news story, and design across devices.</p>
+        <div class="device-row">
+          <div class="device-col desktop">
+            <span class="device-caption">Desktop</span>
+            <img src="brand_assets/nbc4/wireframe-desktop.png" alt="Desktop wireframe" />
+          </div>
+          <div class="device-col tablet">
+            <span class="device-caption">Tablet</span>
+            <img src="brand_assets/nbc4/wireframe-tablet.png" alt="Tablet wireframe" />
+          </div>
+          <div class="device-col mobile">
+            <span class="device-caption">Mobile</span>
+            <img src="brand_assets/nbc4/wireframe-mobile.png" alt="Mobile wireframe" />
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#c92029;">Low-Fidelity Prototype</h3>
+        <p class="cs-body">Based on the user's requirements, I design and test many scenarios to find a suitable and easy way to navigate and select a news story.</p>
+        <p class="proto-note">Desktop, tablet, and mobile prototypes were built and tested in Adobe XD.</p>
+      </div>
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#c92029;">Usability Study</h3>
+        <p class="cs-body">I conducted two rounds on eight potential users through the Adobe XD prototype. I tested the navigation on the landing page, and preferences regarding the visual design.</p>
+        <p class="proto-note">A competitive audit was also conducted as part of this research.</p>
+        <div class="usability-rounds">
+          <div class="usability-round">
+            <div class="round-header-bar" style="background:#c92029;">Round 1 findings</div>
+            <div class="round-findings">
+              <div class="round-finding">
+                <div class="round-finding-num" style="background:#c92029;">1</div>
+                <p class="round-finding-text">Participant was overwhelmed with so much information.</p>
+              </div>
+              <div class="round-finding">
+                <div class="round-finding-num" style="background:#c92029;">2</div>
+                <p class="round-finding-text">Participant was confused about how to go to the main menu.</p>
+              </div>
+              <div class="round-finding">
+                <div class="round-finding-num" style="background:#c92029;">3</div>
+                <p class="round-finding-text">Easy to select LIVE TV.</p>
+              </div>
+            </div>
+          </div>
+          <div class="usability-round">
+            <div class="round-header-bar" style="background:#c92029;">Round 2 findings</div>
+            <div class="round-findings">
+              <div class="round-finding">
+                <div class="round-finding-num" style="background:#c92029;">1</div>
+                <p class="round-finding-text">Participant was happy to find news stories in Spanish.</p>
+              </div>
+              <div class="round-finding">
+                <div class="round-finding-num" style="background:#c92029;">2</div>
+                <p class="round-finding-text">Participant likes organized layout.</p>
+              </div>
+              <div class="round-finding">
+                <div class="round-finding-num" style="background:#c92029;">3</div>
+                <p class="round-finding-text">Participant likes trending option.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════ CHAPTER 4 ════════ -->
+  <div class="nbc4-divider" style="background:#f7f7f7;">
+    <div class="nbc4-divider-line" style="background:#f26f21;"></div>
+    <div class="nbc4-divider-badge" style="background:#f26f21;"><img src="brand_assets/nbc4/nbc4-mark.png" alt="NBC4" /></div>
+    <div class="nbc4-divider-title" style="color:#f26f21;">Refining the Design</div>
+  </div>
+  <section class="cs-section">
+    <div class="cs-section-inner">
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#f26f21;">Mockups</h3>
+        <p class="cs-body">Before diving directly into prototyping my design, I performed preliminary validation by walking through the Hi-Fi UI mockups with a few potential users. I received some excellent insights and incorporated them into the final design across devices.</p>
+        <div class="mockup-compare">
+          <div class="mockup-row">
+            <div>
+              <div class="mockup-label">Before</div>
+              <p class="mockup-desc">The purpose here is to provide trending topics, but it is not enough for users.</p>
+            </div>
+            <img src="brand_assets/nbc4/mockup-before.png" alt="Homepage mockup — before" />
+          </div>
+          <div class="mockup-row">
+            <div>
+              <div class="mockup-label">After</div>
+              <p class="mockup-desc">Moving topics to the left allow adding more topics (current landing page).</p>
+            </div>
+            <img src="brand_assets/nbc4/mockup-after.png" alt="Homepage mockup — after" />
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#f26f21;">Hi-Fi Mockups</h3>
+        <div class="device-row">
+          <div class="device-col desktop">
+            <span class="device-caption">Desktop Hi-Fi</span>
+            <img src="brand_assets/nbc4/hifi-desktop.png" alt="Desktop hi-fi mockup" />
+          </div>
+          <div class="device-col tablet">
+            <span class="device-caption">Tablet Hi-Fi</span>
+            <img src="brand_assets/nbc4/hifi-tablet.png" alt="Tablet hi-fi mockup" />
+          </div>
+          <div class="device-col mobile">
+            <span class="device-caption">Mobile Hi-Fi</span>
+            <img src="brand_assets/nbc4/hifi-mobile.png" alt="Mobile hi-fi mockup" />
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#f26f21;">Usability Consideration</h3>
+        <div class="usability-considerations-grid">
+          <div class="usability-card">
+            <div class="usability-card-num" style="background:#f26f21;">1</div>
+            <div class="usability-card-content">
+              <p class="usability-card-title">Content</p>
+              <p class="usability-card-text">Organized content improves user engagement.</p>
+            </div>
+          </div>
+          <div class="usability-card">
+            <div class="usability-card-num" style="background:#f26f21;">2</div>
+            <div class="usability-card-content">
+              <p class="usability-card-title">Navigation</p>
+              <p class="usability-card-text">Make sure that the home page is accessible and usable.</p>
+            </div>
+          </div>
+          <div class="usability-card">
+            <div class="usability-card-num" style="background:#f26f21;">3</div>
+            <div class="usability-card-content">
+              <p class="usability-card-title">Language</p>
+              <p class="usability-card-text">It is an essential factor in reducing bounce rate and achieving customer satisfaction.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════ CHAPTER 5 ════════ -->
+  <div class="nbc4-divider" style="background:#f7f7f7;">
+    <div class="nbc4-divider-line" style="background:#2fa841;"></div>
+    <div class="nbc4-divider-badge" style="background:#2fa841;"><img src="brand_assets/nbc4/nbc4-mark.png" alt="NBC4" /></div>
+    <div class="nbc4-divider-title" style="color:#2fa841;">Going Forward</div>
+  </div>
+  <section class="cs-section">
+    <div class="cs-section-inner">
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#2fa841;">Impact</h3>
+        <p class="cs-body">Users want to be informed and read and watch the news, but they don't always have time. An organized home page with relevant information is one of the most important features they look for.</p>
+      </div>
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#2fa841;">What I Learned</h3>
+        <p class="cs-body">From the results of the validation, it can be concluded the design that I proposed can further enhance user experience in using nbclosangeles.com, but it still needs to be iterated for several points.</p>
+      </div>
+
+      <div class="cs-block">
+        <h3 class="cs-heading" style="color:#2fa841;">Next Steps</h3>
+        <p class="next-steps-intro">Although it is a project for a certification program, I have learned a lot. However, if I were allowed to work on a similar project, I would:</p>
+        <div class="next-steps-cards">
+          <div class="next-step-card">
+            <div class="next-step-num">1</div>
+            <p class="next-step-text">Conduct another round of usability studies to determine if this case study effectively addresses user pain points.</p>
+          </div>
+          <div class="next-step-card">
+            <div class="next-step-num">2</div>
+            <p class="next-step-text">Run a usability study to evaluate if News stories in Spanish is a solution for bilingual users.</p>
+          </div>
+          <div class="next-step-card">
+            <div class="next-step-num">3</div>
+            <p class="next-step-text">Test the layout with less content to determine if it engages users and/or attracts new ones.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-block">
+        <p class="thank-you">Thank you.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <nav class="cs-bottom-nav">
+    <a class="cs-nav-link" href="work-ux-ui.html">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to UX &amp; UI Design
+    </a>
+    <a class="cs-nav-link" href="index.html">
+      Portfolio
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </nav>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cox Media Group — WOKV &amp; Action News Jax — UX Case Study — Tito Burga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: #080808; font-family: 'Roboto', sans-serif; }
+
+  /* ── PORTFOLIO TOPBAR ── */
+  .topbar { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: rgba(8,8,8,.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.06); }
+  .topbar-back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: #888; font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; transition: color .2s; }
+  .topbar-back:hover { color: #EF9000; }
+  .topbar-back svg { width: 14px; height: 14px; }
+  .topbar-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .08em; color: #F5F4F0; text-decoration: none; }
+  .topbar-logo span { color: #EF9000; }
+  .topbar-counter { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #555; }
+
+  .cmg-page { font-family: 'Roboto', sans-serif; background: #fff; }
+
+  /* ── HERO ── */
+  .cmg-hero { width: 100%; background: #1ba0db; display: flex; flex-direction: column; align-items: center; padding: 64px 24px 56px; gap: 40px; }
+  .cmg-hero-logo { width: 100%; max-width: 600px; display: block; }
+  .cmg-hero-brands { display: flex; gap: 56px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .cmg-hero-brands img { display: block; object-fit: contain; }
+
+  /* ── META ROW ── */
+  .cmg-meta-wrap { display: flex; justify-content: center; padding: 56px 24px; }
+  .cmg-meta { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+  .cmg-meta-item { text-align: center; flex: 1; min-width: 140px; }
+  .cmg-meta-label { font-size: clamp(18px, 2vw, 24px); font-weight: 700; color: #006e9f; margin-bottom: 8px; }
+  .cmg-meta-value { font-size: 16px; color: #1a1a1a; line-height: 1.5; }
+  .cmg-meta-item img { width: 40px; height: auto; display: block; margin: 0 auto; }
+
+  /* ── SECTION ── */
+  .cmg-section { max-width: 1180px; margin: 0 auto; padding: 0 24px 72px; }
+  .cmg-divider { position: relative; background: #fafafa; border-radius: 4px; padding: 16px 28px; margin-bottom: 40px; }
+  .cmg-divider-title { font-size: clamp(22px, 3vw, 32px); font-weight: 700; color: #006e9f; text-align: right; }
+  .cmg-divider-badge { position: absolute; right: 4px; top: -28px; width: 130px; pointer-events: none; }
+  .cmg-body { font-size: 17px; line-height: 1.85; color: #1a1a1a; max-width: 1080px; }
+  .cmg-body strong { color: #006e9f; }
+
+  /* ── MVP CHIPS ── */
+  .mvp-grid { display: flex; flex-wrap: wrap; gap: 14px; }
+  .mvp-chip { background: #1ba0db; color: #fff; font-weight: 700; font-size: 14px; padding: 12px 20px; border-radius: 30px; }
+
+  /* ── PERSONA CARD ── */
+  .cmg-persona { background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.18); margin-bottom: 48px; }
+  .cmg-persona-banner { background: #1ba0db; display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; flex-wrap: wrap; gap: 14px; }
+  .cmg-persona-name { color: #fff; font-size: clamp(20px, 2.6vw, 28px); font-weight: 700; }
+  .cmg-persona-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cmg-persona-tag { background: #fff; color: #1ba0db; font-size: 14px; font-weight: 500; padding: 6px 18px; border-radius: 3px; }
+  .cmg-persona-body { display: grid; grid-template-columns: 260px 1fr 1fr; gap: 36px; padding: 32px; }
+  .cmg-persona-photo { width: 100%; aspect-ratio: 273/276; object-fit: cover; display: block; }
+  .cmg-persona-quote { background: #1ba0db; color: #fff; text-align: center; font-weight: 700; padding: 16px 14px; font-size: 15px; line-height: 1.4; }
+  .cmg-persona-col-title { color: #1ba0db; font-weight: 700; font-size: 16px; margin-bottom: 4px; margin-top: 20px; }
+  .cmg-persona-col-title:first-child { margin-top: 0; }
+  .cmg-persona-col-text { font-size: 15px; color: #1a1a1a; line-height: 1.6; margin-bottom: 4px; }
+  .cmg-persona-facts { display: flex; flex-wrap: wrap; gap: 10px 28px; padding: 0 32px 28px; font-size: 14px; color: #1a1a1a; border-top: 1px solid #eee; padding-top: 20px; margin: 0 32px 28px; }
+  .cmg-persona-facts strong { color: #1ba0db; }
+  .cmg-user-story { margin-bottom: 24px; }
+  .cmg-user-story:last-child { margin-bottom: 0; }
+  .cmg-user-story-as { color: #1ba0db; font-weight: 700; font-size: clamp(18px, 2.2vw, 24px); display: block; }
+  .cmg-user-story-text { font-size: clamp(18px, 2.2vw, 24px); color: #111; }
+  @media (max-width: 860px) {
+    .cmg-persona-body { grid-template-columns: 1fr; padding: 24px; }
+    .cmg-persona-facts { margin: 0 24px 24px; padding-bottom: 0; }
+    .cmg-persona-photo { aspect-ratio: 16/10; }
+  }
+
+  /* ── IMAGE BLOCKS ── */
+  .cmg-img-block { display: flex; justify-content: center; }
+  .cmg-img-block img { width: 100%; max-width: 820px; display: block; box-shadow: 0 14px 36px rgba(0,0,0,.14); border-radius: 4px; }
+
+  /* ── BOTTOM NAV ── */
+  .cs-bottom-nav { background: #080808; display: flex; align-items: center; justify-content: space-between; padding: 32px 48px; border-top: 1px solid rgba(255,255,255,.06); }
+  .cs-nav-link { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: #888; font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; transition: color .2s; }
+  .cs-nav-link:hover { color: #EF9000; }
+
+  @media (max-width: 768px) {
+    .topbar { padding: 16px 20px; }
+    .cmg-section { padding: 0 20px 56px; }
+    .cs-bottom-nav { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="topbar-back" href="work-ux-ui.html">
+    <svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    UX &amp; UI Design
+  </a>
+  <a class="topbar-logo" href="index.html">TITO <span>BURGA</span></a>
+  <span class="topbar-counter">05 / 08</span>
+</nav>
+
+<main class="cmg-page">
+
+  <section class="cmg-hero">
+    <img class="cmg-hero-logo" src="brand_assets/cmg/logo-cmg.png" alt="Cox Media Group" />
+    <div class="cmg-hero-brands">
+      <img src="brand_assets/cmg/logo-wokv.svg" alt="News 104.5 WOKV" style="width:170px; height:79px;" />
+      <img src="brand_assets/cmg/logo-anj.svg" alt="Action News Jax" style="width:182px; height:79px;" />
+    </div>
+  </section>
+
+  <div class="cmg-meta-wrap">
+    <div class="cmg-meta">
+      <div class="cmg-meta-item">
+        <div class="cmg-meta-label">Role</div>
+        <div class="cmg-meta-value">UI Lead designer</div>
+      </div>
+      <div class="cmg-meta-item">
+        <div class="cmg-meta-label">Team</div>
+        <div class="cmg-meta-value">CMG UX / UI Team</div>
+      </div>
+      <div class="cmg-meta-item">
+        <div class="cmg-meta-label">Date</div>
+        <div class="cmg-meta-value">July 2017 – September 2017</div>
+      </div>
+      <div class="cmg-meta-item">
+        <div class="cmg-meta-label">App</div>
+        <img src="brand_assets/cmg/sketch-icon.png" alt="Sketch" />
+      </div>
+    </div>
+  </div>
+
+  <div class="cmg-section">
+    <div class="cmg-divider">
+      <img class="cmg-divider-badge" src="brand_assets/cmg/swoosh-badge.png" alt="" />
+      <div class="cmg-divider-title">Concept</div>
+    </div>
+    <p class="cmg-body">The internet has changed the way we watch the news, and we are now free to choose and find the most relevant information. WOKV and ACTION NEWS JAX can make it easier for users to keep up with the latest local news, breaking news, and weather updates.</p>
+  </div>
+
+  <div class="cmg-section">
+    <div class="cmg-divider">
+      <img class="cmg-divider-badge" src="brand_assets/cmg/swoosh-badge.png" alt="" />
+      <div class="cmg-divider-title">Goal</div>
+    </div>
+    <p class="cmg-body">The main goal is to re-design both WOKV and ACTION NEWS JAX apps. We are looking for a better user experience and a clean user interface. Also, we want to add unique characteristics for each app — like the option to select radio or TV stations.</p>
+  </div>
+
+  <div class="cmg-section">
+    <div class="cmg-divider">
+      <img class="cmg-divider-badge" src="brand_assets/cmg/swoosh-badge.png" alt="" />
+      <div class="cmg-divider-title">Objective</div>
+    </div>
+    <p class="cmg-body"><strong>Who.</strong> This application is intended for users who want to be informed at all times and have news delivered to their mobile devices. <strong>What.</strong> The user will be able to find recent local, national and international news. Users are also informed of the weather forecast. <strong>Where.</strong> The user can access the application from any mobile device anywhere. <strong>When.</strong> The user can access this application anytime. <strong>Why.</strong> This app can make it easier for users to keep up with the latest news. <strong>How.</strong> All news stories, breaking news, weather forecasts, traffic updates, and more will be fed from WOKV and ACTION NEWS JAX.</p>
+  </div>
+
+  <div class="cmg-section">
+    <div class="cmg-divider">
+      <img class="cmg-divider-badge" src="brand_assets/cmg/swoosh-badge.png" alt="" />
+      <div class="cmg-divider-title">Synthesis</div>
+    </div>
+    <p class="cmg-body">After collecting and comparing information of all people interviewed, it is clear that absolutely everyone is interested in being informed in some way — newspaper, radio, television, or digital. Weather leads as the first alternative when searching for news, followed by breaking news, local and national news, traffic, and international news. When it comes to mobile devices, a large majority prefer to watch live stream TV. Half of the interviewees like the idea of saving the article and reading them later with or without wi-fi. A little more than half, especially young people, like being able to personalize the news according to their preferences. Finally, a large majority do not like alerts or push notifications on the lock screen unless it is breaking news, and a common reason is the desire to be informed at all times in these busy times.</p>
+  </div>
+
+  <div class="cmg-section">
+    <div class="cmg-divider">
+      <img class="cmg-divider-badge" src="brand_assets/cmg/swoosh-badge.png" alt="" />
+      <div class="cmg-divider-title">Hypothesis</div>
+    </div>
+    <p class="cmg-body">I want to prove the following: that users want to be informed at all times, and anywhere. That users want to have breaking news and weather alerts. That users want to be able to save news stories and read them later, offline if necessary. That users want to have news alerts on locked screens. That users want not only to read articles but also to be able to watch live stream newscasts and events, and to watch videos and news stories.</p>
+  </div>
+
+  <div class="cmg-section">
+    <div class="cmg-divider">
+      <img class="cmg-divider-badge" src="brand_assets/cmg/swoosh-badge.png" alt="" />
+      <div class="cmg-divider-title">MVP</div>
+    </div>
+    <div class="mvp-grid">
+      <span class="mvp-chip">Latest news</span>
+      <span class="mvp-chip">Live stream TV</span>
+      <span class="mvp-chip">Breaking news &amp; weather alerts</span>
+      <span class="mvp-chip">Alerts on lock screen</span>
+      <span class="mvp-chip">Customize personal news feed</span>
+      <span class="mvp-chip">Save news offline</span>
+      <span class="mvp-chip">Traffic update</span>
+    </div>
+  </div>
+
+  <div class="cmg-section">
+    <div class="cmg-divider">
+      <img class="cmg-divider-badge" src="brand_assets/cmg/swoosh-badge.png" alt="" />
+      <div class="cmg-divider-title">Personas &amp; User Stories</div>
+    </div>
+
+    <div class="cmg-persona">
+      <div class="cmg-persona-banner">
+        <div class="cmg-persona-name">Chase, the tech savvy</div>
+        <div class="cmg-persona-tags">
+          <span class="cmg-persona-tag">Multitasking</span>
+          <span class="cmg-persona-tag">Organized</span>
+          <span class="cmg-persona-tag">Logic</span>
+        </div>
+      </div>
+      <div class="cmg-persona-body">
+        <div>
+          <img class="cmg-persona-photo" src="brand_assets/cmg/persona-chase.png" alt="Chase persona" />
+          <div class="cmg-persona-quote">"I need to investigate more"</div>
+        </div>
+        <div>
+          <div class="cmg-persona-col-title">Goals</div>
+          <p class="cmg-persona-col-text">Contribute to changing the world. Continue with my education. Investigate renewable energy.</p>
+          <div class="cmg-persona-col-title">Frustations</div>
+          <p class="cmg-persona-col-text">Traffic. Lack of resources. Lack of communication.</p>
+          <div class="cmg-persona-col-title">Enviroment</div>
+          <p class="cmg-persona-col-text">Chase works at BP as an engineer. He has a Ph.D. in petroleum engineering. His computer and math skills are advanced. He is an environmental protector.</p>
+        </div>
+        <div>
+          <div class="cmg-user-story">
+            <span class="cmg-user-story-as">AS USER,</span>
+            <span class="cmg-user-story-text">I want to be informed at all times.</span>
+          </div>
+          <div class="cmg-user-story">
+            <span class="cmg-user-story-as">AS USER,</span>
+            <span class="cmg-user-story-text">I want to get breaking news and weather alerts.</span>
+          </div>
+          <div class="cmg-user-story">
+            <span class="cmg-user-story-as">AS USER,</span>
+            <span class="cmg-user-story-text">I want a friendly user experience.</span>
+          </div>
+        </div>
+      </div>
+      <div class="cmg-persona-facts">
+        <div><strong>Age:</strong> 50</div>
+        <div><strong>Location:</strong> Jacksonville, FL</div>
+        <div><strong>Education:</strong> PhD</div>
+        <div><strong>Occupation:</strong> Engeneer</div>
+        <div><strong>Interests:</strong> Education, Economi, Enviroment</div>
+        <div><strong>Marrital Status:</strong> Married</div>
+        <div><strong>Kids:</strong> 1 Girl, 2 Sons</div>
+      </div>
+    </div>
+
+    <div class="cmg-persona">
+      <div class="cmg-persona-banner">
+        <div class="cmg-persona-name">Nina, busy mom</div>
+        <div class="cmg-persona-tags">
+          <span class="cmg-persona-tag">Stability</span>
+          <span class="cmg-persona-tag">Social</span>
+          <span class="cmg-persona-tag">Mobile</span>
+        </div>
+      </div>
+      <div class="cmg-persona-body">
+        <div>
+          <img class="cmg-persona-photo" src="brand_assets/cmg/persona-nina.png" alt="Nina persona" />
+          <div class="cmg-persona-quote">"I need to investigate more"</div>
+        </div>
+        <div>
+          <div class="cmg-persona-col-title">Goals</div>
+          <p class="cmg-persona-col-text">My kids' education. Buy a house. Save money.</p>
+          <div class="cmg-persona-col-title">Frustations</div>
+          <p class="cmg-persona-col-text">Bad teachers. Poor management. Slow internet.</p>
+          <div class="cmg-persona-col-title">Enviroment</div>
+          <p class="cmg-persona-col-text">Nina is a single mom of 2 girls. She works at Wells Fargo Bank as a senior accountant. She checks the weather to know how to dress her children for school.</p>
+        </div>
+        <div>
+          <div class="cmg-user-story">
+            <span class="cmg-user-story-as">AS USER,</span>
+            <span class="cmg-user-story-text">I want to read news offline.</span>
+          </div>
+          <div class="cmg-user-story">
+            <span class="cmg-user-story-as">AS USER,</span>
+            <span class="cmg-user-story-text">I want the latest news of the day.</span>
+          </div>
+          <div class="cmg-user-story">
+            <span class="cmg-user-story-as">AS USER,</span>
+            <span class="cmg-user-story-text">I want weather and traffic updates.</span>
+          </div>
+        </div>
+      </div>
+      <div class="cmg-persona-facts">
+        <div><strong>Age:</strong> 37</div>
+        <div><strong>Location:</strong> Jacksonville, FL</div>
+        <div><strong>Education:</strong> College</div>
+        <div><strong>Occupation:</strong> Accounting</div>
+        <div><strong>Interests:</strong> Music, Social media</div>
+        <div><strong>Marrital Status:</strong> Divorced</div>
+        <div><strong>Kids:</strong> 2 Girls</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cmg-section">
+    <div class="cmg-divider">
+      <img class="cmg-divider-badge" src="brand_assets/cmg/swoosh-badge.png" alt="" />
+      <div class="cmg-divider-title">UX Flows</div>
+    </div>
+    <div class="cmg-img-block">
+      <img src="brand_assets/cmg/ux-flows.png" alt="UX flow diagrams for WOKV and Action News Jax" />
+    </div>
+  </div>
+
+  <div class="cmg-section">
+    <div class="cmg-divider">
+      <img class="cmg-divider-badge" src="brand_assets/cmg/swoosh-badge.png" alt="" />
+      <div class="cmg-divider-title">Wireframe</div>
+    </div>
+    <div class="cmg-img-block">
+      <img src="brand_assets/cmg/wireframe-progression.png" alt="Wireframe progression from paper sketch to hi-fi screens" />
+    </div>
+  </div>
+
+  <div class="cmg-section">
+    <div class="cmg-divider">
+      <img class="cmg-divider-badge" src="brand_assets/cmg/swoosh-badge.png" alt="" />
+      <div class="cmg-divider-title">A/B Test</div>
+    </div>
+    <div class="cmg-img-block">
+      <img src="brand_assets/cmg/ab-test.png" alt="A/B test results for WOKV and Action News Jax main pages" />
+    </div>
+  </div>
+
+  <div class="cmg-section">
+    <div class="cmg-divider">
+      <img class="cmg-divider-badge" src="brand_assets/cmg/swoosh-badge.png" alt="" />
+      <div class="cmg-divider-title">Screens</div>
+    </div>
+    <div class="cmg-img-block">
+      <img src="brand_assets/cmg/screens.png" alt="Final WOKV and Action News Jax app screens" />
+    </div>
+  </div>
+
+</main>
+
+<nav class="cs-bottom-nav">
+  <a class="cs-nav-link" href="work-ux-ui.html">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to UX &amp; UI Design
+  </a>
+  <a class="cs-nav-link" href="index.html">
+    Portfolio
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</nav>
+
+</body>
+</html>

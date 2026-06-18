@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luis Estrada — Tito Burga</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#1C1C1C; --surface:#202020; --accent:#EF9000; --white:#F2F2F2; --muted:#888; --dim:#555; --line:rgba(255,255,255,0.08); }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-serif; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; background: rgba(28,28,28,.96); backdrop-filter: blur(12px); }
+    .topbar-back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; transition: color .2s; }
+    .topbar-back:hover { color: var(--accent); }
+    .topbar-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .08em; color: var(--white); text-decoration: none; }
+    .topbar-logo span { color: var(--accent); }
+    .topbar-cat { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+    /* Flex-centered, dark letterbox band: the video is capped at its native resolution below so it's never upscaled past real resolution (avoids pixelation on wide viewports). */
+    .proj-hero { width: 100%; display: flex; align-items: center; justify-content: center; padding: 56px 24px; background: #0a0a0a; }
+
+    /* ---- Video Player (shared pattern with Hyperlocal) ---- */
+    .video-player { position: relative; width: 100%; max-width: 1280px; aspect-ratio: 16/9; background: #0a0a0a; outline: none; border-radius: 6px; overflow: hidden; box-shadow: 0 30px 70px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.05); }
+    .video-player video { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(.94) contrast(1.05); cursor: pointer; }
+    .video-player::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,.38) 100%); }
+
+    .vp-corner { position: absolute; width: 22px; height: 22px; border: 0 solid var(--accent); opacity: 0; transform: scale(.7); transition: opacity .35s ease, transform .35s cubic-bezier(.34,1.56,.64,1); pointer-events: none; }
+    .vp-corner.tl { top: 18px; left: 18px; border-width: 2px 0 0 2px; }
+    .vp-corner.tr { top: 18px; right: 18px; border-width: 2px 2px 0 0; }
+    .vp-corner.bl { bottom: 18px; left: 18px; border-width: 0 0 2px 2px; }
+    .vp-corner.br { bottom: 18px; right: 18px; border-width: 0 2px 2px 0; }
+    .video-player:hover .vp-corner, .video-player:focus-within .vp-corner { opacity: .85; transform: scale(1); }
+
+    .vp-onair { position: absolute; top: 20px; left: 20px; z-index: 3; display: flex; align-items: center; gap: 7px; padding: 6px 10px 6px 8px; background: rgba(10,10,10,.55); border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(6px); opacity: 0; transform: translateY(-6px); transition: opacity .3s ease, transform .3s ease; }
+    .vp-onair.show { opacity: 1; transform: translateY(0); }
+    .vp-onair-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: vpPulse 1.6s ease-out infinite; }
+    .vp-onair-text { font-size: 9px; font-weight: 700; letter-spacing: .16em; color: var(--white); text-transform: uppercase; }
+    @keyframes vpPulse { 0% { box-shadow: 0 0 0 0 rgba(239,144,0,.55); } 70% { box-shadow: 0 0 0 7px rgba(239,144,0,0); } 100% { box-shadow: 0 0 0 0 rgba(239,144,0,0); } }
+
+    .vp-center-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(1); width: 76px; height: 76px; border-radius: 50%; border: 1.5px solid rgba(242,242,242,.55); background: rgba(10,10,10,.35); backdrop-filter: blur(3px); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 34px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04); transition: transform .4s cubic-bezier(.34,1.56,.64,1), opacity .3s ease, border-color .25s ease, background-color .25s ease; z-index: 2; }
+    .vp-center-btn svg { width: 22px; height: 22px; transform: translateX(1px); }
+    .vp-center-btn:hover { border-color: var(--accent); background-color: rgba(239,144,0,.16); transform: translate(-50%,-50%) scale(1.07); }
+    .vp-center-btn:active { transform: translate(-50%,-50%) scale(.96); }
+    .vp-center-btn:focus-visible { outline: 1.5px solid var(--accent); outline-offset: 4px; }
+    .video-player.is-playing .vp-center-btn { opacity: 0; pointer-events: none; transform: translate(-50%,-50%) scale(.8); }
+
+    .vp-scrim { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0) 55%, rgba(8,8,8,.82) 100%); pointer-events: none; opacity: 0; transition: opacity .35s ease; z-index: 1; }
+    .video-player.show-controls .vp-scrim { opacity: 1; }
+
+    .vp-controls { position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 14px; padding: 14px 22px 18px; opacity: 0; transform: translateY(6px); transition: opacity .3s ease, transform .3s ease; z-index: 2; }
+    .video-player.show-controls .vp-controls { opacity: 1; transform: translateY(0); }
+
+    .vp-btn { background: none; border: none; padding: 0; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; color: var(--white); opacity: .85; cursor: pointer; transition: transform .2s cubic-bezier(.34,1.56,.64,1), opacity .2s ease, color .2s ease; flex-shrink: 0; }
+    .vp-btn svg { width: 16px; height: 16px; }
+    .vp-btn:hover { color: var(--accent); opacity: 1; transform: scale(1.12); }
+    .vp-btn:active { transform: scale(.92); }
+    .vp-btn:focus-visible { outline: 1.5px solid var(--accent); outline-offset: 3px; }
+
+    .vp-time { font-size: 10px; font-weight: 700; letter-spacing: .06em; color: var(--white); opacity: .8; font-variant-numeric: tabular-nums; min-width: 30px; flex-shrink: 0; }
+    .vp-time.duration { text-align: right; opacity: .5; }
+
+    .vp-track-wrap { position: relative; flex: 1; height: 18px; display: flex; align-items: center; cursor: pointer; }
+    .vp-track { position: relative; width: 100%; height: 3px; background: rgba(255,255,255,.22); border-radius: 2px; }
+    .vp-track-buffered { position: absolute; top: 0; left: 0; height: 100%; background: rgba(255,255,255,.3); border-radius: 2px; width: 0%; }
+    .vp-track-played { position: absolute; top: 0; left: 0; height: 100%; background: var(--accent); border-radius: 2px; width: 0%; box-shadow: 0 0 10px rgba(239,144,0,.55); }
+    .vp-track-handle { position: absolute; top: 50%; left: 0%; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(239,144,0,.22); transform: translate(-50%,-50%) scale(0); transition: transform .2s cubic-bezier(.34,1.56,.64,1); }
+    .vp-track-wrap:hover .vp-track-handle, .vp-track-wrap.scrubbing .vp-track-handle { transform: translate(-50%,-50%) scale(1); }
+
+    .vp-vol-group { display: flex; align-items: center; }
+    .vp-vol-track-wrap { width: 0; overflow: hidden; transition: width .25s cubic-bezier(.34,1.56,.64,1); }
+    .vp-vol-group:hover .vp-vol-track-wrap, .vp-vol-group.dragging .vp-vol-track-wrap { width: 58px; margin-left: 8px; }
+    .vp-vol-track { position: relative; width: 58px; height: 3px; background: rgba(255,255,255,.22); border-radius: 2px; cursor: pointer; }
+    .vp-vol-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--white); border-radius: 2px; width: 100%; }
+    .vp-vol-handle { position: absolute; top: 50%; left: 100%; width: 8px; height: 8px; border-radius: 50%; background: var(--white); transform: translate(-50%,-50%); }
+
+    @media (max-width: 640px) { .vp-vol-group { display: none; } .vp-onair-text { display: none; } .vp-onair { padding: 6px 8px; } .vp-controls { padding: 12px 14px 14px; gap: 10px; } }
+
+    .proj-wrap { max-width: 900px; margin: 0 auto; padding: 64px 48px 96px; }
+    .proj-meta-row { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .proj-cat-tag { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(239,144,0,.35); padding: 5px 12px; }
+    .proj-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 72px); line-height: .92; letter-spacing: .02em; color: var(--white); margin-bottom: 12px; }
+    .proj-client { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 48px; }
+    .proj-divider { width: 100%; height: 1px; background: var(--line); margin-bottom: 48px; }
+    .proj-body-grid { display: grid; grid-template-columns: 1fr 320px; gap: 80px; align-items: start; }
+    .proj-desc { font-size: 15px; line-height: 1.8; color: var(--muted); }
+    .proj-desc p + p { margin-top: 20px; }
+    .sidebar-block { margin-bottom: 36px; }
+    .sidebar-label { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .sidebar-value { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .sidebar-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sidebar-tag { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); border: 1px solid var(--line); padding: 4px 9px; }
+
+    .proj-nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 48px; border-top: 1px solid var(--line); }
+    .proj-nav a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; transition: color .2s; }
+    .proj-nav a:hover { color: var(--accent); }
+    .page-footer { border-top: 1px solid var(--line); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 11px; color: var(--dim); }
+    .footer-contact { display: flex; gap: 28px; }
+    .footer-contact a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-contact a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) { .proj-body-grid { grid-template-columns: 1fr; gap: 48px; } .proj-wrap { padding: 48px 24px 64px; } .topbar, .proj-nav, .page-footer { padding-left: 20px; padding-right: 20px; } .page-footer { flex-direction: column; gap: 12px; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="work-motion.html" class="topbar-back">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Motion &amp; Broadcast
+  </a>
+  <a href="index.html" class="topbar-logo">TITO <span>BURGA</span></a>
+  <span class="topbar-cat">02 / 09</span>
+</header>
+
+<div class="proj-hero">
+  <div class="video-player" id="vp" tabindex="0">
+    <video id="vpVideo" poster="brand_assets/luis/poster.png" preload="metadata" playsinline>
+      <source src="brand_assets/luis/luis_video.mp4" type="video/mp4" />
+    </video>
+
+    <span class="vp-corner tl"></span>
+    <span class="vp-corner tr"></span>
+    <span class="vp-corner bl"></span>
+    <span class="vp-corner br"></span>
+
+    <div class="vp-onair" id="vpOnAir">
+      <span class="vp-onair-dot"></span>
+      <span class="vp-onair-text">On Air</span>
+    </div>
+
+    <button class="vp-center-btn" id="vpCenterBtn" aria-label="Play video">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M7 4.5v15l13-7.5-13-7.5z" fill="#F2F2F2"/></svg>
+    </button>
+
+    <div class="vp-scrim"></div>
+
+    <div class="vp-controls">
+      <button class="vp-btn" id="vpPlayBtn" aria-label="Play">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="none"><path d="M7 4.5v15l13-7.5-13-7.5z" fill="currentColor"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="none" style="display:none"><rect x="6" y="4" width="4" height="16" fill="currentColor"/><rect x="14" y="4" width="4" height="16" fill="currentColor"/></svg>
+      </button>
+
+      <span class="vp-time current" id="vpCurrent">0:00</span>
+
+      <div class="vp-track-wrap" id="vpTrackWrap">
+        <div class="vp-track" id="vpTrack">
+          <div class="vp-track-buffered" id="vpBuffered"></div>
+          <div class="vp-track-played" id="vpPlayed"></div>
+          <div class="vp-track-handle" id="vpHandle"></div>
+        </div>
+      </div>
+
+      <span class="vp-time duration" id="vpDuration">0:00</span>
+
+      <div class="vp-vol-group" id="vpVolGroup">
+        <button class="vp-btn" id="vpMuteBtn" aria-label="Mute">
+          <svg class="icon-vol-on" viewBox="0 0 24 24" fill="none"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 010 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M19 6a8.5 8.5 0 010 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".6"/></svg>
+          <svg class="icon-vol-off" viewBox="0 0 24 24" fill="none" style="display:none"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <div class="vp-vol-track-wrap">
+          <div class="vp-vol-track" id="vpVolTrack">
+            <div class="vp-vol-fill" id="vpVolFill"></div>
+            <div class="vp-vol-handle" id="vpVolHandle"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="vp-btn" id="vpFsBtn" aria-label="Fullscreen">
+        <svg class="icon-fs-open" viewBox="0 0 24 24" fill="none"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="icon-fs-close" viewBox="0 0 24 24" fill="none" style="display:none"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="proj-wrap">
+  <div class="proj-meta-row">
+    <span class="proj-cat-tag">Motion &amp; Broadcast</span>
+  </div>
+  <div class="proj-title">Luis Estrada</div>
+  <div class="proj-client">On-Air Campaign</div>
+
+  <div class="proj-divider"></div>
+
+  <div class="proj-body-grid">
+    <div class="proj-desc">
+      <p>An on-air campaign built around talent Luis Estrada, designed to put a face and a personality behind the broadcast — establishing his presence on-screen before extending it into digital ads and social cuts.</p>
+      <p>The piece pairs on-location footage with a clean motion graphics package, giving the campaign a consistent, recognizable identity across the on-air spot and every platform it was cut down for.</p>
+      <p>Editing and motion design were built to move fast without losing polish — sharp transitions, confident pacing, and graphics that reinforce the talent's name and presence at every turn.</p>
+    </div>
+    <div class="proj-sidebar">
+      <div class="sidebar-block">
+        <div class="sidebar-label">Role</div>
+        <div class="sidebar-value">Art Director · Video Editor</div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Type</div>
+        <div class="sidebar-value">On-Air Campaign</div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Tools</div>
+        <div class="sidebar-tags">
+          <span class="sidebar-tag">After Effects</span>
+          <span class="sidebar-tag">Premiere</span>
+          <span class="sidebar-tag">Photoshop</span>
+          <span class="sidebar-tag">Illustrator</span>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Deliverables</div>
+        <div class="sidebar-value">On-Air Campaign · Motion Graphics Package · Digital Ads · Social Assets</div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Category</div>
+        <div class="sidebar-value">Motion &amp; Broadcast</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="proj-nav">
+  <a href="work-motion.html">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Motion
+  </a>
+  <a href="index.html">
+    Portfolio
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5H12M12 6.5L7 1.5M12 6.5L7 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+
+<footer class="page-footer">
+  <span class="footer-copy">© 2025 Tito Burga</span>
+  <div class="footer-contact">
+    <a href="mailto:titoburgab@gmail.com">titoburgab@gmail.com</a>
+    <a href="https://linkedin.com/in/titoburgab/" target="_blank">linkedin.com/in/titoburgab/</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const player = document.getElementById('vp');
+  const video = document.getElementById('vpVideo');
+  const centerBtn = document.getElementById('vpCenterBtn');
+  const playBtn = document.getElementById('vpPlayBtn');
+  const onAir = document.getElementById('vpOnAir');
+  const currentEl = document.getElementById('vpCurrent');
+  const durationEl = document.getElementById('vpDuration');
+  const trackWrap = document.getElementById('vpTrackWrap');
+  const played = document.getElementById('vpPlayed');
+  const buffered = document.getElementById('vpBuffered');
+  const handle = document.getElementById('vpHandle');
+  const muteBtn = document.getElementById('vpMuteBtn');
+  const volGroup = document.getElementById('vpVolGroup');
+  const volTrack = document.getElementById('vpVolTrack');
+  const volFill = document.getElementById('vpVolFill');
+  const volHandle = document.getElementById('vpVolHandle');
+  const fsBtn = document.getElementById('vpFsBtn');
+
+  const playIcon = playBtn.querySelector('.icon-play');
+  const pauseIcon = playBtn.querySelector('.icon-pause');
+  const volOnIcon = muteBtn.querySelector('.icon-vol-on');
+  const volOffIcon = muteBtn.querySelector('.icon-vol-off');
+  const fsOpenIcon = fsBtn.querySelector('.icon-fs-open');
+  const fsCloseIcon = fsBtn.querySelector('.icon-fs-close');
+
+  let scrubbing = false;
+  let lastVolume = 1;
+  let hideTimer = null;
+
+  function fmt(t) {
+    if (!isFinite(t) || t < 0) t = 0;
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60).toString().padStart(2, '0');
+    return m + ':' + s;
+  }
+
+  function togglePlay() {
+    if (video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) return;
+    if (video.paused || video.ended) {
+      const p = video.play();
+      if (p && p.catch) p.catch(() => {});
+    } else {
+      video.pause();
+    }
+  }
+
+  centerBtn.addEventListener('click', togglePlay);
+  playBtn.addEventListener('click', togglePlay);
+  video.addEventListener('click', togglePlay);
+
+  video.addEventListener('play', () => {
+    player.classList.add('is-playing');
+    playIcon.style.display = 'none';
+    pauseIcon.style.display = '';
+    onAir.classList.add('show');
+    scheduleHide();
+  });
+
+  video.addEventListener('pause', () => {
+    player.classList.remove('is-playing');
+    playIcon.style.display = '';
+    pauseIcon.style.display = 'none';
+    onAir.classList.remove('show');
+    clearTimeout(hideTimer);
+    player.classList.add('show-controls');
+  });
+
+  video.addEventListener('ended', () => {
+    player.classList.remove('is-playing');
+    onAir.classList.remove('show');
+    player.classList.add('show-controls');
+  });
+
+  video.addEventListener('error', () => {
+    player.classList.remove('is-playing');
+    playIcon.style.display = '';
+    pauseIcon.style.display = 'none';
+    onAir.classList.remove('show');
+    player.classList.add('show-controls');
+  });
+
+  video.addEventListener('loadedmetadata', () => {
+    durationEl.textContent = fmt(video.duration);
+  });
+
+  video.addEventListener('timeupdate', () => {
+    if (scrubbing) return;
+    currentEl.textContent = fmt(video.currentTime);
+    const pct = video.duration ? (video.currentTime / video.duration) * 100 : 0;
+    played.style.width = pct + '%';
+    handle.style.left = pct + '%';
+  });
+
+  video.addEventListener('progress', () => {
+    if (video.buffered.length && video.duration) {
+      const end = video.buffered.end(video.buffered.length - 1);
+      buffered.style.width = (end / video.duration) * 100 + '%';
+    }
+  });
+
+  function ratioFromEvent(e, el) {
+    const rect = el.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    return Math.min(1, Math.max(0, x / rect.width));
+  }
+
+  function seekTo(ratio) {
+    const t = ratio * (video.duration || 0);
+    played.style.width = (ratio * 100) + '%';
+    handle.style.left = (ratio * 100) + '%';
+    currentEl.textContent = fmt(t);
+    video.currentTime = t;
+  }
+
+  trackWrap.addEventListener('pointerdown', (e) => {
+    scrubbing = true;
+    trackWrap.classList.add('scrubbing');
+    seekTo(ratioFromEvent(e, trackWrap));
+    const move = (ev) => seekTo(ratioFromEvent(ev, trackWrap));
+    const up = () => {
+      scrubbing = false;
+      trackWrap.classList.remove('scrubbing');
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  });
+
+  function setVolume(v) {
+    video.volume = v;
+    video.muted = v === 0;
+    volFill.style.width = (v * 100) + '%';
+    volHandle.style.left = (v * 100) + '%';
+    volOnIcon.style.display = v === 0 ? 'none' : '';
+    volOffIcon.style.display = v === 0 ? '' : 'none';
+  }
+  setVolume(1);
+
+  muteBtn.addEventListener('click', () => {
+    if (video.volume > 0) {
+      lastVolume = video.volume;
+      setVolume(0);
+    } else {
+      setVolume(lastVolume || 1);
+    }
+  });
+
+  volTrack.addEventListener('pointerdown', (e) => {
+    volGroup.classList.add('dragging');
+    const apply = (ev) => setVolume(ratioFromEvent(ev, volTrack));
+    apply(e);
+    const up = () => {
+      volGroup.classList.remove('dragging');
+      window.removeEventListener('pointermove', apply);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', apply);
+    window.addEventListener('pointerup', up);
+  });
+
+  fsBtn.addEventListener('click', () => {
+    if (!document.fullscreenElement) player.requestFullscreen();
+    else document.exitFullscreen();
+  });
+
+  document.addEventListener('fullscreenchange', () => {
+    const isFs = !!document.fullscreenElement;
+    fsOpenIcon.style.display = isFs ? 'none' : '';
+    fsCloseIcon.style.display = isFs ? '' : 'none';
+  });
+
+  function scheduleHide() {
+    clearTimeout(hideTimer);
+    if (video.paused) return;
+    hideTimer = setTimeout(() => player.classList.remove('show-controls'), 2600);
+  }
+
+  player.addEventListener('mousemove', () => {
+    player.classList.add('show-controls');
+    scheduleHide();
+  });
+  player.addEventListener('mouseleave', () => {
+    if (!video.paused) player.classList.remove('show-controls');
+  });
+  player.classList.add('show-controls');
+
+  player.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); togglePlay(); }
+    if (e.code === 'ArrowRight') video.currentTime = Math.min(video.duration || 0, video.currentTime + 5);
+    if (e.code === 'ArrowLeft') video.currentTime = Math.max(0, video.currentTime - 5);
+  });
+})();
+</script>
+
+</body>
+</html>

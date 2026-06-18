@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tokyo — Tito Burga</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#1C1C1C; --surface:#202020; --accent:#EF9000; --white:#F2F2F2; --muted:#888; --dim:#555; --line:rgba(255,255,255,0.08); }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-serif; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; background: rgba(28,28,28,.96); backdrop-filter: blur(12px); }
+    .topbar-back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; transition: color .2s; }
+    .topbar-back:hover { color: var(--accent); }
+    .topbar-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .08em; color: var(--white); text-decoration: none; }
+    .topbar-logo span { color: var(--accent); }
+    .topbar-cat { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+    .proj-layout { display: grid; grid-template-columns: 1fr 360px; gap: 72px; align-items: start; max-width: 1200px; margin: 0 auto; padding: 64px 48px 96px; }
+
+    /* ── Left: graphic ────────────────────────────────────────────── */
+    .proj-gallery { display: flex; flex-direction: column; gap: 32px; }
+    .gallery-item { display: flex; flex-direction: column; gap: 12px; }
+    .gallery-card { border-radius: 10px; overflow: hidden; box-shadow: 0 24px 60px -22px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06); transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s; max-width: 460px; }
+    .gallery-card:hover { transform: translateY(-4px); box-shadow: 0 30px 70px -22px rgba(0,0,0,.65), 0 0 0 1px rgba(239,144,0,.18); }
+    .gallery-card img { display: block; width: 100%; height: auto; }
+    .gallery-caption { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); padding-left: 2px; }
+
+    /* ── Right: sticky info column ────────────────────────────────── */
+    .proj-info-col { position: sticky; top: 96px; }
+    .proj-meta-row { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .proj-cat-tag { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(239,144,0,.35); padding: 5px 12px; }
+    .proj-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(34px, 4.4vw, 50px); line-height: .98; letter-spacing: .02em; color: var(--white); margin-bottom: 12px; }
+    .proj-client { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 32px; }
+    .proj-divider { width: 100%; height: 1px; background: var(--line); margin-bottom: 32px; }
+    .proj-desc { font-size: 14px; line-height: 1.8; color: var(--muted); margin-bottom: 40px; }
+    .proj-desc p + p { margin-top: 18px; }
+    .sidebar-block { margin-bottom: 32px; }
+    .sidebar-label { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .sidebar-value { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .sidebar-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sidebar-tag { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); border: 1px solid var(--line); padding: 4px 9px; }
+
+    .proj-nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 48px; border-top: 1px solid var(--line); }
+    .proj-nav a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; transition: color .2s; }
+    .proj-nav a:hover { color: var(--accent); }
+    .page-footer { border-top: 1px solid var(--line); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 11px; color: var(--dim); }
+    .footer-contact { display: flex; gap: 28px; }
+    .footer-contact a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-contact a:hover { color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .proj-layout { grid-template-columns: 1fr; gap: 48px; padding: 48px 24px 64px; }
+      .proj-info-col { position: static; order: -1; }
+      .proj-desc, .proj-client { margin-bottom: 24px; }
+      .gallery-card { max-width: 360px; margin: 0 auto; }
+    }
+    @media (max-width: 600px) {
+      .topbar, .proj-nav, .page-footer { padding-left: 20px; padding-right: 20px; }
+      .page-footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="work-brand.html" class="topbar-back">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Brand &amp; Presentations
+  </a>
+  <a href="index.html" class="topbar-logo">TITO <span>BURGA</span></a>
+  <span class="topbar-cat">09 / 09</span>
+</header>
+
+<div class="proj-layout">
+
+  <div class="proj-gallery">
+    <div class="gallery-item">
+      <div class="gallery-card"><img src="brand_assets/tokyo/tokyopPage.png" alt="TOKYO magazine cover, Asakusa Japan" loading="lazy" /></div>
+      <span class="gallery-caption">Magazine Cover — Asakusa, Japan</span>
+    </div>
+  </div>
+
+  <div class="proj-info-col">
+    <div class="proj-meta-row">
+      <span class="proj-cat-tag">Brand &amp; Presentations</span>
+    </div>
+    <div class="proj-title">Tokyo</div>
+    <div class="proj-client">Kyoday News Paper</div>
+
+    <div class="proj-divider"></div>
+
+    <div class="proj-desc">
+      <p>A magazine cover for Kyoday News Paper, built around a single feature destination — Asakusa, Tokyo — and a typographic treatment bold enough to carry the issue on a newsstand.</p>
+      <p>TOKYO is set in stacked, oversized red type, cropped tight against the page edge so the lettering reads as a graphic shape as much as a word, while a black-and-white photo of Asakusa's temple rooftops anchors the right edge of the page.</p>
+      <p>A vertical "ASAKUSA — JAPAN" kicker runs the height of the cover, giving the layout a second axis and keeping the masthead area open for the publication's own branding.</p>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Role</div>
+      <div class="sidebar-value">Designer</div>
+    </div>
+    <div class="sidebar-block">
+      <div class="sidebar-label">Type</div>
+      <div class="sidebar-value">Magazine Cover</div>
+    </div>
+    <div class="sidebar-block">
+      <div class="sidebar-label">Tools</div>
+      <div class="sidebar-tags">
+        <span class="sidebar-tag">CorelDraw</span>
+      </div>
+    </div>
+    <div class="sidebar-block">
+      <div class="sidebar-label">Deliverables</div>
+      <div class="sidebar-value">Print</div>
+    </div>
+    <div class="sidebar-block">
+      <div class="sidebar-label">Category</div>
+      <div class="sidebar-value">Brand &amp; Presentations</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="proj-nav">
+  <a href="work-brand.html">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Brand
+  </a>
+  <a href="index.html">
+    Portfolio
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5H12M12 6.5L7 1.5M12 6.5L7 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+
+<footer class="page-footer">
+  <span class="footer-copy">© 2025 Tito Burga</span>
+  <div class="footer-contact">
+    <a href="mailto:titoburgab@gmail.com">titoburgab@gmail.com</a>
+    <a href="https://linkedin.com/in/titoburgab/" target="_blank">linkedin.com/in/titoburgab/</a>
+  </div>
+</footer>
+
+</body>
+</html>

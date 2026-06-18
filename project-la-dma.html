@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Los Angeles DMA — Tito Burga</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#1C1C1C; --surface:#202020; --accent:#EF9000; --white:#F2F2F2; --muted:#888; --dim:#555; --line:rgba(255,255,255,0.08); }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-serif; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; background: rgba(28,28,28,.96); backdrop-filter: blur(12px); }
+    .topbar-back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; transition: color .2s; }
+    .topbar-back:hover { color: var(--accent); }
+    .topbar-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .08em; color: var(--white); text-decoration: none; }
+    .topbar-logo span { color: var(--accent); }
+    .topbar-cat { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+    .proj-wrap { max-width: 900px; margin: 0 auto; padding: 64px 48px 0; }
+    .proj-meta-row { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .proj-cat-tag { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(239,144,0,.35); padding: 5px 12px; }
+    .proj-year { font-size: 11px; font-weight: 600; color: var(--dim); letter-spacing: .1em; }
+    .proj-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 72px); line-height: .92; letter-spacing: .02em; color: var(--white); margin-bottom: 12px; }
+    .proj-client { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 48px; }
+    .proj-divider { width: 100%; height: 1px; background: var(--line); margin-bottom: 48px; }
+    .proj-body-grid { display: grid; grid-template-columns: 1fr 320px; gap: 80px; align-items: start; padding-bottom: 96px; }
+    .proj-desc { font-size: 15px; line-height: 1.8; color: var(--muted); }
+    .proj-desc p + p { margin-top: 20px; }
+    .sidebar-block { margin-bottom: 36px; }
+    .sidebar-label { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .sidebar-value { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .sidebar-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sidebar-tag { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); border: 1px solid var(--line); padding: 4px 9px; }
+
+    .proj-nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 48px; border-top: 1px solid var(--line); }
+    .proj-nav a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; transition: color .2s; }
+    .proj-nav a:hover { color: var(--accent); }
+    .page-footer { border-top: 1px solid var(--line); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 11px; color: var(--dim); }
+    .footer-contact { display: flex; gap: 28px; }
+    .footer-contact a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-contact a:hover { color: var(--accent); }
+
+    /* ── Live embed (real deployed deck) ─────────────────────────────── */
+    .deck-live-wrap { max-width: 1100px; margin: 0 auto; padding: 48px 32px 0; }
+    .deck-live-frame { position: relative; width: 100%; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 40px 90px -30px rgba(239,144,0,.16), 0 20px 50px -20px rgba(0,0,0,.6); background: #0D0D1A; }
+    .deck-live-frame iframe { display: block; border: 0; transform-origin: top left; }
+    .deck-live-note { text-align: center; font-size: 10px; letter-spacing: .08em; color: var(--dim); margin-top: 14px; text-transform: uppercase; }
+
+    @media (max-width: 768px) {
+      .proj-body-grid { grid-template-columns: 1fr; gap: 48px; }
+      .proj-wrap { padding: 48px 24px 0; }
+      .topbar, .proj-nav, .page-footer { padding-left: 20px; padding-right: 20px; }
+      .page-footer { flex-direction: column; gap: 12px; text-align: center; }
+      .deck-live-wrap { padding: 28px 16px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="work-brand.html" class="topbar-back">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Brand &amp; Presentations
+  </a>
+  <a href="index.html" class="topbar-logo">TITO <span>BURGA</span></a>
+  <span class="topbar-cat">05 / 09</span>
+</header>
+
+<!-- ══════════════ LIVE INTERACTIVE DECK (HERO) ══════════════ -->
+<div class="deck-live-wrap">
+  <div class="deck-live-frame" id="deckLiveFrame">
+    <iframe id="deckLiveIframe" src="https://remote-emoji-69981741.figma.site" style="width:1280px;height:720px;" title="Los Angeles DMA sales presentation — live interactive version" loading="lazy"></iframe>
+  </div>
+  <p class="deck-live-note">The actual deployed deck — live interactive version</p>
+</div>
+
+<div class="proj-wrap">
+  <div class="proj-meta-row">
+    <span class="proj-cat-tag">Brand &amp; Presentations</span>
+  </div>
+  <div class="proj-title">Los Angeles<br>DMA</div>
+  <div class="proj-client">Ad Sales Presentation Template</div>
+
+  <div class="proj-divider"></div>
+
+  <div class="proj-body-grid">
+    <div class="proj-desc">
+      <p>A market-by-market sales presentation template built to give an ad sales team a fast, confident story for any DMA — starting with Los Angeles, America's #2 media market.</p>
+      <p>The deck leads with scale, then earns the close: market size and audience reach up front, followed by the specific advertising solutions that turn that reach into revenue. Built as a repeatable template, so the same structure can be re-skinned market to market without starting from a blank page each time.</p>
+      <p>Designed and built using Claude for layout, narrative, and content generation, then refined and deployed as a fully interactive site in Figma — an AI-assisted workflow from first draft to finished deck.</p>
+    </div>
+    <div class="proj-sidebar">
+      <div class="sidebar-block">
+        <div class="sidebar-label">Role</div>
+        <div class="sidebar-value">AI Designer</div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Type</div>
+        <div class="sidebar-value">Sales Presentation Template</div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Tools</div>
+        <div class="sidebar-tags">
+          <span class="sidebar-tag">Claude</span>
+          <span class="sidebar-tag">Figma</span>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Deliverables</div>
+        <div class="sidebar-value">Interactive Sales Deck · Market Data Visualization · Brand Narrative</div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Category</div>
+        <div class="sidebar-value">Brand &amp; Presentations</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="proj-nav">
+  <a href="work-brand.html">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Brand
+  </a>
+  <a href="index.html">
+    Portfolio
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5H12M12 6.5L7 1.5M12 6.5L7 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+
+<footer class="page-footer">
+  <span class="footer-copy">© 2025 Tito Burga</span>
+  <div class="footer-contact">
+    <a href="mailto:titoburgab@gmail.com">titoburgab@gmail.com</a>
+    <a href="https://linkedin.com/in/titoburgab/" target="_blank">linkedin.com/in/titoburgab/</a>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var liveFrame = document.getElementById('deckLiveFrame');
+    var liveIframe = document.getElementById('deckLiveIframe');
+    var DESIGN_W = 1280, DESIGN_H = 720;
+
+    function scaleLiveFrame() {
+      var scale = liveFrame.clientWidth / DESIGN_W;
+      liveIframe.style.transform = 'scale(' + scale + ')';
+      liveFrame.style.height = (DESIGN_H * scale) + 'px';
+    }
+
+    window.addEventListener('resize', scaleLiveFrame);
+    scaleLiveFrame();
+  })();
+</script>
+
+</body>
+</html>

@@ -105,13 +105,6 @@
     }
     .proj-card:hover .proj-img img { transform: scale(1.05); filter: grayscale(0%) brightness(1) contrast(1.06); }
 
-    .proj-img-placeholder {
-      width: 100%; height: 100%;
-      background: linear-gradient(135deg, #1e1e1e 0%, #222 50%, #1a1a1a 100%);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .proj-img-placeholder svg { opacity: .12; }
-
     .proj-body {
       padding: 20px 22px 22px;
       border-top: 1px solid var(--line);
@@ -137,8 +130,8 @@
     }
     .proj-card:hover .proj-cta { color: var(--accent); gap: 9px; }
 
-    /* coming soon overlay */
-    .proj-card.coming-soon { pointer-events: none; opacity: .45; }
+    /* full-bleed brand asset thumbnail (poster-style, not cropped) */
+    .proj-img.proj-img-contain img { object-fit: contain; }
 
     /* ── FOOTER ── */
     .page-footer {
@@ -188,7 +181,7 @@
   </div>
   <div class="cat-right">
     <p class="cat-desc">Designing interfaces across web, app, and interactive products — from wireframes and user flows to polished, pixel-perfect deliverables. Every surface serves the user.</p>
-    <div class="cat-count"><span>09</span> Projects</div>
+    <div class="cat-count"><span>08</span> Projects</div>
   </div>
 </div>
 
@@ -208,123 +201,94 @@
       </div>
     </a>
 
-    <!-- 02 -->
-    <a class="proj-card coming-soon" href="#">
-      <div class="proj-img">
-        <div class="proj-img-placeholder">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 14h28M14 14v20" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/></svg>
-        </div>
+    <!-- 02 — Real asset -->
+    <a class="proj-card" href="project-action-news.html">
+      <div class="proj-img proj-img-contain">
+        <img src="brand_assets/action-news/actionNewsCard.png" alt="Action News mobile app" loading="lazy" />
       </div>
       <div class="proj-body">
         <div class="proj-num">02</div>
-        <div class="proj-title">Telemundo — News Mobile App</div>
-        <div class="proj-sub">Mobile UX · Information Architecture</div>
-        <span class="proj-cta">Coming Soon</span>
+        <div class="proj-title">Action News — Mobile News App</div>
+        <div class="proj-sub">UI Design · Mobile Concept</div>
+        <span class="proj-cta">View Project <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 8L8 1M8 1H3M8 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
-    <!-- 03 -->
-    <a class="proj-card coming-soon" href="#">
+    <!-- 03 — Real asset -->
+    <a class="proj-card" href="project-nbc4.html">
       <div class="proj-img">
-        <div class="proj-img-placeholder">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 14h28M14 14v20" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/></svg>
-        </div>
+        <img src="brand_assets/nbc4/nbc4Card.png" alt="NBC4 Landing Page Redesign" loading="lazy" />
       </div>
       <div class="proj-body">
         <div class="proj-num">03</div>
-        <div class="proj-title">8 News Now — Digital Platform</div>
+        <div class="proj-title">NBC4 Landing Page Redesign</div>
         <div class="proj-sub">Web App · UX Strategy</div>
-        <span class="proj-cta">Coming Soon</span>
+        <span class="proj-cta">View Project <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 8L8 1M8 1H3M8 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
     <!-- 04 -->
-    <a class="proj-card coming-soon" href="#">
+    <a class="proj-card" href="project-nbcalories.html">
       <div class="proj-img">
-        <div class="proj-img-placeholder">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 14h28M14 14v20" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/></svg>
-        </div>
+        <img src="brand_assets/nbcalories/nbcaloriesCard.png" alt="NBCalories — Social Good Concept" loading="lazy" />
       </div>
       <div class="proj-body">
         <div class="proj-num">04</div>
-        <div class="proj-title">Gray TV — Content Dashboard</div>
-        <div class="proj-sub">CMS Interface · Design System</div>
-        <span class="proj-cta">Coming Soon</span>
+        <div class="proj-title">NBCalories — Social Good Concept</div>
+        <div class="proj-sub">UX Research · UI Design · Wellness App</div>
+        <span class="proj-cta">View Project <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 8L8 1M8 1H3M8 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
-    <!-- 05 -->
-    <a class="proj-card coming-soon" href="#">
+    <!-- 05 — Real asset -->
+    <a class="proj-card" href="project-cmg.html">
       <div class="proj-img">
-        <div class="proj-img-placeholder">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 14h28M14 14v20" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/></svg>
-        </div>
+        <img src="brand_assets/cmg/cmgCard.png" alt="Cox Media Group — WOKV &amp; Action News Jax" loading="lazy" />
       </div>
       <div class="proj-body">
         <div class="proj-num">05</div>
-        <div class="proj-title">CBS KLASTV — Weather App</div>
-        <div class="proj-sub">Native Mobile · iOS UI</div>
-        <span class="proj-cta">Coming Soon</span>
+        <div class="proj-title">Cox Media Group — WOKV &amp; Action News Jax</div>
+        <div class="proj-sub">UX Research · UI Design · App Redesign</div>
+        <span class="proj-cta">View Project <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 8L8 1M8 1H3M8 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
-    <!-- 06 -->
-    <a class="proj-card coming-soon" href="#">
+    <!-- 06 — Real asset -->
+    <a class="proj-card" href="project-news-radio.html">
       <div class="proj-img">
-        <div class="proj-img-placeholder">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 14h28M14 14v20" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/></svg>
-        </div>
+        <img src="brand_assets/news-radio/newsRadioCard.png" alt="News Radio — Mobile UI Concept" loading="lazy" />
       </div>
       <div class="proj-body">
         <div class="proj-num">06</div>
-        <div class="proj-title">Sinclair Sports — Fan Experience</div>
-        <div class="proj-sub">Engagement Platform · UX</div>
-        <span class="proj-cta">Coming Soon</span>
+        <div class="proj-title">News Radio — Mobile UI Concept</div>
+        <div class="proj-sub">UI Design · Brand Concept</div>
+        <span class="proj-cta">View Project <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 8L8 1M8 1H3M8 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
-    <!-- 07 -->
-    <a class="proj-card coming-soon" href="#">
+    <!-- 07 — Real asset -->
+    <a class="proj-card" href="project-recipe.html">
       <div class="proj-img">
-        <div class="proj-img-placeholder">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 14h28M14 14v20" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/></svg>
-        </div>
+        <img src="brand_assets/recepi/recipeCard.png" alt="The Recipe — International Recipe App" loading="lazy" />
       </div>
       <div class="proj-body">
         <div class="proj-num">07</div>
-        <div class="proj-title">HNN — Mobile News Reader</div>
-        <div class="proj-sub">Bilingual UX · Accessibility</div>
-        <span class="proj-cta">Coming Soon</span>
+        <div class="proj-title">The Recipe — International Recipe App</div>
+        <div class="proj-sub">UI Design · Mobile Concept</div>
+        <span class="proj-cta">View Project <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 8L8 1M8 1H3M8 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
-    <!-- 08 -->
-    <a class="proj-card coming-soon" href="#">
+    <!-- 08 — Real asset -->
+    <a class="proj-card" href="project-chelsea.html">
       <div class="proj-img">
-        <div class="proj-img-placeholder">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 14h28M14 14v20" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/></svg>
-        </div>
+        <img src="brand_assets/chealse/chealseCard.png" alt="Chelsea FC — Website Redesign Concept" loading="lazy" />
       </div>
       <div class="proj-body">
         <div class="proj-num">08</div>
-        <div class="proj-title">Cox Media — Campaign Portal</div>
-        <div class="proj-sub">Internal Tool · UI Design</div>
-        <span class="proj-cta">Coming Soon</span>
-      </div>
-    </a>
-
-    <!-- 09 -->
-    <a class="proj-card coming-soon" href="#">
-      <div class="proj-img">
-        <div class="proj-img-placeholder">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" rx="2" stroke="#EF9000" stroke-width="1.5"/><path d="M6 14h28M14 14v20" stroke="#EF9000" stroke-width="1.3" stroke-linecap="round"/></svg>
-        </div>
-      </div>
-      <div class="proj-body">
-        <div class="proj-num">09</div>
-        <div class="proj-title">Newsroom Pro — Internal Tool</div>
-        <div class="proj-sub">Workflow UX · Dashboard Design</div>
-        <span class="proj-cta">Coming Soon</span>
+        <div class="proj-title">Chelsea FC — Website Redesign Concept</div>
+        <div class="proj-sub">UI Design · Web Concept</div>
+        <span class="proj-cta">View Project <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 8L8 1M8 1H3M8 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 

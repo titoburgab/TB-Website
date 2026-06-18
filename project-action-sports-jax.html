@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Action Sports Jax — Tito Burga</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#1C1C1C; --surface:#202020; --accent:#EF9000; --white:#F2F2F2; --muted:#888; --dim:#555; --line:rgba(255,255,255,0.08); }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-serif; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; background: rgba(28,28,28,.96); backdrop-filter: blur(12px); }
+    .topbar-back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; transition: color .2s; }
+    .topbar-back:hover { color: var(--accent); }
+    .topbar-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .08em; color: var(--white); text-decoration: none; }
+    .topbar-logo span { color: var(--accent); }
+    .topbar-cat { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+    /* Flex-centered, dark letterbox band: the still is capped at its native resolution so it's never upscaled past real resolution. */
+    .proj-hero { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 56px 24px 0; background: #0a0a0a; }
+
+    .logo-frame { position: relative; width: 100%; max-width: 1280px; aspect-ratio: 16/9; background: #0a0a0a; border-radius: 6px; overflow: hidden; box-shadow: 0 30px 70px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.05); }
+    .logo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .logo-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,.38) 100%); }
+
+    .lf-corner { position: absolute; width: 22px; height: 22px; border: 0 solid var(--accent); opacity: .4; transform: scale(.96); transition: opacity .35s ease, transform .35s cubic-bezier(.34,1.56,.64,1); pointer-events: none; }
+    .lf-corner.tl { top: 18px; left: 18px; border-width: 2px 0 0 2px; }
+    .lf-corner.tr { top: 18px; right: 18px; border-width: 2px 2px 0 0; }
+    .lf-corner.bl { bottom: 18px; left: 18px; border-width: 0 0 2px 2px; }
+    .lf-corner.br { bottom: 18px; right: 18px; border-width: 0 2px 2px 0; }
+    .logo-frame:hover .lf-corner { opacity: .9; transform: scale(1); }
+
+    .hero-caption { text-align: center; font-size: 10px; letter-spacing: .08em; color: var(--dim); margin: 18px 0 0; text-transform: uppercase; padding-bottom: 56px; }
+
+    .proj-wrap { max-width: 900px; margin: 0 auto; padding: 64px 48px 96px; }
+    .proj-meta-row { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .proj-cat-tag { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(239,144,0,.35); padding: 5px 12px; }
+    .proj-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 72px); line-height: .92; letter-spacing: .02em; color: var(--white); margin-bottom: 12px; }
+    .proj-client { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 48px; }
+    .proj-divider { width: 100%; height: 1px; background: var(--line); margin-bottom: 48px; }
+    .proj-body-grid { display: grid; grid-template-columns: 1fr 320px; gap: 80px; align-items: start; }
+    .proj-desc { font-size: 15px; line-height: 1.8; color: var(--muted); }
+    .proj-desc p + p { margin-top: 20px; }
+    .sidebar-block { margin-bottom: 36px; }
+    .sidebar-label { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .sidebar-value { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .sidebar-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sidebar-tag { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); border: 1px solid var(--line); padding: 4px 9px; }
+
+    .proj-nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 48px; border-top: 1px solid var(--line); }
+    .proj-nav a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; transition: color .2s; }
+    .proj-nav a:hover { color: var(--accent); }
+    .page-footer { border-top: 1px solid var(--line); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 11px; color: var(--dim); }
+    .footer-contact { display: flex; gap: 28px; }
+    .footer-contact a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-contact a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) { .proj-body-grid { grid-template-columns: 1fr; gap: 48px; } .proj-wrap { padding: 48px 24px 64px; } .topbar, .proj-nav, .page-footer { padding-left: 20px; padding-right: 20px; } .page-footer { flex-direction: column; gap: 12px; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="work-brand.html" class="topbar-back">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Brand &amp; Presentations
+  </a>
+  <a href="index.html" class="topbar-logo">TITO <span>BURGA</span></a>
+  <span class="topbar-cat">02 / 09</span>
+</header>
+
+<div class="proj-hero">
+  <div class="logo-frame">
+    <img src="brand_assets/action-sports-jax/actionSportsJax.jpg" alt="Action Sports Jax logo design — chrome shield badge with amber accents" />
+    <span class="lf-corner tl"></span>
+    <span class="lf-corner tr"></span>
+    <span class="lf-corner bl"></span>
+    <span class="lf-corner br"></span>
+  </div>
+  <p class="hero-caption">Final on-air logo lockup — modeled and rendered in Cinema 4D</p>
+</div>
+
+<div class="proj-wrap">
+  <div class="proj-meta-row">
+    <span class="proj-cat-tag">Brand &amp; Presentations</span>
+  </div>
+  <div class="proj-title">Action Sports Jax</div>
+  <div class="proj-client">Action News Jax</div>
+
+  <div class="proj-divider"></div>
+
+  <div class="proj-body-grid">
+    <div class="proj-desc">
+      <p>A show identity for Action News Jax's daily sports highlights segment — a chrome-and-amber badge built to read instantly at broadcast size, whether it's filling a full bug or shrinking into a corner lower-third.</p>
+      <p>The mark was modeled and rendered entirely in Cinema 4D: a beveled steel shield, dimensional lettering, and a layered amber-and-graphite color story that reads athletic without leaning on any single team's colors — built to sit comfortably across every franchise the segment covers.</p>
+      <p>The logo anchors a full on-air campaign, extended into a motion graphics package, digital ads, and social assets, all built from the same dimensional language established here.</p>
+    </div>
+    <div class="proj-sidebar">
+      <div class="sidebar-block">
+        <div class="sidebar-label">Role</div>
+        <div class="sidebar-value">Art Director</div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Type</div>
+        <div class="sidebar-value">Logo Design</div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Tools</div>
+        <div class="sidebar-tags">
+          <span class="sidebar-tag">C4D</span>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Deliverables</div>
+        <div class="sidebar-value">On-Air Campaign · Motion Graphics Package · Digital Ads · Social Assets</div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Category</div>
+        <div class="sidebar-value">Brand &amp; Presentations</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="proj-nav">
+  <a href="work-brand.html">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Brand
+  </a>
+  <a href="index.html">
+    Portfolio
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5H12M12 6.5L7 1.5M12 6.5L7 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+
+<footer class="page-footer">
+  <span class="footer-copy">© 2025 Tito Burga</span>
+  <div class="footer-contact">
+    <a href="mailto:titoburgab@gmail.com">titoburgab@gmail.com</a>
+    <a href="https://linkedin.com/in/titoburgab/" target="_blank">linkedin.com/in/titoburgab/</a>
+  </div>
+</footer>
+
+</body>
+</html>

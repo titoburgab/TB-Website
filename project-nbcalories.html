@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NBCalories — Social Good UX Case Study — Tito Burga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: #080808; font-family: 'Roboto', sans-serif; }
+
+  /* ── PORTFOLIO TOPBAR ── */
+  .topbar { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: rgba(8,8,8,.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.06); }
+  .topbar-back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: #888; font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; transition: color .2s; }
+  .topbar-back:hover { color: #EF9000; }
+  .topbar-back svg { width: 14px; height: 14px; }
+  .topbar-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .08em; color: #F5F4F0; text-decoration: none; }
+  .topbar-logo span { color: #EF9000; }
+  .topbar-counter { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #555; }
+
+  .nbcal-page { font-family: 'Roboto', sans-serif; background: #e9e9e9; padding: 0 0 56px; }
+
+  /* ── HERO ── */
+  .nbcal-hero { width: 100%; background: #40bcee; display: flex; flex-direction: column; align-items: center; padding: 48px 24px 44px; text-align: center; }
+  .nbcal-hero img { width: 100%; max-width: 820px; display: block; }
+  .nbcal-hero-tag { color: #222; font-size: clamp(22px, 3.4vw, 32px); font-weight: 400; margin-top: 20px; }
+  .nbcal-hero-author { color: #222; font-size: 15px; font-weight: 400; margin-top: 8px; }
+
+  /* ── META ROW ── */
+  .meta-row-wrap { display: flex; justify-content: center; padding: 40px 24px 0; }
+  .meta-row { width: 100%; max-width: 1376px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .meta-card { background: #fff; border-radius: 24px; box-shadow: 0 0 30px rgba(0,0,0,.05); padding: 28px 24px; text-align: center; }
+  .meta-label { font-size: 22px; font-weight: 800; color: #010101; margin-bottom: 14px; }
+  .meta-value { font-size: 18px; font-weight: 300; color: #010101; line-height: 1.5; }
+  .meta-card img { width: 36px; height: 54px; object-fit: contain; margin: 0 auto; display: block; }
+
+  /* ── CHAPTER CARD ── */
+  .chapter-wrap { display: flex; justify-content: center; padding: 24px 24px 0; }
+  .chapter-card { width: 100%; max-width: 1376px; background: #f7f7f7; border-radius: 28px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,.06); }
+  .chapter-band { background: #40bcee; padding: 24px 24px; text-align: center; }
+  .chapter-band-title { color: #fff; font-size: clamp(24px, 3.4vw, 36px); font-weight: 800; letter-spacing: .01em; }
+  .chapter-body { padding: 56px 48px 64px; }
+
+  .cs-block { margin-bottom: 56px; }
+  .cs-block:last-child { margin-bottom: 0; }
+  .eyebrow { display: inline-block; font-size: 13px; color: rgba(0,0,0,.32); margin-bottom: 6px; }
+  .cs-heading { font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; color: #010101; margin-bottom: 16px; }
+  .cs-heading.accent { color: #00a8d8; }
+  .cs-body { font-size: clamp(14px, 1.5vw, 16px); line-height: 1.75; color: #2b2b2b; max-width: 1120px; }
+  .cs-body + .cs-body { margin-top: 14px; }
+
+  /* ── PAIN POINTS / NUMBERED CIRCLES ── */
+  .circle-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
+  .num-circle { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 900; color: #fff; margin: 0 auto 18px; }
+  .circle-text { font-size: 15px; line-height: 1.6; color: #2b2b2b; }
+
+  /* ── STAT RINGS (single value) ── */
+  .ring-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px 32px; margin-top: 8px; text-align: center; }
+  .stat-ring { width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 16px; background: conic-gradient(#40bcee calc(var(--pct) * 1%), #e3e3e3 0); display: flex; align-items: center; justify-content: center; position: relative; }
+  .stat-ring::before { content: ''; position: absolute; inset: 14px; border-radius: 50%; background: #f7f7f7; }
+  .stat-ring-value { position: relative; z-index: 1; font-size: 24px; font-weight: 800; color: #010101; }
+  .ring-label { font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #010101; }
+
+  /* ── LEGEND CARDS (multi-segment stats) ── */
+  .legend-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 8px; }
+  .legend-card { background: #fff; border-radius: 18px; padding: 22px 24px; box-shadow: 0 4px 16px rgba(0,0,0,.05); }
+  .legend-title { font-size: 13px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #010101; margin-bottom: 14px; }
+  .legend-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid #eee; font-size: 13px; color: #333; }
+  .legend-row:last-child { border-bottom: none; }
+  .legend-row strong { color: #00a8d8; font-weight: 700; }
+
+  /* ── PERSONA ── */
+  .persona-card { background: #fff; border-radius: 18px; box-shadow: 0 4px 20px rgba(0,0,0,.06); padding: 40px; display: grid; grid-template-columns: 240px 1fr 1fr; gap: 36px; }
+  .persona-photo { width: 240px; height: 240px; border: 5px solid #40bcee; object-fit: cover; display: block; }
+  .persona-id { grid-column: 1; }
+  .persona-name { font-size: 22px; font-weight: 800; color: #010101; margin-top: 14px; text-align: center; }
+  .persona-facts { margin-top: 20px; font-size: 14px; line-height: 1.9; }
+  .persona-facts div { display: flex; justify-content: space-between; gap: 12px; }
+  .persona-facts strong { font-weight: 700; color: #010101; }
+  .persona-facts span.val { color: #555; }
+  .persona-main { grid-column: 2 / 4; }
+  .persona-quote { background: #40bcee; color: #fff; font-size: clamp(18px, 2.4vw, 26px); font-weight: 700; text-align: center; text-transform: uppercase; padding: 24px 28px; border-radius: 4px; margin-bottom: 28px; }
+  .persona-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 24px; }
+  .persona-col-title { font-size: 18px; font-weight: 800; text-transform: uppercase; color: #010101; margin-bottom: 10px; }
+  .persona-col-text { font-size: 14px; line-height: 1.7; color: #2b2b2b; }
+  .persona-bio { font-size: 15px; line-height: 1.7; color: #2b2b2b; }
+  @media (max-width: 860px) {
+    .persona-card { grid-template-columns: 1fr; }
+    .persona-photo { width: 100%; height: 220px; }
+    .persona-main { grid-column: 1; }
+    .persona-cols { grid-template-columns: 1fr; }
+  }
+
+  /* ── JOURNEY TABLE ── */
+  .journey-table-wrap { overflow-x: auto; border: 1px solid #000; background: #fff; }
+  .journey-table { width: 100%; border-collapse: collapse; font-size: clamp(11px, 1.2vw, 13px); min-width: 760px; }
+  .journey-table th { background: rgba(0,0,0,.05); padding: 12px 10px; text-align: center; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .03em; border: 1px solid rgba(0,0,0,.1); color: #000; }
+  .journey-table td { padding: 12px 10px; border: 1px solid rgba(0,0,0,.1); color: #000; font-size: 12px; vertical-align: top; }
+  .journey-table td:first-child { background: #f2f2f2; font-weight: 700; text-align: center; }
+
+  /* ── STATEMENTS ── */
+  .statements-grid { display: flex; flex-direction: column; gap: 28px; margin-top: 36px; }
+  .statement-label { font-size: clamp(15px, 1.8vw, 19px); font-weight: 800; text-transform: uppercase; color: #010101; margin-bottom: 8px; }
+  .statement-text { font-size: clamp(14px, 1.6vw, 16px); font-weight: 300; color: #2b2b2b; line-height: 1.7; }
+
+  /* ── WHITE CARD (wireframes / mockups containers) ── */
+  .white-card { background: #fff; border-radius: 14px; box-shadow: 0 4px 18px rgba(0,0,0,.07); padding: 32px; margin-top: 24px; }
+  .white-card-label { font-size: 13px; color: rgba(0,0,0,.3); margin-bottom: 16px; }
+  .wireframe-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .wireframe-pair img { width: 100%; display: block; border-radius: 4px; }
+  @media (max-width: 760px) { .wireframe-pair { grid-template-columns: 1fr; } }
+  .paper-wireframe-img { display: block; margin: 0 auto; max-width: 1100px; width: 100%; border-radius: 4px; }
+
+  /* ── USABILITY ROUNDS ── */
+  .usability-rounds { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 32px; }
+  .usability-round { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.05); }
+  .round-header-bar { padding: 16px 20px; font-size: 17px; font-weight: 800; color: #fff; }
+  .round-findings { padding: 22px 20px; display: flex; flex-direction: column; gap: 18px; }
+  .round-finding { display: flex; align-items: flex-start; gap: 14px; }
+  .round-finding-num { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: #fff; flex-shrink: 0; }
+  .round-finding-text { font-size: 14px; color: #2b2b2b; line-height: 1.6; padding-top: 4px; }
+  @media (max-width: 760px) { .usability-rounds { grid-template-columns: 1fr; } }
+
+  /* ── MOCKUP GALLERIES ── */
+  .mockup-mobile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 620px; margin: 0 auto; }
+  .mockup-mobile-grid img { width: 100%; border-radius: 12px; box-shadow: 0 10px 26px rgba(0,0,0,.18); display: block; }
+  .mockup-web-stack { display: flex; flex-direction: column; gap: 24px; }
+  .mockup-web-stack img { width: 100%; border-radius: 6px; box-shadow: 0 10px 26px rgba(0,0,0,.12); display: block; }
+  .proto-link { font-size: 14px; font-weight: 700; color: #00a8d8; }
+  .proto-note { font-size: 14px; font-style: italic; color: #777; }
+
+  /* ── STYLE GUIDE IMAGES ── */
+  .styleguide-img-wrap { display: flex; justify-content: center; background: #fff; border-radius: 14px; padding: 28px; box-shadow: 0 4px 16px rgba(0,0,0,.05); margin-top: 16px; }
+  .styleguide-img-wrap img { max-width: 100%; height: auto; display: block; }
+
+  /* ── USABILITY CONSIDERATIONS / NEXT STEPS CARDS ── */
+  .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+  .info-card { background: #fff; padding: 28px; position: relative; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,.05); }
+  .info-card-num { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: #fff; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); }
+  .info-card-content { margin-top: 22px; }
+  .info-card-title { font-size: 16px; font-weight: 800; text-transform: uppercase; color: #010101; margin-bottom: 8px; }
+  .info-card-text { font-size: 14px; color: #2b2b2b; line-height: 1.6; }
+  @media (max-width: 900px) { .cards-3, .circle-row, .ring-grid, .legend-grid { grid-template-columns: 1fr; } }
+
+  /* ── IMPACT QUOTE ── */
+  .impact-quote { font-size: clamp(14px, 1.6vw, 17px); font-style: italic; color: #555; line-height: 1.7; border-left: 3px solid #40bcee; padding-left: 20px; margin-top: 18px; }
+
+  .thank-you { font-size: clamp(32px, 5vw, 56px); font-weight: 800; color: rgba(0,0,0,.28); letter-spacing: .02em; text-transform: uppercase; }
+
+  /* ── BOTTOM NAV ── */
+  .cs-bottom-nav { background: #080808; display: flex; align-items: center; justify-content: space-between; padding: 32px 48px; border-top: 1px solid rgba(255,255,255,.06); }
+  .cs-nav-link { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: #888; font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; transition: color .2s; }
+  .cs-nav-link:hover { color: #EF9000; }
+
+  @media (max-width: 1024px) { .meta-row { grid-template-columns: 1fr; } .persona-card { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) {
+    .topbar { padding: 16px 20px; }
+    .chapter-body { padding: 40px 22px 48px; }
+    .cs-bottom-nav { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="topbar-back" href="work-ux-ui.html">
+    <svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    UX &amp; UI Design
+  </a>
+  <a class="topbar-logo" href="index.html">TITO <span>BURGA</span></a>
+  <span class="topbar-counter">04 / 08</span>
+</nav>
+
+<main class="nbcal-page">
+
+  <section class="nbcal-hero">
+    <img src="brand_assets/nbcalories/nbcaloriesCard.png" alt="NBCalories logo" />
+    <div class="nbcal-hero-tag">SOCIAL GOOD UX CASE STUDY</div>
+    <div class="nbcal-hero-author">TITO BURGA</div>
+  </section>
+
+  <div class="meta-row-wrap">
+    <div class="meta-row">
+      <div class="meta-card">
+        <div class="meta-label">ROLE</div>
+        <div class="meta-value">UX Design<br>UX Research</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-label">DATE</div>
+        <div class="meta-value">June - July</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-label">APP</div>
+        <img src="brand_assets/nbcalories/figma-icon.svg" alt="Figma" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ CHAPTER 1 — PROJECT OVERVIEW ════════ -->
+  <div class="chapter-wrap">
+    <div class="chapter-card">
+      <div class="chapter-band"><div class="chapter-band-title">Project Overview</div></div>
+      <div class="chapter-body">
+
+        <div class="cs-block">
+          <h3 class="cs-heading">The Product</h3>
+          <p class="cs-body">This application aims to reward those employees who practice some physical exercise or sport with recognition points based on the number of calories burned or distance traveled. These points will be sent to the NBCUniversal THX app, where they can be shared or used as a reward.</p>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">The Goal</h3>
+          <p class="cs-body">Sport is a great tool that brings essential benefits to those who practice it. For this reason, the main goal of this application is to promote to employees a healthy lifestyle, encouraging and rewarding when they are practicing a sport, individually or in groups.</p>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Responsabilities</h3>
+          <p class="cs-body">Plan and conduct user research. Interpret data and qualitive feedback. Create user stories, personas, and storyboards. Determine information architecture and create sitemaps. Create wireframes HI-FI and prototypes. Conduct usability testing.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ CHAPTER 2 — UNDERSTANDING THE USER ════════ -->
+  <div class="chapter-wrap">
+    <div class="chapter-card">
+      <div class="chapter-band"><div class="chapter-band-title">Understanding the User</div></div>
+      <div class="chapter-body">
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Summary</h3>
+          <p class="cs-body">I interviewed six people from the NBC-Telemundo station group. These potential users are between the ages of 20 - 52. These users would like to be rewarded or motivated by the company to exercise. The information collected took three weeks to understand the possible incentives based on their needs.</p>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Survey Findings</h3>
+          <div class="legend-grid">
+            <div class="legend-card">
+              <div class="legend-title">Age Average</div>
+              <div class="legend-row"><span>20–30</span><strong>21%</strong></div>
+              <div class="legend-row"><span>30–40</span><strong>37%</strong></div>
+              <div class="legend-row"><span>40–50</span><strong>40%</strong></div>
+              <div class="legend-row"><span>50+</span><strong>2%</strong></div>
+            </div>
+            <div class="legend-card">
+              <div class="legend-title">Gender</div>
+              <div class="legend-row"><span>Male</span><strong>50%</strong></div>
+              <div class="legend-row"><span>Female</span><strong>40%</strong></div>
+              <div class="legend-row"><span>Other</span><strong>10%</strong></div>
+            </div>
+            <div class="legend-card">
+              <div class="legend-title">Exercise Time / Monthly</div>
+              <div class="legend-row"><span>8+ hrs</span><strong>52%</strong></div>
+              <div class="legend-row"><span>7–8 hrs</span><strong>21%</strong></div>
+              <div class="legend-row"><span>6–7 hrs</span><strong>18%</strong></div>
+              <div class="legend-row"><span>5–6 hrs</span><strong>9%</strong></div>
+            </div>
+            <div class="legend-card">
+              <div class="legend-title">Exercise Alone or in Group</div>
+              <div class="legend-row"><span>Alone</span><strong>59%</strong></div>
+              <div class="legend-row"><span>Group</span><strong>41%</strong></div>
+            </div>
+            <div class="legend-card">
+              <div class="legend-title">Use an App</div>
+              <div class="legend-row"><span>Yes</span><strong>71%</strong></div>
+              <div class="legend-row"><span>No</span><strong>29%</strong></div>
+            </div>
+            <div class="legend-card">
+              <div class="legend-title">Use Voice Assistant</div>
+              <div class="legend-row"><span>Yes</span><strong>18%</strong></div>
+              <div class="legend-row"><span>No</span><strong>82%</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Motivation to Do Exercises</h3>
+          <div class="ring-grid">
+            <div>
+              <div class="stat-ring" style="--pct:75"><span class="stat-ring-value">75%</span></div>
+              <div class="ring-label">Stay Healthy</div>
+            </div>
+            <div>
+              <div class="stat-ring" style="--pct:60"><span class="stat-ring-value">60%</span></div>
+              <div class="ring-label">Improve Lifestyle</div>
+            </div>
+            <div>
+              <div class="stat-ring" style="--pct:50"><span class="stat-ring-value">50%</span></div>
+              <div class="ring-label">Reduce Stress</div>
+            </div>
+            <div>
+              <div class="stat-ring" style="--pct:30"><span class="stat-ring-value">30%</span></div>
+              <div class="ring-label">Staying Fit</div>
+            </div>
+            <div>
+              <div class="stat-ring" style="--pct:28"><span class="stat-ring-value">28%</span></div>
+              <div class="ring-label">Lose Weight</div>
+            </div>
+            <div>
+              <div class="stat-ring" style="--pct:18"><span class="stat-ring-value">18%</span></div>
+              <div class="ring-label">Have Fun</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Pain Points</h3>
+          <div class="circle-row">
+            <div>
+              <div class="num-circle" style="background:#40bcee;">1</div>
+              <p class="circle-text">No Motivation</p>
+            </div>
+            <div>
+              <div class="num-circle" style="background:#74ec03;">2</div>
+              <p class="circle-text">Stress</p>
+            </div>
+            <div>
+              <div class="num-circle" style="background:#40bcee;">3</div>
+              <p class="circle-text">No time.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <span class="eyebrow">web app</span>
+          <h3 class="cs-heading">Personas</h3>
+          <div class="persona-card">
+            <div class="persona-id">
+              <img class="persona-photo" src="brand_assets/nbcalories/persona-michael.png" alt="Michael persona" />
+              <div class="persona-name">MICHAEL</div>
+              <div class="persona-facts">
+                <div><strong>Age:</strong><span class="val">35</span></div>
+                <div><strong>Education:</strong><span class="val">Bachelor's Degree</span></div>
+                <div><strong>Hometown:</strong><span class="val">Los Angeles, CA</span></div>
+                <div><strong>Family:</strong><span class="val">Single</span></div>
+                <div><strong>Occupation:</strong><span class="val">News Photographer</span></div>
+              </div>
+            </div>
+            <div class="persona-main">
+              <div class="persona-quote">"Get a jump on your day"</div>
+              <div class="persona-cols">
+                <div>
+                  <div class="persona-col-title">Goals</div>
+                  <p class="persona-col-text">Stay healthy. Exercise more times a week. Reduce stress. A good balance between work and personal life.</p>
+                </div>
+                <div>
+                  <div class="persona-col-title">Frustations</div>
+                  <p class="persona-col-text">Exercise without motivation. No rewards in apps. Lack of automation in apps. No exercise culture at work.</p>
+                </div>
+              </div>
+              <p class="persona-bio">Michael is a Marketing Account Executive who likes to travel and go shopping. He exercises three days a week to stay healthy and reduces stress. He is always looking for motivation to exercise and wants to run in a group.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <span class="eyebrow">web app</span>
+          <h3 class="cs-heading">User Journey Map</h3>
+          <div class="journey-table-wrap">
+            <table class="journey-table">
+              <thead>
+                <tr>
+                  <th>ACTION</th>
+                  <th>WEBSITE / LOGIN</th>
+                  <th>DATA</th>
+                  <th>TRANSFER POINTS TO THX</th>
+                  <th>WHERE TO SEND POINTS</th>
+                  <th>OPTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TASK LIST</td>
+                  <td>Type link in browser. Type user name and password.</td>
+                  <td>Read all the data obtained from the exercise performed.</td>
+                  <td>Click transfer points button.</td>
+                  <td>Select Send or Earned points. Click send button.</td>
+                  <td>Select tips, couching or diet.</td>
+                </tr>
+                <tr>
+                  <td>FEELING ADJECTIVE</td>
+                  <td>Curiosity.</td>
+                  <td>Exited. Confused.</td>
+                  <td>Exited.</td>
+                  <td>Exited.</td>
+                  <td>Exited.</td>
+                </tr>
+                <tr>
+                  <td>IMPROVEMENT OPORTUNITIES</td>
+                  <td>Link SSO number.</td>
+                  <td>Keep inoformation simple. Language option.</td>
+                  <td>Standout button. Language option.</td>
+                  <td>Clear call to action. Language option.</td>
+                  <td>Friendly navigation.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="statements-grid">
+            <div>
+              <p class="statement-label">Problem Statement</p>
+              <p class="statement-text">Michael is a News Photographer at NBCUniversal who likes to exercise because he wants to stay healthy, reduce stress, and be motivated.</p>
+            </div>
+            <div>
+              <p class="statement-label">If / Then Statement</p>
+              <p class="statement-text">If Michael gets points every time he does exercise then he will be motivated, stay healthy and reduce stress.</p>
+            </div>
+            <div>
+              <p class="statement-label">Goal Statement</p>
+              <p class="statement-text">Our NBCalories app will let users do exercise which will affect people <strong>WHO</strong> like to be motivated and stay healthy and reduce stress by <strong>A</strong> reward points program. We will measure effectiveness by <strong>TRACKING</strong> users' behaviors <strong>THROUGH THE</strong> website.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <span class="eyebrow">mobile app</span>
+          <h3 class="cs-heading">Personas</h3>
+          <div class="persona-card">
+            <div class="persona-id">
+              <img class="persona-photo" src="brand_assets/nbcalories/persona-fabiola.png" alt="Fabiola persona" />
+              <div class="persona-name">FABIOLA</div>
+              <div class="persona-facts">
+                <div><strong>Age:</strong><span class="val">40</span></div>
+                <div><strong>Education:</strong><span class="val">Bachelor's Degree</span></div>
+                <div><strong>Hometown:</strong><span class="val">Miami, FL</span></div>
+                <div><strong>Family:</strong><span class="val">Married</span></div>
+                <div><strong>Occupation:</strong><span class="val">Account Executive</span></div>
+              </div>
+            </div>
+            <div class="persona-main">
+              <div class="persona-quote">"The only bad workout is no workout."</div>
+              <div class="persona-cols">
+                <div>
+                  <div class="persona-col-title">Goals</div>
+                  <p class="persona-col-text">Socialize. Increase exercise time. Reduce stress. Reduce your risk of heart diseases.</p>
+                </div>
+                <div>
+                  <div class="persona-col-title">Frustations</div>
+                  <p class="persona-col-text">Lack of motivation. Don't see results. Lack of automation in apps. No instructor. Too much data.</p>
+                </div>
+              </div>
+              <p class="persona-bio">Fabiola is an Account Executive who loves sports, especially soccer. She runs 3 miles every morning before going to work and would love advice on improving her run timing. Receiving an incentive per mile she runs would be a great motivation.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <span class="eyebrow">mobile app</span>
+          <h3 class="cs-heading">User Journey Map</h3>
+          <div class="journey-table-wrap">
+            <table class="journey-table">
+              <thead>
+                <tr>
+                  <th>ACTION</th>
+                  <th>OPEN APP</th>
+                  <th>EXERCISE</th>
+                  <th>DATA</th>
+                  <th>TRANSFER POINTS TO THX</th>
+                  <th>WHERE TO SEND POINTS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TASK LIST</td>
+                  <td>Find icon</td>
+                  <td>Select a type of exercise.</td>
+                  <td>Read all the data obtained from the exercise performed.</td>
+                  <td>Click transfer points button.</td>
+                  <td>Select Send or Earned points. Click send button.</td>
+                </tr>
+                <tr>
+                  <td>FEELING ADJECTIVE</td>
+                  <td>Curiosity.</td>
+                  <td>Exited. Confused.</td>
+                  <td>Exited. Confused.</td>
+                  <td>Exited.</td>
+                  <td>Exited.</td>
+                </tr>
+                <tr>
+                  <td>IMPROVEMENT OPORTUNITIES</td>
+                  <td>Link SSO number.</td>
+                  <td>Keep inoformation simple. Language option.</td>
+                  <td>Keep inoformation simple. Language option.</td>
+                  <td>Standout button. Language option.</td>
+                  <td>Clear call to action. Language option.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="statements-grid">
+            <div>
+              <p class="statement-label">Problem Statement</p>
+              <p class="statement-text">Fabiola is a Marketing Account Executive at NBCUniversal who likes to exercise because she wants to stay healthy, socializes, be motivated, and increase exercise time.</p>
+            </div>
+            <div>
+              <p class="statement-label">If / Then Statement</p>
+              <p class="statement-text">If Fabiola gets points every time she runs then she will be motivated, stay healthy, and increases her exercise time.</p>
+            </div>
+            <div>
+              <p class="statement-label">Goal Statement</p>
+              <p class="statement-text">Our NBCalories app will let users do exercise, which will affect people <strong>WHO</strong> like to be motivated and stay healthy, reduce stress, and improve their lifestyle by <strong>A</strong> reward points program. We will measure effectiveness by <strong>TRACKING</strong> users' behaviors <strong>THROUGH THE</strong> website.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ CHAPTER 3 — STARTING DESIGN ════════ -->
+  <div class="chapter-wrap">
+    <div class="chapter-card">
+      <div class="chapter-band"><div class="chapter-band-title">Starting Design</div></div>
+      <div class="chapter-body">
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Paper Wireframe</h3>
+          <p class="cs-body">After gathering the information and making the app map, it was time to focus on the experience itself by developing the paper wireframes. The main objective was to test some options for the community experience in this phase.</p>
+          <div class="white-card">
+            <div class="white-card-label">web app</div>
+            <img class="paper-wireframe-img" src="brand_assets/nbcalories/webApp.png" alt="Paper wireframe — web app" />
+          </div>
+          <div class="white-card">
+            <div class="white-card-label">mobile app</div>
+            <img class="paper-wireframe-img" src="brand_assets/nbcalories/wireframeMobile.png" alt="Paper wireframe — mobile app" />
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Digital Wireframe</h3>
+          <p class="cs-body">This digital wireframe was worked several times before come to this because I was always considering new features, new paths, new categories that could turn the user experience more pleasant as well as comply with the problem statement.</p>
+          <div class="white-card">
+            <div class="white-card-label">web app</div>
+            <img src="brand_assets/nbcalories/wireframe-digital-web.png" alt="Digital wireframe — web app" style="width:100%; display:block; border-radius:4px;" />
+          </div>
+          <div class="white-card">
+            <div class="white-card-label">mobile app</div>
+            <img src="brand_assets/nbcalories/wireframe-digital-mobile.png" alt="Digital wireframe — mobile app" style="width:100%; display:block; border-radius:4px;" />
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Usability Study</h3>
+          <p class="cs-body">I conducted usability tests on five (5) people for two rounds of testing to evaluate the ease with which users could navigate through the tasks and identify any barriers that might prevent users from completing tasks associated with the user flow.</p>
+          <div class="usability-rounds">
+            <div class="usability-round">
+              <div class="round-header-bar" style="background:#40bcee;">Round 1 findings</div>
+              <div class="round-findings">
+                <div class="round-finding">
+                  <div class="round-finding-num" style="background:#40bcee;">1</div>
+                  <p class="round-finding-text">Participants needed a few seconds before starting the exercise.</p>
+                </div>
+                <div class="round-finding">
+                  <div class="round-finding-num" style="background:#40bcee;">2</div>
+                  <p class="round-finding-text">Participants are confused about how to go to select music provider.</p>
+                </div>
+                <div class="round-finding">
+                  <div class="round-finding-num" style="background:#40bcee;">3</div>
+                  <p class="round-finding-text">Participants are confused about how to redeem points.</p>
+                </div>
+              </div>
+            </div>
+            <div class="usability-round">
+              <div class="round-header-bar" style="background:#40bcee;">Round 2 findings</div>
+              <div class="round-findings">
+                <div class="round-finding">
+                  <div class="round-finding-num" style="background:#40bcee;">1</div>
+                  <p class="round-finding-text">Participants feel content they can track their activities on mobile and web.</p>
+                </div>
+                <div class="round-finding">
+                  <div class="round-finding-num" style="background:#40bcee;">2</div>
+                  <p class="round-finding-text">Participants are happy they can share or earn points.</p>
+                </div>
+                <div class="round-finding">
+                  <div class="round-finding-num" style="background:#40bcee;">3</div>
+                  <p class="round-finding-text">Participants require more activities or exercises in the menu.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ CHAPTER 4 — DEFINING THE DESIGN ════════ -->
+  <div class="chapter-wrap">
+    <div class="chapter-card">
+      <div class="chapter-band"><div class="chapter-band-title">Defining the Design</div></div>
+      <div class="chapter-body">
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Mockups</h3>
+          <p class="cs-body">I maintained consistency throughout the app screens so that the users wouldn't have to wonder whether different words, situations, or actions mean the same thing. The design eliminates error-prone conditions and presents users with a simple navigation option. The web and mobile apps can cater to both inexperienced and experienced users without having to worry about any complex situations or too many functions happening simultaneously.</p>
+
+          <div class="white-card">
+            <div class="white-card-label">web app — <a class="proto-link" href="https://www.figma.com/proto/q5OW6tpvuHZ6eEhtM1zSwm/NBCalories?page-id=88%3A7094&node-id=88%3A8006&viewport=875%2C-82%2C0.08&scaling=contain&starting-point-node-id=88%3A8006" target="_blank" rel="noopener">View the web high-fidelity prototype</a></div>
+            <div class="mockup-web-stack">
+              <img src="brand_assets/nbcalories/mockup-web-home.png" alt="Web mockup — home page" />
+              <img src="brand_assets/nbcalories/mockup-web-goals.png" alt="Web mockup — goals" />
+              <img src="brand_assets/nbcalories/mockup-web-tips.png" alt="Web mockup — tips" />
+              <img src="brand_assets/nbcalories/mockup-web-activity.png" alt="Web mockup — activity" />
+            </div>
+          </div>
+
+          <div class="white-card">
+            <div class="white-card-label">mobile app</div>
+            <p class="proto-note">View the mobile high-fidelity prototype</p>
+            <div class="mockup-mobile-grid" style="margin-top:16px;">
+              <img src="brand_assets/nbcalories/mockup-mobile-home.png" alt="Mobile mockup — home" />
+              <img src="brand_assets/nbcalories/mockup-mobile-goals.png" alt="Mobile mockup — goals" />
+              <img src="brand_assets/nbcalories/mockup-mobile-tips.png" alt="Mobile mockup — tips" />
+              <img src="brand_assets/nbcalories/mockup-mobile-activity.png" alt="Mobile mockup — activity" />
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Iconography</h3>
+          <div class="styleguide-img-wrap">
+            <img src="brand_assets/nbcalories/iconography.png" alt="Iconography style guide" />
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Typography</h3>
+          <div class="styleguide-img-wrap">
+            <img src="brand_assets/nbcalories/typography.png" alt="Typography style guide" />
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Color</h3>
+          <div class="styleguide-img-wrap">
+            <img src="brand_assets/nbcalories/color-palette.png" alt="Color palette" />
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Logo</h3>
+          <div class="styleguide-img-wrap">
+            <img src="brand_assets/nbcalories/logo-lockup.png" alt="NBCalories logo lockup" />
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Usability Considerations</h3>
+          <div class="cards-3">
+            <div class="info-card">
+              <div class="info-card-num" style="background:#40bcee;">1</div>
+              <div class="info-card-content">
+                <p class="info-card-title">Skill Levels</p>
+                <p class="info-card-text">Partisipants inquired about setting skill level during the account set up page.</p>
+              </div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-num" style="background:#74ec03;">2</div>
+              <div class="info-card-content">
+                <p class="info-card-title">Language</p>
+                <p class="info-card-text">It is a crucial factor in reducing bounce rate and achieving customer satisfaction.</p>
+              </div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-num" style="background:#40bcee;">3</div>
+              <div class="info-card-content">
+                <p class="info-card-title">Elements</p>
+                <p class="info-card-text">Kept the design clutter-free by keeping only necessary and relevant elements.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ CHAPTER 5 — GOING FORWARD ════════ -->
+  <div class="chapter-wrap">
+    <div class="chapter-card">
+      <div class="chapter-band"><div class="chapter-band-title">Going Forward</div></div>
+      <div class="chapter-body">
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Impact</h3>
+          <p class="cs-body">Users found this application to be very motivating, not only to earn points, but also to promote exercise and maintain good health. Along with this, participants see this app as a way to maintain goals.</p>
+          <blockquote class="impact-quote">Quote from one of the research participants: "IF BY DOING EXERCISES I AM AWARDED WITH POINTS, I WILL DOUBLE THE HOURS OF TRAINING, FOR SURE."</blockquote>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">What I Learned</h3>
+          <p class="cs-body">Small changes in design can make a huge impact on the whole user experience. I realised that there's nothing like too many iterations because the more you iterate the more chances of the best solution. I came across some micro-challenges, which made the whole project even more interesting. I learned how to resolve those challenges without compromising on the major design solution.</p>
+        </div>
+
+        <div class="cs-block">
+          <h3 class="cs-heading">Next Steps</h3>
+          <p class="cs-body" style="margin-bottom:8px;">It is a project for a certification program, where I have learned a lot. However, I will pitch this idea to NBCUniversal corporate to develop this app. If I'm allowed to work on this project, I would:</p>
+          <div class="cards-3">
+            <div class="info-card">
+              <div class="info-card-num" style="background:#40bcee;">1</div>
+              <div class="info-card-content">
+                <p class="info-card-text">Conduct another round of usability studies to determine if the current solution effectively addresses user pain points.</p>
+              </div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-num" style="background:#74ec03;">2</div>
+              <div class="info-card-content">
+                <p class="info-card-text">Develop the app in different language. It is a crucial factor in reducing bounce rate and achieving customer satisfaction.</p>
+              </div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-num" style="background:#40bcee;">3</div>
+              <div class="info-card-content">
+                <p class="info-card-text">Implement the application for smart watches.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <p class="thank-you">Thank you.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+<nav class="cs-bottom-nav">
+  <a class="cs-nav-link" href="work-ux-ui.html">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to UX &amp; UI Design
+  </a>
+  <a class="cs-nav-link" href="index.html">
+    Portfolio
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</nav>
+
+</body>
+</html>

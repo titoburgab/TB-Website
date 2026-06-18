@@ -662,13 +662,9 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-photo-col { height: 55vh; position: relative; }
-      .hero-photo-wrap { position: absolute; inset: 0; }
-      .hero-name-bleed { font-size: clamp(80px,15vw,160px); bottom: 30px; left: -2px; }
-      .hero-content-col { padding: 60px 36px 80px; }
-      .hero-stats { position: static; flex-direction: row; gap: 32px; margin-bottom: 36px; }
-      .stat-item { text-align: left; }
+      .hero-stats { top: 88px; right: 36px; gap: 18px; }
+      .stat-num { font-size: 30px; }
+      .hero-center-block { padding: 0 36px 120px; }
       .services-grid { grid-template-columns: 1fr 1fr; }
       .service-card { border-right: none; border-bottom: 1px solid var(--border); padding: 32px 0; }
       .service-card:last-child, .service-card:nth-child(2) { border-bottom: none; }
