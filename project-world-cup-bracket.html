@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>News Website — Web Design — Tito Burga</title>
+  <title>World Cup 2026 Bracket — Web Design — Tito Burga</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -28,11 +28,14 @@
     .proj-client { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 48px; }
     .proj-divider { width: 100%; height: 1px; background: var(--line); margin-bottom: 48px; }
 
-    /* ── CONTENT: picture left, info right ── */
+    /* ── INTERACTIVE EMBED ── */
+    .proj-embed-col { background: #0a0a0a; padding: 20px; margin-bottom: 64px; }
+    .proj-embed-col iframe { display: block; width: 100%; height: 900px; border: 0; border-radius: 16px; box-shadow: 0 30px 70px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.05); }
+    .proj-embed-hint { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--dim); margin-top: 16px; letter-spacing: .04em; }
+    .proj-embed-hint svg { flex-shrink: 0; color: var(--accent); }
+
+    /* ── CONTENT: description left, meta right ── */
     .proj-content-grid { display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: start; }
-    .proj-artwork-col { display: flex; justify-content: center; background: #0a0a0a; padding: 48px 32px; }
-    .proj-artwork-img { width: 100%; max-width: 640px; display: block; box-shadow: 0 30px 70px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.05); }
-    .proj-info-col { position: sticky; top: 96px; }
     .proj-desc { font-size: 15px; line-height: 1.8; color: var(--muted); margin-bottom: 40px; }
     .proj-desc p + p { margin-top: 20px; }
     .sidebar-block { margin-bottom: 36px; }
@@ -52,13 +55,14 @@
 
     @media (max-width: 900px) {
       .proj-content-grid { grid-template-columns: 1fr; gap: 40px; }
-      .proj-info-col { position: static; top: auto; }
-      .proj-artwork-col { padding: 32px 16px; }
+      .proj-embed-col iframe { height: 700px; }
     }
     @media (max-width: 768px) {
       .proj-wrap { padding: 48px 24px 64px; }
       .topbar, .proj-nav, .page-footer { padding-left: 20px; padding-right: 20px; }
       .page-footer { flex-direction: column; gap: 12px; text-align: center; }
+      .proj-embed-col { padding: 10px; }
+      .proj-embed-col iframe { height: 560px; }
     }
   </style>
 </head>
@@ -70,42 +74,47 @@
     Web Design
   </a>
   <a href="index.html" class="topbar-logo">TITO <span>BURGA</span></a>
-  <span class="topbar-cat">05 / 06</span>
+  <span class="topbar-cat">03 / 06</span>
 </header>
 
 <div class="proj-wrap">
   <div class="proj-meta-row">
     <span class="proj-cat-tag">Web Design</span>
   </div>
-  <div class="proj-title">News Website</div>
-  <div class="proj-client">Wireframe Layout · Editorial Homepage</div>
+  <div class="proj-title">World Cup 2026 Bracket</div>
+  <div class="proj-client">Interactive Knockout Prediction Tool</div>
 
   <div class="proj-divider"></div>
 
-  <div class="proj-content-grid">
-    <div class="proj-artwork-col">
-      <img class="proj-artwork-img" src="brand_assets/news-Landing/newsLandingPage.png" alt="News website homepage wireframe — header navigation, hero story, headlines sidebar, and story grid" />
+  <div class="proj-embed-col">
+    <iframe src="/bracket/" title="World Cup 2026 Bracket" loading="lazy"></iframe>
+  </div>
+  <div class="proj-embed-hint">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M7 4.5V7.5L9 9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    Fully playable — pick a winner in every matchup to auto-advance the bracket through to the final.
+  </div>
+
+  <div class="proj-content-grid" style="margin-top: 64px;">
+    <div class="proj-desc">
+      <p>A live, interactive prediction bracket for the 2026 FIFA World Cup. Visitors work through every round of 32 knockout matchup, pick a winner, and watch the bracket auto-advance all the way to the final.</p>
+      <p>Each matchup shows a win-probability split per team, an "Auto-fill" option to simulate a full bracket instantly, and Undo/Reset controls for replaying different outcomes. Picks persist in the visitor's own browser via localStorage, and a results panel tracks completion across all 31 matches.</p>
+      <p>Built and embedded as a self-contained app — the iframe above is the actual production build, not a mockup.</p>
     </div>
-    <div class="proj-info-col">
-      <div class="proj-desc">
-        <p>A wireframe layout for a news homepage — the structure newsrooms actually run on: a top nav across verticals, a lead story with a headlines rail beside it, a secondary story grid below, and an ad slot worked into the flow rather than bolted on.</p>
-        <p>Placeholder blocks and lorem ipsum stand in for real photos and headlines, keeping the focus on grid, hierarchy, and spacing before any content arrives.</p>
-        <p>Built directly in HTML, CSS, and VS Code — no design tool pass, the layout was worked out in code.</p>
-      </div>
+    <div>
       <div class="sidebar-block">
         <div class="sidebar-label">Role</div>
         <div class="sidebar-value">UI Designer · Front-End Developer</div>
       </div>
       <div class="sidebar-block">
         <div class="sidebar-label">Type</div>
-        <div class="sidebar-value">Wireframe · Editorial Layout</div>
+        <div class="sidebar-value">Interactive Web App · Embedded Tool</div>
       </div>
       <div class="sidebar-block">
         <div class="sidebar-label">Deliverables</div>
         <div class="sidebar-tags">
-          <span class="sidebar-tag">HTML / CSS</span>
-          <span class="sidebar-tag">Wireframe</span>
-          <span class="sidebar-tag">Responsive Grid</span>
+          <span class="sidebar-tag">Interactive Bracket</span>
+          <span class="sidebar-tag">Auto-fill Simulation</span>
+          <span class="sidebar-tag">Local Persistence</span>
         </div>
       </div>
       <div class="sidebar-block">

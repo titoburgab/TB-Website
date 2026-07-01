@@ -30,7 +30,10 @@ const MIME = {
 http.createServer((req, res) => {
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
   if (urlPath === '/') urlPath = '/index.html';
-  const filePath = path.join(__dirname, urlPath);
+  let filePath = path.join(__dirname, urlPath);
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+    filePath = path.join(filePath, 'index.html');
+  }
   const ext = path.extname(filePath).toLowerCase();
   if (!(fs.existsSync(filePath) && fs.statSync(filePath).isFile())) {
     res.writeHead(404);
