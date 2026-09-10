@@ -38,6 +38,8 @@
     .sidebar-block { margin-bottom: 36px; }
     .sidebar-label { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
     .sidebar-value { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .sidebar-value a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(239,144,0,.35); transition: border-color .2s; }
+    .sidebar-value a:hover { border-color: var(--accent); }
     .sidebar-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .sidebar-tag { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); border: 1px solid var(--line); padding: 4px 9px; }
 
@@ -110,6 +112,10 @@
       <div class="sidebar-block">
         <div class="sidebar-label">Built with</div>
         <div class="sidebar-value">HTML · Tailwind CSS</div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Live Site</div>
+        <div class="sidebar-value"><a href="https://cesar-montoya.vercel.app/" target="_blank" rel="noopener">cesar-montoya.vercel.app ↗</a></div>
       </div>
       <div class="sidebar-block">
         <div class="sidebar-label">Category</div>
