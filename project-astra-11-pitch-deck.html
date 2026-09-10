@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ASTRA-11 — Brand & Presentations — Tito Burga</title>
+  <title>ASTRA-11 Pitch Deck — Tito Burga</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     :root { --bg:#1C1C1C; --surface:#202020; --accent:#EF9000; --white:#F2F2F2; --muted:#888; --dim:#555; --line:rgba(255,255,255,0.08); }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,20 +20,15 @@
     .topbar-logo span { color: var(--accent); }
     .topbar-cat { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
-    /* ── HEADER / META ── */
-    .proj-wrap { max-width: 1240px; margin: 0 auto; padding: 64px 48px 96px; }
+    .proj-wrap { max-width: 900px; margin: 0 auto; padding: 64px 48px 0; }
     .proj-meta-row { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
     .proj-cat-tag { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(239,144,0,.35); padding: 5px 12px; }
+    .proj-year { font-size: 11px; font-weight: 600; color: var(--dim); letter-spacing: .1em; }
     .proj-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 72px); line-height: .92; letter-spacing: .02em; color: var(--white); margin-bottom: 12px; }
     .proj-client { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 48px; }
     .proj-divider { width: 100%; height: 1px; background: var(--line); margin-bottom: 48px; }
-
-    /* ── CONTENT: picture left, info right ── */
-    .proj-content-grid { display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: start; }
-    .proj-artwork-col { display: flex; justify-content: center; background: #0a0a0a; padding: 48px 32px; }
-    .proj-artwork-img { width: 100%; max-width: 640px; display: block; box-shadow: 0 30px 70px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.05); }
-    .proj-info-col { position: sticky; top: 96px; }
-    .proj-desc { font-size: 15px; line-height: 1.8; color: var(--muted); margin-bottom: 40px; }
+    .proj-body-grid { display: grid; grid-template-columns: 1fr 320px; gap: 80px; align-items: start; padding-bottom: 96px; }
+    .proj-desc { font-size: 15px; line-height: 1.8; color: var(--muted); }
     .proj-desc p + p { margin-top: 20px; }
     .sidebar-block { margin-bottom: 36px; }
     .sidebar-label { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
@@ -50,15 +45,18 @@
     .footer-contact a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color .2s; }
     .footer-contact a:hover { color: var(--accent); }
 
-    @media (max-width: 900px) {
-      .proj-content-grid { grid-template-columns: 1fr; gap: 40px; }
-      .proj-info-col { position: static; top: auto; }
-      .proj-artwork-col { padding: 32px 16px; }
-    }
+    /* ── Deck preview (static hero) ─────────────────────────────── */
+    .deck-preview-wrap { max-width: 1100px; margin: 0 auto; padding: 48px 32px 0; }
+    .deck-preview-frame { position: relative; width: 100%; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 40px 90px -30px rgba(239,144,0,.16), 0 20px 50px -20px rgba(0,0,0,.6); background: #0D0D1A; }
+    .deck-preview-frame img { display: block; width: 100%; height: auto; }
+    .deck-preview-note { text-align: center; font-size: 10px; letter-spacing: .08em; color: var(--dim); margin-top: 14px; text-transform: uppercase; }
+
     @media (max-width: 768px) {
-      .proj-wrap { padding: 48px 24px 64px; }
+      .proj-body-grid { grid-template-columns: 1fr; gap: 48px; }
+      .proj-wrap { padding: 48px 24px 0; }
       .topbar, .proj-nav, .page-footer { padding-left: 20px; padding-right: 20px; }
       .page-footer { flex-direction: column; gap: 12px; text-align: center; }
+      .deck-preview-wrap { padding: 28px 16px 0; }
     }
   </style>
 </head>
@@ -73,43 +71,46 @@
   <span class="topbar-cat">01 / 09</span>
 </header>
 
+<!-- ══════════════ DECK PREVIEW (HERO) ══════════════ -->
+<div class="deck-preview-wrap">
+  <div class="deck-preview-frame">
+    <img src="brand_assets/astra-11-pitch-deck/astra11DeckCard.png" alt="ASTRA-11 pitch deck cover slide" loading="lazy" />
+  </div>
+  <p class="deck-preview-note">Template version shown — built to be re-populated for each new prospective client</p>
+</div>
+
 <div class="proj-wrap">
   <div class="proj-meta-row">
-    <span class="proj-cat-tag">Presentation Design</span>
+    <span class="proj-cat-tag">Brand &amp; Presentations</span>
+    <span class="proj-year">2026</span>
   </div>
-  <div class="proj-title">ASTRA-11</div>
-  <div class="proj-client">AI Engineering Agency · First-Meeting Pitch Deck</div>
+  <div class="proj-title">ASTRA-11<br>Pitch Deck</div>
+  <div class="proj-client">AI Engineering Agency — First-Meeting Pitch Deck</div>
 
   <div class="proj-divider"></div>
 
-  <div class="proj-content-grid">
-    <div class="proj-artwork-col">
-      <img class="proj-artwork-img" src="brand_assets/astra-11-pitch-deck/astra11DeckPage.png" alt="ASTRA-11 pitch deck slide — 'No vendemos tecnología. Ofrecemos soluciones.' (We don't sell technology, we provide solutions.)" />
+  <div class="proj-body-grid">
+    <div class="proj-desc">
+      <p>Built to open a conversation, not close a sale. The ASTRA-11 pitch deck is the agency's first-meeting presentation — what a prospective client sees before any proposal exists, built to earn a second conversation rather than push for a signature.</p>
+      <p>A dark, signal-orange system carries the same visual language as the agency's brand and website straight onto the slide: sharp geometric typography, confident spacing, and an agenda-first structure that tells the room exactly what's coming before it arrives.</p>
+      <p>The narrative moves from thesis to proof to philosophy. "We don't sell technology, we provide solutions" opens the deck, a clear "augment the team, don't replace the judgment" slide sets the boundary on what AI is and isn't for, and a discovery-session ask closes it out instead of a hard pitch.</p>
+      <p>Twelve slides, template-built in Claude Design so the same system can be re-populated for every new prospective client without starting from a blank page.</p>
     </div>
-    <div class="proj-info-col">
-      <div class="proj-desc">
-        <p>A first-meeting pitch deck for ASTRA-11, an AI engineering agency, built to open a business conversation rather than close a sale — walking a prospective client through who the agency is, how it works, and where AI creates real leverage without replacing human judgment.</p>
-        <p>Built entirely in Claude Design, the deck carries the same dark, signal-orange system as the agency's brand and website: an agenda-first structure, a clear "augment the team, don't replace the judgment" philosophy slide, and a discovery-session close instead of a hard pitch.</p>
-      </div>
+    <div class="proj-sidebar">
       <div class="sidebar-block">
         <div class="sidebar-label">Role</div>
-        <div class="sidebar-value">Presentation Designer</div>
+        <div class="sidebar-value">Presentation Design · Brand Strategy</div>
       </div>
       <div class="sidebar-block">
-        <div class="sidebar-label">Type</div>
-        <div class="sidebar-value">Pitch Deck · AI Agency</div>
-      </div>
-      <div class="sidebar-block">
-        <div class="sidebar-label">Deliverables</div>
+        <div class="sidebar-label">Tools</div>
         <div class="sidebar-tags">
-          <span class="sidebar-tag">Presentation Design</span>
-          <span class="sidebar-tag">Brand Strategy</span>
-          <span class="sidebar-tag">Slide System</span>
+          <span class="sidebar-tag">Claude Design</span>
+          <span class="sidebar-tag">Claude</span>
         </div>
       </div>
       <div class="sidebar-block">
-        <div class="sidebar-label">Built with</div>
-        <div class="sidebar-value">Claude Design</div>
+        <div class="sidebar-label">Deliverables</div>
+        <div class="sidebar-value">12-Slide Pitch Deck · Brand Narrative · Reusable Slide System</div>
       </div>
       <div class="sidebar-block">
         <div class="sidebar-label">Category</div>
@@ -122,7 +123,7 @@
 <div class="proj-nav">
   <a href="work-brand.html">
     <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M12 6.5H1M1 6.5L6 1.5M1 6.5L6 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Back to Brand &amp; Presentations
+    Back to Brand
   </a>
   <a href="index.html">
     Portfolio
