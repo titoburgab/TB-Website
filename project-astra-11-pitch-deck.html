@@ -45,11 +45,43 @@
     .footer-contact a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color .2s; }
     .footer-contact a:hover { color: var(--accent); }
 
-    /* ── Deck preview (static hero) ─────────────────────────────── */
+    /* ── Deck preview (click-through slide viewer) ─────────────────────────────── */
     .deck-preview-wrap { max-width: 1100px; margin: 0 auto; padding: 48px 32px 0; }
     .deck-preview-frame { position: relative; width: 100%; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 40px 90px -30px rgba(239,144,0,.16), 0 20px 50px -20px rgba(0,0,0,.6); background: #0D0D1A; }
-    .deck-preview-frame img { display: block; width: 100%; height: auto; }
+    .deck-preview-frame img { display: block; width: 100%; height: auto; user-select: none; }
     .deck-preview-note { text-align: center; font-size: 10px; letter-spacing: .08em; color: var(--dim); margin-top: 14px; text-transform: uppercase; }
+
+    .deck-nav-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(13,13,26,.72); border: 1px solid rgba(255,255,255,.14);
+      color: var(--white); cursor: pointer; backdrop-filter: blur(6px);
+      transition: background .2s, border-color .2s, transform .2s;
+    }
+    .deck-nav-btn:hover { background: rgba(239,144,0,.22); border-color: rgba(239,144,0,.4); }
+    .deck-nav-btn:active { transform: translateY(-50%) scale(.94); }
+    .deck-nav-btn.prev { left: 18px; }
+    .deck-nav-btn.next { right: 18px; }
+    .deck-nav-btn[disabled] { opacity: .25; cursor: default; pointer-events: none; }
+    .deck-counter {
+      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+      font-size: 10px; font-weight: 700; letter-spacing: .14em; color: var(--muted);
+      background: rgba(13,13,26,.72); border: 1px solid rgba(255,255,255,.1);
+      padding: 6px 14px; border-radius: 20px; backdrop-filter: blur(6px);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .deck-counter span.current { color: var(--accent); }
+    .deck-dots { display: flex; gap: 5px; }
+    .deck-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.25); transition: background .2s, transform .2s; cursor: pointer; }
+    .deck-dot.active { background: var(--accent); transform: scale(1.3); }
+
+    @media (max-width: 600px) {
+      .deck-nav-btn { width: 36px; height: 36px; }
+      .deck-nav-btn.prev { left: 8px; }
+      .deck-nav-btn.next { right: 8px; }
+      .deck-dots { display: none; }
+    }
 
     @media (max-width: 768px) {
       .proj-body-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -71,12 +103,22 @@
   <span class="topbar-cat">01 / 09</span>
 </header>
 
-<!-- ══════════════ DECK PREVIEW (HERO) ══════════════ -->
+<!-- ══════════════ DECK PREVIEW (HERO — click-through viewer) ══════════════ -->
 <div class="deck-preview-wrap">
-  <div class="deck-preview-frame">
-    <img src="brand_assets/astra-11-pitch-deck/astra11DeckCard.png" alt="ASTRA-11 pitch deck cover slide" loading="lazy" />
+  <div class="deck-preview-frame" id="deckFrame">
+    <img id="deckSlideImg" src="brand_assets/astra-11-pitch-deck/slides/slide-01.png" alt="ASTRA-11 pitch deck — slide 1 of 8" loading="lazy" />
+    <button class="deck-nav-btn prev" id="deckPrev" aria-label="Previous slide">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="deck-nav-btn next" id="deckNext" aria-label="Next slide">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="deck-counter">
+      <span><span class="current" id="deckCurrent">1</span> / 8</span>
+      <div class="deck-dots" id="deckDots"></div>
+    </div>
   </div>
-  <p class="deck-preview-note">Template version shown — built to be re-populated for each new prospective client</p>
+  <p class="deck-preview-note">Template version — click through the deck's opening slides</p>
 </div>
 
 <div class="proj-wrap">
@@ -138,6 +180,57 @@
     <a href="https://linkedin.com/in/titoburgab/" target="_blank">linkedin.com/in/titoburgab/</a>
   </div>
 </footer>
+
+<script>
+  (function () {
+    var TOTAL = 8;
+    var current = 1;
+    var img = document.getElementById('deckSlideImg');
+    var prevBtn = document.getElementById('deckPrev');
+    var nextBtn = document.getElementById('deckNext');
+    var currentLabel = document.getElementById('deckCurrent');
+    var dotsWrap = document.getElementById('deckDots');
+    var frame = document.getElementById('deckFrame');
+
+    for (var i = 1; i <= TOTAL; i++) {
+      var dot = document.createElement('div');
+      dot.className = 'deck-dot' + (i === 1 ? ' active' : '');
+      dot.dataset.slide = i;
+      dot.addEventListener('click', function () { goTo(parseInt(this.dataset.slide, 10)); });
+      dotsWrap.appendChild(dot);
+    }
+
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function render() {
+      img.src = 'brand_assets/astra-11-pitch-deck/slides/slide-' + pad(current) + '.png';
+      img.alt = 'ASTRA-11 pitch deck — slide ' + current + ' of ' + TOTAL;
+      currentLabel.textContent = current;
+      prevBtn.disabled = current === 1;
+      nextBtn.disabled = current === TOTAL;
+      Array.prototype.forEach.call(dotsWrap.children, function (d, idx) {
+        d.classList.toggle('active', idx + 1 === current);
+      });
+    }
+
+    function goTo(n) {
+      current = Math.max(1, Math.min(TOTAL, n));
+      render();
+    }
+
+    prevBtn.addEventListener('click', function () { goTo(current - 1); });
+    nextBtn.addEventListener('click', function () { goTo(current + 1); });
+
+    document.addEventListener('keydown', function (e) {
+      var r = frame.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      if (e.key === 'ArrowRight') goTo(current + 1);
+      if (e.key === 'ArrowLeft') goTo(current - 1);
+    });
+
+    render();
+  })();
+</script>
 
 </body>
 </html>
