@@ -12,3 +12,5 @@ www.laugon.com_ (1).png
 
 # macOS metadata
 .DS_Store
+.vercel
+.env*
